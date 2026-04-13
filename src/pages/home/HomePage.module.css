@@ -1,29 +1,275 @@
+/* ============================================
+   HomePage
+   ============================================ */
+
 .page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  padding: var(--spacing-lg);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
 }
 
-.hero {
+/**
+ * 등장: 흰색 오버레이가 걷히는 타이밍(0.44s)에 맞춰 페이드인
+ * animation-fill-mode: both → 딜레이 구간은 opacity 0 유지
+ */
+.page.entering {
+  animation: pageFadeIn 0.42s ease-out 0.44s both;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── 배경 이미지 ── */
+
+.background {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/bg.jpg');
+  background-size: cover;
+  /*
+   * bottom 기준: bg.jpg 하단(잔디·초원)이 항상 컨테이너 하단에 고정됨.
+   * 화면이 길어져도 나무·집이 하늘로 올라가지 않음.
+   */
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* ── 전경 씬 레이어 ── */
+
+.scene {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/**
+ * 씬 아이템 공통
+ * transform-origin: bottom center → 나무·집이 뿌리/기반을 축으로 흔들림
+ */
+.scenePiece {
+  position: absolute;
+  bottom: 0;
+  object-fit: contain;
+  transform-origin: bottom center;
+}
+
+/* ── 집 2채: 앞쪽 나무(z-index 5)보다 위 레이어 ── */
+
+/**
+ * house4: 좌측, 큰 나무(tree1) 안쪽에 살짝 걸쳐 배치
+ * z-index 6 → 모든 나무 앞에 표시됨
+ */
+.house4 {
+  width: 22%;
+  left: calc(50% - 38%);
+  bottom: min(-3%, 52px);
+  z-index: 6;
+  animation: houseBob 4.8s ease-in-out infinite 0.4s;
+}
+
+/**
+ * house8: 우측, 큰 나무(tree2) 안쪽에 살짝 걸쳐 배치
+ */
+.house8 {
+  width: 20%;
+  left: calc(50% + 20%);
+  bottom: min(-3%, 52px);
+  z-index: 5;
+  animation: houseBob 5.4s ease-in-out infinite 1.6s;
+}
+
+/* ── 뒤쪽 나무 ── */
+
+.tree3 {
+  width: 20%;
+  left: calc(50% + 10%);
+  bottom: min(20%, 130px);
+  z-index: 3;
+  animation: treeSway2 4.8s ease-in-out infinite 0.4s;
+}
+
+.tree5 {
+  width: 16%;
+  left: calc(50% - 15%);
+  bottom: min(22%, 140px);
+  z-index: 3;
+  animation: treeSway3 5.4s ease-in-out infinite 1.8s;
+}
+
+/* ── 앞쪽 큰 나무 ── */
+
+.tree1 {
+  width: 38%;
+  left: calc(50% - 52%); /* 좌측 가장자리 */
+  bottom: 0;
+  z-index: 5;
+  animation: treeSway1 5s ease-in-out infinite;
+}
+
+.tree2 {
+  width: 32%;
+  left: calc(50% + 22%); /* 우측 가장자리 */
+  bottom: 0;
+  z-index: 5;
+  animation: treeSway2 5.6s ease-in-out infinite 0.9s;
+}
+
+.tree4 {
+  width: 24%;
+  left: calc(50% + 6%);
+  bottom: 0;
+  z-index: 5;
+  animation: treeSway3 4.3s ease-in-out infinite 1.4s;
+}
+
+/* ── 댄스 키프레임 ── */
+
+/**
+ * treeSway1: 좌우로 자연스럽게 흔들림 (큰 폭)
+ * treeSway2: 다른 리듬으로 흔들림 (중간 폭)
+ * treeSway3: 짧고 빠른 패턴 (작은 폭)
+ * houseBob: 위아래로 살짝 들썩임
+ * 모두 ease-in-out + infinite로 끊임없이 반복되며 불쾌하지 않도록 충분히 느림
+ */
+@keyframes treeSway1 {
+  0%, 100% { transform: rotate(0deg) translateX(0px); }
+  20%       { transform: rotate(1.8deg) translateX(3px); }
+  45%       { transform: rotate(-1.2deg) translateX(-2px); }
+  70%       { transform: rotate(2.2deg) translateX(4px); }
+  88%       { transform: rotate(-0.6deg) translateX(-1px); }
+}
+
+@keyframes treeSway2 {
+  0%, 100% { transform: rotate(0deg) translateX(0px); }
+  25%       { transform: rotate(-1.6deg) translateX(-3px); }
+  55%       { transform: rotate(1.4deg) translateX(2px); }
+  80%       { transform: rotate(-0.8deg) translateX(-1px); }
+}
+
+@keyframes treeSway3 {
+  0%, 100% { transform: rotate(0deg); }
+  30%       { transform: rotate(1.5deg); }
+  60%       { transform: rotate(-1.8deg); }
+  85%       { transform: rotate(0.8deg); }
+}
+
+@keyframes houseBob {
+  0%, 100% { transform: translateY(0px); }
+  35%       { transform: translateY(-5px); }
+  65%       { transform: translateY(-3px); }
+}
+
+/* ── UI 레이어 ── */
+
+.ui {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ── 타이틀 영역: 상단 고정 ── */
+
+.titleArea {
+  position: absolute;
+  top: max(100px, var(--safe-area-top));
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  flex: 1;
-  gap: var(--spacing-md);
-  padding: var(--spacing-2xl) 0;
+  gap: 4px;
+  pointer-events: none;
+  text-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.35),
+    0 0 24px rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * 타이틀 텍스트 팝 애니메이션
+ * - 컴포넌트 마운트 시 한 번만 실행 (animation-fill-mode: both)
+ * - cubic-bezier(0.34, 1.56, 0.64, 1): 오버슈트로 "톡" 튀는 느낌
+ * - 각 요소 delay를 달리해 순서대로 나타나는 시퀀스 효과
+ */
+.subtitle {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.08em;
+  animation: textPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--color-text-primary);
-  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  animation: textPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.62s both;
 }
 
-.description {
-  font-size: 1rem;
-  color: var(--color-text-secondary);
-  text-align: center;
+.year {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.12em;
+  animation: textPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.74s both;
+}
+
+@keyframes textPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.55) translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── 메뉴 버튼: 중앙 하단 배치 (나무/집 위 OK) ── */
+
+.buttonGroup {
+  position: absolute;
+  bottom: max(18%, calc(var(--safe-area-bottom) + 100px));
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+/**
+ * 메인 메뉴 버튼
+ * - 타원형 노란색, 두꺼운 하단 그림자로 입체감
+ * - white-space: nowrap → 텍스트 항상 한 줄
+ * TODO: 버튼 라벨 및 라우팅 연결
+ */
+.menuButton {
+  padding: 15px 48px;
+  background-color: var(--color-btn-primary);
+  border-radius: 999px;
+  border: 3px solid #d4a020;
+  box-shadow:
+    0 6px 0 var(--color-btn-primary-shadow),
+    0 10px 20px rgba(0, 0, 0, 0.22);
+  white-space: nowrap;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.menuButton:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 2px 0 var(--color-btn-primary-shadow),
+    0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.menuButtonText {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--color-btn-text);
+  letter-spacing: 0.06em;
+  -webkit-text-stroke: 0.5px rgba(180, 0, 0, 0.3);
 }
