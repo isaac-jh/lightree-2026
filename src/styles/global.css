@@ -1,0 +1,122 @@
+/* ============================================
+   CSS 변수 정의
+   - 모바일 레이아웃 기준 크기 및 색상 토큰
+   ============================================ */
+:root {
+  /* 모바일 컨테이너 너비: iPhone 8(375px) ~ 세로 태블릿(768px) */
+  --mobile-min-width: 375px;
+  --mobile-max-width: 480px;
+  --tablet-max-width: 768px;
+
+  /* Safe area (노치/홈 인디케이터 대응) */
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+
+  /* 색상 토큰 (라이트 모드 기본값) */
+  --color-background: #ffffff;
+  --color-background-overlay: #f0f0f0;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #666666;
+  --color-border: #e5e5e5;
+
+  /* 타이포그래피 */
+  --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-size-base: 16px;
+  --line-height-base: 1.5;
+
+  /* 간격 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+}
+
+/* ============================================
+   다크 모드: 시스템 설정 기준 자동 전환
+   - 오버레이(양 옆 여백)만 Cursor IDE 배경색으로 변경
+   - 앱 영역 자체의 다크 테마는 별도 구현 필요
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Cursor IDE 에디터 배경색: #1e1e1e (VS Code Dark+ 기준) */
+    --color-background-overlay: #1e1e1e;
+  }
+}
+
+/* ============================================
+   Reset & Base
+   ============================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--font-size-base);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-background-overlay);
+  min-height: 100dvh;
+  min-height: 100vh; /* dvh 미지원 브라우저 fallback */
+  overflow-x: hidden;
+
+  /* 텍스트 렌더링 최적화 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 터치 디바이스 tap highlight 제거 */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 이미지/미디어 기본 설정 */
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+/* 링크 기본 스타일 초기화 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 버튼 기본 스타일 초기화 */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* 입력 필드 기본 스타일 초기화 */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* 리스트 기본 스타일 초기화 */
+ul,
+ol {
+  list-style: none;
+}
