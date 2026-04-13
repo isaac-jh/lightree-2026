@@ -1,0 +1,39 @@
+/**
+ * 앨범 페이지 스테이지
+ * - SplashPage, HomePage, TransitionOverlay가 position:absolute로 쌓이는 컨테이너
+ */
+.stage {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/**
+ * 흰색 방사형 디졸브 트랜지션 오버레이
+ *
+ * 단계:
+ *   1) 0 ~ 0.42s : clip-path circle가 화면 중앙에서 전체로 확장
+ *   2) 0.44s ~ 0.86s : 흰색이 opacity 0으로 페이드아웃 → 홈 화면 드러남
+ */
+.transitionOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: #ffffff;
+  pointer-events: none;
+  animation:
+    dissolveIn  0.42s cubic-bezier(0.4, 0, 0.75, 1) forwards,
+    dissolveOut 0.42s ease-out 0.44s forwards;
+}
+
+@keyframes dissolveIn {
+  from { clip-path: circle(0% at 50% 50%); }
+  to   { clip-path: circle(150% at 50% 50%); }
+}
+
+@keyframes dissolveOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
