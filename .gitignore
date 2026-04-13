@@ -66,9 +66,12 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variable files
-.env
-.env.*
-!.env.example
+# .env는 VITE_ 접두사 변수만 포함 (클라이언트 번들에 포함되므로 외부 공개됨)
+# 민감한 서버 시크릿은 .env.local에 보관하고 gitignore 유지
+.env.local
+.env.*.local
+!.env
+!.env.*
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
