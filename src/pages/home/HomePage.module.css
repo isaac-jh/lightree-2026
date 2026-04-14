@@ -6,6 +6,45 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
+  transform-origin: center center;
+}
+
+/**
+ * 줌인 + 블러 애니메이션
+ * 버튼 클릭 → 동화책 세계 속으로 빨려 들어가는 느낌
+ */
+.page.zooming {
+  animation: zoomIntoWorld 0.75s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@keyframes zoomIntoWorld {
+  0%   { transform: scale(1);   filter: blur(0px)  brightness(1); }
+  50%  { transform: scale(1.35); filter: blur(2px)  brightness(1.15); }
+  100% { transform: scale(2.2); filter: blur(10px) brightness(1.8); }
+}
+
+/**
+ * 안개 오버레이: 방사형 흰 빛이 중앙에서 퍼지며 화면 전체를 덮음
+ */
+.fogOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 55%,
+    rgba(255, 255, 255, 1)   0%,
+    rgba(230, 245, 255, 0.95) 40%,
+    rgba(200, 230, 255, 0.7)  70%,
+    rgba(180, 220, 255, 0.3)  100%
+  );
+  animation: fogExpand 0.75s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@keyframes fogExpand {
+  0%   { opacity: 0; transform: scale(0.4); }
+  40%  { opacity: 0.6; }
+  100% { opacity: 1;  transform: scale(2.5); }
 }
 
 /**

@@ -1,0 +1,202 @@
+/* ============================================
+   VillagePage
+   ============================================ */
+
+/**
+ * 안개 속에서 서서히 드러나는 진입 애니메이션
+ * - blur + brightness가 걷히며 동화책 세상이 나타남
+ */
+.page {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  animation: villageReveal 0.9s cubic-bezier(0.25, 0, 0.25, 1) forwards;
+}
+
+@keyframes villageReveal {
+  0%   { opacity: 0; filter: blur(14px) brightness(2.2); }
+  40%  { opacity: 1; filter: blur(6px)  brightness(1.5); }
+  100% { opacity: 1; filter: blur(0px)  brightness(1); }
+}
+
+/* ── 배경 이미지 ── */
+
+/**
+ * background-size: cover  → 뷰포트를 항상 이미지가 완전히 덮음
+ * background-position: center bottom → 초원·지면이 항상 화면 하단에 고정됨
+ * 비율 조정 시 이미지가 축소·이동하지 않으며, 위쪽(하늘)만 크로핑됨
+ */
+.background {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center bottom;
+  z-index: 0;
+}
+
+/* ── 말풍선 ── */
+
+.speechBubble {
+  position: absolute;
+  top: max(16px, var(--safe-area-top));
+  left: 16px;
+  right: 16px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 20px;
+  padding: 14px 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  /* 말풍선 꼬리 */
+  animation: bubblePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+}
+
+.speechBubble::after {
+  content: '';
+  position: absolute;
+  bottom: -14px;
+  left: 36px;
+  border: 14px solid transparent;
+  border-top-color: rgba(255, 255, 255, 0.92);
+  border-bottom: 0;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.06));
+}
+
+.speechBubble p {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2a2a2a;
+  line-height: 1.55;
+}
+
+@keyframes bubblePop {
+  0%   { opacity: 0; transform: scale(0.8) translateY(-8px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── 씬 컨테이너 ── */
+
+.scene {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ── 집 버튼 공통 ── */
+
+/**
+ * 각 집+팻말 조합이 하나의 버튼으로 동작
+ * - transform-origin: bottom center → 뿌리 기준 흔들림
+ * - pointer-events: auto → scene이 none이어도 버튼은 클릭 가능
+ */
+.houseBtn {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transform-origin: bottom center;
+  pointer-events: auto;
+  transition: transform 0.15s ease;
+}
+
+.houseBtn:active {
+  transform: scale(0.95);
+}
+
+.houseImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ── 팻말 ── */
+
+.signPost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2px;
+}
+
+/**
+ * 나무 팻말 디자인: 양피지 느낌의 크림색 보드 + 갈색 테두리
+ */
+.signBoard {
+  background: #f5e6b2;
+  border: 2.5px solid #8b6010;
+  border-radius: 6px;
+  padding: 3px 8px;
+  box-shadow:
+    0 2px 0 #6b4808,
+    0 3px 6px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+.signText {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #5c3800;
+  letter-spacing: -0.01em;
+}
+
+.signStick {
+  width: 3px;
+  height: 10px;
+  background: #8b6010;
+  border-radius: 0 0 2px 2px;
+}
+
+/* ============================================
+   집별 위치 & 크기 & 애니메이션
+   원근감 표현: 뒤쪽일수록 작고, bottom 기준 더 높이 배치
+   background-position: center bottom 에 맞춰 bottom 기준으로 앵커링
+   → 비율이 바뀌어도 집이 항상 초원 위에 위치함
+   ============================================ */
+
+/*
+ * top → bottom 기준으로 변환:
+ *   원래 top: X% + 요소 높이(이미지+팻말) ≈ Y% → bottom: (100 - Y)%
+ *   ground = viewport bottom이므로 bottom 기준 앵커링이 비율 변화에 안전
+ */
+
+/* 1번 집: 뒤 중앙 – 가장 작음 (지평선 부근) */
+.song1 {
+  width: 18%;
+  bottom: 49%;
+  left: calc(50% + 8%);
+}
+
+/* 2번 집: 뒤 좌측 */
+.song2 {
+  width: 20%;
+  bottom: 43%;
+  left: calc(50% - 34%);
+}
+
+/* 3번 집: 중간 우측 */
+.song3 {
+  width: 24%;
+  bottom: 34%;
+  left: calc(50% + 22%);
+}
+
+/* 4번 집: 중간 좌측 앞 */
+.song4 {
+  width: 28%;
+  bottom: 26%;
+  left: calc(50% - 48%);
+}
+
+/* 5번 집: 맨 앞 우측 – 가장 큼 */
+.song5 {
+  width: 34%;
+  bottom: 17%;
+  left: calc(50% + 6%);
+}
