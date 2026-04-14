@@ -26,10 +26,10 @@
 .background {
   position: absolute;
   inset: 0;
-  background-image: url('/assets/bg.jpg');
+  background-image: url('/assets/bg.png');
   background-size: cover;
   /*
-   * bottom 기준: bg.jpg 하단(잔디·초원)이 항상 컨테이너 하단에 고정됨.
+   * bottom 기준: bg.png 하단(잔디·초원)이 항상 컨테이너 하단에 고정됨.
    * 화면이 길어져도 나무·집이 하늘로 올라가지 않음.
    */
   background-position: center bottom;

@@ -9,13 +9,13 @@ interface HomePageProps {
 /**
  * 홈 페이지 (메인 메뉴)
  *
- * - 배경: bg.jpg (하늘 + 산 + 초원)
+ * - 배경: bg.png (하늘 + 산 + 초원)
  * - 전경: 나무 + 집 레이어 (assets/trees, assets/houses)
  * - 제목 텍스트: "어린이 찬양 앨범 / 라이트리 빌리지 / 2026"
  * - 메뉴 버튼 3개 (TODO: 버튼별 라우팅 연결)
  *
  * 레이어 구조 (z-index 낮은 → 높은 순):
- *   bg.jpg → tree(뒤) → tree(앞큰것) → house(최전면) → UI
+ *   bg.png → tree(뒤) → tree(앞큰것) → house(최전면) → UI
  */
 const HomePage: React.FC<HomePageProps> = ({ isEntering }) => {
   return (
