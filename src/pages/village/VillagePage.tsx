@@ -36,6 +36,18 @@ const VillagePage: React.FC = () => {
         <p>한번 돌아볼까요? 집을 선택해주세요!</p>
       </div>
 
+      {/*
+       * 나무 레이어: bottom은 집 이미지 하단에 맞춤(CSS: 집 bottom% + 팻말 높이 변수)
+       * left는 집보다 ±5% 이내, z-index 3으로 집(5)보다 뒤
+       */}
+      <div className={styles.treeLayer} aria-hidden="true">
+        <img src="/assets/trees/tree1.png" className={`${styles.vTree} ${styles.treeBeside1}`} alt="" />
+        <img src="/assets/trees/tree2.png" className={`${styles.vTree} ${styles.treeBeside2}`} alt="" />
+        <img src="/assets/trees/tree3.png" className={`${styles.vTree} ${styles.treeBeside3}`} alt="" />
+        <img src="/assets/trees/tree4.png" className={`${styles.vTree} ${styles.treeBeside4}`} alt="" />
+        <img src="/assets/trees/tree5.png" className={`${styles.vTree} ${styles.treeBeside5}`} alt="" />
+      </div>
+
       {/* ── 집 씬 ── */}
       <div className={styles.scene}>
         {SONGS.map((song) => (
