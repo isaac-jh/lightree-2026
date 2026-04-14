@@ -22,16 +22,16 @@
 /* ── 배경 이미지 ── */
 
 /**
- * background-size: cover  → 뷰포트를 항상 이미지가 완전히 덮음
+ * background-size: 160% → 뷰포트 너비보다 60% 확대해 들판을 넓게 표시
  * background-position: center bottom → 초원·지면이 항상 화면 하단에 고정됨
- * 비율 조정 시 이미지가 축소·이동하지 않으며, 위쪽(하늘)만 크로핑됨
+ * 비율 조정 시 좌우로만 크로핑되며 지면 위치는 변하지 않음
  */
 .background {
   position: absolute;
   inset: 0;
   background-image: url('/assets/bg.png');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 200%;
   background-position: center bottom;
   z-index: 0;
 }
@@ -154,49 +154,84 @@
 }
 
 /* ============================================
-   집별 위치 & 크기 & 애니메이션
-   원근감 표현: 뒤쪽일수록 작고, bottom 기준 더 높이 배치
-   background-position: center bottom 에 맞춰 bottom 기준으로 앵커링
-   → 비율이 바뀌어도 집이 항상 초원 위에 위치함
+   집별 위치 & 크기
+   - bottom 기준 앵커링: 지면(화면 하단)에서의 거리로 원근감 표현
+   - 뒤쪽 집일수록 bottom 값이 크고(높은 위치), 크기가 작음
+   - song5(맨 앞) 기준 bottom: 5% → 바닥에서 5% 위에 위치
    ============================================ */
 
-/*
- * top → bottom 기준으로 변환:
- *   원래 top: X% + 요소 높이(이미지+팻말) ≈ Y% → bottom: (100 - Y)%
- *   ground = viewport bottom이므로 bottom 기준 앵커링이 비율 변화에 안전
- */
+/* ── 모바일 (기본, ~767px) ── */
 
-/* 1번 집: 뒤 중앙 – 가장 작음 (지평선 부근) */
+/* 1번 집: 뒤 중앙 – 가장 작음 */
 .song1 {
-  width: 18%;
-  bottom: 49%;
-  left: calc(50% + 8%);
+  width: 10%;
+  bottom: 50%;
+  left: calc(50% + 12%);
 }
 
 /* 2번 집: 뒤 좌측 */
 .song2 {
-  width: 20%;
+  width: 13%;
   bottom: 43%;
-  left: calc(50% - 34%);
+  left: calc(50% - 24%);
 }
 
 /* 3번 집: 중간 우측 */
 .song3 {
-  width: 24%;
-  bottom: 34%;
-  left: calc(50% + 22%);
+  width: 15%;
+  bottom: 35%;
+  left: calc(50% + 27%);
 }
 
 /* 4번 집: 중간 좌측 앞 */
 .song4 {
-  width: 28%;
-  bottom: 26%;
-  left: calc(50% - 48%);
+  width: 18%;
+  bottom: 23%;
+  left: calc(50% - 42%);
 }
 
 /* 5번 집: 맨 앞 우측 – 가장 큼 */
 .song5 {
-  width: 34%;
-  bottom: 17%;
+  width: 21%;
+  bottom: 5%;
   left: calc(50% + 6%);
+}
+
+/* ── 태블릿 (768px ~) ── */
+/**
+ * 뷰포트가 넓어져 배경이 더 많이 보이므로
+ * - 집 크기를 줄여 원근감 유지
+ * - 좌우 간격을 벌려 화면을 고르게 활용
+ * TODO: 실제 태블릿 기기에서 시각 확인 후 fine-tuning
+ */
+@media (min-width: 768px) {
+  .song1 {
+    width: 10%;
+    bottom: 35%;
+    left: calc(50% + 20%);
+  }
+
+  .song2 {
+    width: 13%;
+    bottom: 25%;
+    left: calc(50% - 23%);
+  }
+
+  .song3 {
+    width: 15%;
+    bottom: 15%;
+    left: calc(50% + 5%);
+  }
+
+  .song4 {
+    width: 18%;
+    bottom: 10%;
+    left: calc(50% - 46%);
+  }
+
+  .song5 {
+    width: 21%;
+    bottom: 5%;
+    left: calc(50% + 20%);
+  }
 }
