@@ -16,14 +16,16 @@ export const VILLAGE_SONG_SUB_SLUGS = [
 
 export type VillageSongSubSlug = (typeof VILLAGE_SONG_SUB_SLUGS)[number];
 
-/** 바텀시트에 표시할 링크 순서 (스크롤 목록) */
+/**
+ * 바텀시트 스크롤 링크 순서 (항상 이 순서로 고정)
+ */
 export const SHEET_LINK_ORDER: readonly { slug: VillageSongSubSlug; label: string }[] = [
-  { slug: 'guide', label: '워십 가이드 영상' },
-  { slug: 'inst', label: 'Inst.' },
   { slug: 'ko-ver', label: '한국어 ver.' },
   { slug: 'en-ver', label: '영어 ver.' },
   { slug: 'es-ver', label: '스페인어 ver.' },
-  { slug: 'sheet', label: '악보 (단선보, 밴드보)' },
+  { slug: 'inst', label: 'Inst.' },
+  { slug: 'guide', label: '워십 가이드 영상' },
+  { slug: 'sheet', label: '악보' },
 ] as const;
 
 export type SubPageLayout = 'video' | 'sheet';
