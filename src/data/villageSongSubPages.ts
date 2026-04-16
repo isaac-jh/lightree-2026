@@ -174,3 +174,19 @@ export const PLACEHOLDER_DRIVE_URL = 'https://drive.google.com/';
 export function isVillageSongSubSlug(s: string): s is VillageSongSubSlug {
   return (VILLAGE_SONG_SUB_SLUGS as readonly string[]).includes(s);
 }
+
+/**
+ * 리소스 화면 배경색·뒤로가기 화살표색 (제공 목업 톤)
+ * - 패턴 레이어는 VillageSongResourcePage.module.css 의 .pat* 로 구현
+ */
+export const RESOURCE_PAGE_THEME: Record<
+  VillageSongSubSlug,
+  { base: string; chevron: string }
+> = {
+  guide: { base: '#3fe085', chevron: '#15803d' },
+  inst: { base: '#9ee5fc', chevron: '#0369a1' },
+  'ko-ver': { base: '#5edd7a', chevron: '#166534' },
+  'en-ver': { base: '#fef08a', chevron: '#b45309' },
+  'es-ver': { base: '#5eb0f5', chevron: '#1d4ed8' },
+  sheet: { base: '#fb923c', chevron: '#c2410c' },
+};

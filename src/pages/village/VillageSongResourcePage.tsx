@@ -5,6 +5,7 @@ import {
   isVillageSongSubSlug,
   PLACEHOLDER_DRIVE_URL,
   PLACEHOLDER_YOUTUBE_URL,
+  RESOURCE_PAGE_THEME,
   SHEET_LINK_ORDER,
   SUB_PAGE_BY_SLUG,
   type VillageSongSubSlug,
@@ -14,7 +15,18 @@ import {
   villageSongDetailPath,
   villageSongResourcePath,
 } from '@/constants/albumPaths';
+import { RESOURCE_VECTOR_DECO } from '@/data/villageResourceVectorDeco';
 import styles from './VillageSongResourcePage.module.css';
+
+/** subSlug별 장식 패턴 클래스 (목업 배경) */
+const PATTERN_BY_SLUG: Record<VillageSongSubSlug, string> = {
+  guide: styles.patGuide,
+  inst: styles.patInst,
+  'ko-ver': styles.patKoVer,
+  'en-ver': styles.patEnVer,
+  'es-ver': styles.patEsVer,
+  sheet: styles.patSheet,
+};
 
 /**
  * 유튜브 썸네일 영역 클릭 — 추후 썸네일 이미지·URL을 곡별로 연결
@@ -33,8 +45,8 @@ function openDrivePlaceholder(): void {
 /**
  * 곡(집) 하위 리소스 화면 — 워십 가이드 / Inst. / 언어 ver. / 악보
  *
+ * - 배경: RESOURCE_PAGE_THEME + CSS 패턴 + RESOURCE_VECTOR_DECO(미세 벡터 PNG)
  * - 경로: /albums/2026/{UUID}/home/:songId/:subSlug
- * - 하단 좌·우: 인접 리소스로 이동, 가운데 햄버거 → 바텀시트 목록
  */
 const VillageSongResourcePage: React.FC = () => {
   const { songId: songIdParam, subSlug: subSlugParam } = useParams<{
@@ -85,16 +97,43 @@ const VillageSongResourcePage: React.FC = () => {
     return <Navigate to={VILLAGE_HOME_PATH} replace />;
   }
 
-  const pageStyle = { ['--wall-color' as string]: song.wallColor } as React.CSSProperties;
-  const infoBg = `color-mix(in srgb, ${song.wallColor} 24%, white 76%)`;
+  const theme = RESOURCE_PAGE_THEME[subSlug];
+  const pageSurface: React.CSSProperties = {
+    background: theme.base,
+    ['--theme-base' as string]: theme.base,
+  };
+  const infoBg = `color-mix(in srgb, ${theme.base} 26%, white 74%)`;
+  const sheetPanelStyle = {
+    ['--theme-base' as string]: theme.base,
+  } as React.CSSProperties;
 
   const goSub = (slug: VillageSongSubSlug): void => {
     navigate(villageSongResourcePath(songId, slug));
   };
 
+  const vectorDeco = RESOURCE_VECTOR_DECO[subSlug];
+
   return (
-    <div className={styles.page} style={pageStyle}>
-      <div className={styles.patternLayer} aria-hidden />
+    <div className={styles.page} style={pageSurface}>
+      <div className={`${styles.patternLayer} ${PATTERN_BY_SLUG[subSlug]}`} aria-hidden />
+
+      <div className={styles.vectorDecoLayer} aria-hidden>
+        {vectorDeco.map((item, index) => (
+          <img
+            key={`${item.src}-${index}`}
+            src={item.src}
+            className={styles.vectorDecoImg}
+            alt=""
+            style={{
+              top: item.top,
+              left: item.left,
+              width: item.width,
+              opacity: item.opacity,
+              transform: item.rotate != null ? `rotate(${item.rotate}deg)` : undefined,
+            }}
+          />
+        ))}
+      </div>
 
       <div className={styles.content}>
         <button
@@ -104,7 +143,7 @@ const VillageSongResourcePage: React.FC = () => {
           aria-label="곡 메뉴로 돌아가기"
         >
           <span className={styles.backCircle}>
-            <span className={styles.backChevron} style={{ color: song.wallColor }}>
+            <span className={styles.backChevron} style={{ color: theme.chevron }}>
               ‹
             </span>
           </span>
@@ -205,7 +244,7 @@ const VillageSongResourcePage: React.FC = () => {
             role="dialog"
             aria-modal="true"
             aria-labelledby="resource-sheet-title"
-            style={pageStyle}
+            style={sheetPanelStyle}
           >
             <div className={styles.sheetHandle} />
             <p id="resource-sheet-title" className={styles.sheetTitle}>

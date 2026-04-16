@@ -1,4 +1,4 @@
-/* VillageSongResourcePage — 곡별 리소스(가이드/MR/AR/Inst/악보) */
+/* VillageSongResourcePage — 곡별 리소스(제공 목업 톤·패턴) */
 
 .page {
   position: absolute;
@@ -7,25 +7,105 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  background: var(--wall-color);
   color: #1a1a1a;
 }
 
+/**
+ * 배경 장식 — 본문 아래, 클릭 통과
+ * 각 .pat* 는 목업별(가이드=별광선, Inst=구름, 노랑=별 등) 레이어
+ */
 .patternLayer {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.16;
+}
+
+/**
+ * 목업처럼 배경 위에 아주 옅게 깔리는 벡터 PNG들
+ */
+.vectorDecoLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.vectorDecoImg {
+  position: absolute;
+  height: auto;
+  object-fit: contain;
+  filter: saturate(1.05);
+}
+
+/* 워십 가이드: 밝은 초록 + 연한 별·광선 느낌 */
+.patGuide {
+  opacity: 0.34;
   background-image:
-    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.55) 0%, transparent 42%),
-    radial-gradient(circle at 88% 22%, rgba(255, 255, 255, 0.45) 0%, transparent 38%),
-    radial-gradient(circle at 48% 88%, rgba(255, 255, 255, 0.4) 0%, transparent 48%);
+    repeating-conic-gradient(
+      from 8deg at 22% 28%,
+      transparent 0deg 26deg,
+      rgba(255, 255, 255, 0.38) 26deg 30deg
+    ),
+    repeating-conic-gradient(
+      from -15deg at 78% 38%,
+      transparent 0deg 22deg,
+      rgba(255, 255, 255, 0.22) 22deg 26deg
+    ),
+    radial-gradient(ellipse 100% 70% at 50% 100%, rgba(255, 255, 255, 0.18) 0%, transparent 55%);
+}
+
+/* Inst.: 연한 하늘 + 구름형 블롭 */
+.patInst {
+  opacity: 0.38;
+  background-image:
+    radial-gradient(circle at 18% 32%, rgba(255, 255, 255, 0.55) 0%, transparent 42%),
+    radial-gradient(circle at 72% 22%, rgba(255, 255, 255, 0.48) 0%, transparent 38%),
+    radial-gradient(circle at 45% 78%, rgba(255, 255, 255, 0.35) 0%, transparent 48%),
+    radial-gradient(circle at 88% 70%, rgba(255, 255, 255, 0.28) 0%, transparent 40%);
+}
+
+/* 한국어 ver.: 초록 + 언덕·구름형 */
+.patKoVer {
+  opacity: 0.3;
+  background-image:
+    radial-gradient(ellipse 110% 55% at 28% 100%, rgba(255, 255, 255, 0.4) 0%, transparent 52%),
+    radial-gradient(ellipse 90% 50% at 82% 92%, rgba(255, 255, 255, 0.28) 0%, transparent 48%),
+    radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.22) 0%, transparent 35%);
+}
+
+/* 영어 ver.: 노랑 + 별·원형 포인트 */
+.patEnVer {
+  opacity: 0.4;
+  background-image:
+    radial-gradient(circle at 22% 18%, rgba(234, 179, 8, 0.45) 0%, transparent 32%),
+    radial-gradient(circle at 68% 32%, rgba(202, 138, 4, 0.38) 0%, transparent 36%),
+    radial-gradient(circle at 48% 72%, rgba(250, 204, 21, 0.42) 0%, transparent 34%),
+    radial-gradient(circle at 85% 78%, rgba(253, 224, 71, 0.35) 0%, transparent 30%);
+}
+
+/* 스페인어 ver.: 파랑 + 물결·블롭 */
+.patEsVer {
+  opacity: 0.32;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 12% 65%, rgba(255, 255, 255, 0.45) 0%, transparent 50%),
+    radial-gradient(ellipse 65% 55% at 88% 55%, rgba(147, 197, 253, 0.55) 0%, transparent 48%),
+    radial-gradient(ellipse 90% 40% at 50% 10%, rgba(255, 255, 255, 0.2) 0%, transparent 45%);
+}
+
+/* 악보: 주황 + 유기적 밝은 블롭 */
+.patSheet {
+  opacity: 0.33;
+  background-image:
+    radial-gradient(ellipse 55% 70% at 0% 45%, rgba(255, 247, 237, 0.65) 0%, transparent 48%),
+    radial-gradient(ellipse 60% 55% at 100% 28%, rgba(254, 215, 170, 0.6) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 45% at 50% 100%, rgba(255, 255, 255, 0.22) 0%, transparent 42%);
 }
 
 .content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -394,7 +474,7 @@
 }
 
 .sheetLinkActive {
-  background: color-mix(in srgb, var(--wall-color) 22%, #f3f3f3 78%);
+  background: color-mix(in srgb, var(--theme-base) 28%, #f3f3f3 72%);
 }
 
 @media (min-width: 768px) {

@@ -1,9 +1,8 @@
 /**
- * 마을에서 곡 상세로 들어갈 때 집 확대(줌) 진입 연출 사용 여부
- * - true: 집 이미지가 확대되며 전환
- * - false: 즉시 상세 화면 표시 (연출 제거 시 이 값만 바꾸면 됨)
+ * 마을 → 곡 허브 진입 시 집 확대(줌) 연출
+ * - 현재 비활성화(요청으로 제거). 다시 쓰려면 VillageSongDetailPage에 연출 코드를 복구하고 true로 설정.
  */
-export const VILLAGE_SONG_ENTRY_ZOOM = true;
+export const VILLAGE_SONG_ENTRY_ZOOM = false;
 
-/** 진입 연출 총 시간(ms) — CSS 애니메이션과 맞출 것 */
+/** (미사용) 예전 줌 연출 길이 — 연출 복구 시 CSS와 맞출 것 */
 export const VILLAGE_SONG_ENTRY_ZOOM_MS = 720;
