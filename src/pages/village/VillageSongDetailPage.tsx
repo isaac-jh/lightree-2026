@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { getVillageSongById } from '@/data/villageSongMeta';
-import { VILLAGE_HOME_PATH } from '@/constants/albumPaths';
+import { VILLAGE_HOME_PATH, villageSongResourcePath } from '@/constants/albumPaths';
+import type { VillageSongSubSlug } from '@/data/villageSongSubPages';
 import {
   VILLAGE_SONG_ENTRY_ZOOM,
   VILLAGE_SONG_ENTRY_ZOOM_MS,
@@ -11,8 +12,18 @@ import styles from './VillageSongDetailPage.module.css';
 /**
  * 곡 상세 화면의 액션 버튼 정의
  * - 벡터 에셋 + 공통 배경색 (집/곡과 무관하게 동일)
- * - TODO: 각 버튼 클릭 시 오디오·영상·악보 URL 연결
+ * - 도형 클릭 시 해당 리소스 화면(/home/:songId/:subSlug)으로 이동
  */
+/** 허브 버튼 id → 리소스 화면 slug */
+const HUB_ACTION_TO_SUB: Record<string, VillageSongSubSlug> = {
+  ko: 'ko-ver',
+  star: 'en-ver',
+  wave: 'es-ver',
+  inst: 'inst',
+  guide: 'guide',
+  sheet: 'sheet',
+};
+
 const SHAPE_ACTIONS = [
   {
     id: 'ko',
@@ -125,7 +136,8 @@ const VillageSongDetailPage: React.FC = () => {
               type="button"
               className={`${styles.shapeBtn} ${act.posClass}`}
               onClick={() => {
-                /* TODO: act.id 별 리소스 오픈 */
+                const sub = HUB_ACTION_TO_SUB[act.id];
+                if (sub) navigate(villageSongResourcePath(songId, sub));
               }}
             >
               <span className={`${styles.shapeImgWrap} ${act.wrapClass}`}>

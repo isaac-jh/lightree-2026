@@ -17,3 +17,11 @@ export const VILLAGE_HOME_PATH = `${ALBUM_2026_BASE}/home`;
 export function villageSongDetailPath(songId: number): string {
   return `${VILLAGE_HOME_PATH}/${songId}`;
 }
+
+/**
+ * 곡 안 리소스 화면 (워십 가이드 / Inst. / 언어 ver. / 악보)
+ * @param subSlug `villageSongSubPages` 의 slug (예: guide, ko-ver, inst)
+ */
+export function villageSongResourcePath(songId: number, subSlug: string): string {
+  return `${VILLAGE_HOME_PATH}/${songId}/${subSlug}`;
+}
