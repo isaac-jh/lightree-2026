@@ -1,22 +1,49 @@
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { VILLAGE_SONGS } from '@/data/villageSongMeta';
+import { VILLAGE_SONGS, type VillageSongMeta } from '@/data/villageSongMeta';
 import { villageSongDetailPath } from '@/constants/albumPaths';
 import styles from './VillagePage.module.css';
+
+interface RippleState {
+  x: number;
+  y: number;
+  color: string;
+}
 
 /**
  * 빌리지(마을) 페이지
  *
  * - 경로: /albums/2026/${VITE_ALBUM_2026_PATH}/home
- * - 안개 속에서 등장하는 동화책 마을 씬
- * - 5채의 집이 원근감 있게 배치, 각 집+팻말이 하나의 버튼으로 동작
- * - 집들은 느린 흔들림(sway) 애니메이션 적용
+ * - 5채의 집이 원근감 있게 배치, 집 클릭 시 wallColor 리플 전환 애니메이션
+ * - 집·나무 bottom은 vw 단위 → background-size: 200% 와 동일하게 스케일되어
+ *   화면 높이에 무관하게 배경 이미지와 정렬 유지
  */
 const VillagePage: React.FC = () => {
   const navigate = useNavigate();
+  const pageRef = useRef<HTMLDivElement>(null);
+  const [ripple, setRipple] = useState<RippleState | null>(null);
+
+  /**
+   * 집 클릭 핸들러
+   * pageRef를 기준으로 좌표 계산 → 데스크톱 center 레이아웃에서도 정확한 위치
+   */
+  const handleHouseClick = useCallback(
+    (song: VillageSongMeta, e: React.MouseEvent<HTMLButtonElement>) => {
+      if (ripple || !pageRef.current) return;
+      const btnRect = e.currentTarget.getBoundingClientRect();
+      const pageRect = pageRef.current.getBoundingClientRect();
+      setRipple({
+        x: btnRect.left + btnRect.width / 2 - pageRect.left,
+        y: btnRect.top + btnRect.height / 2 - pageRect.top,
+        color: song.wallColor,
+      });
+      setTimeout(() => navigate(villageSongDetailPath(song.id)), 550);
+    },
+    [ripple, navigate],
+  );
 
   return (
-    <div className={styles.page}>
+    <div className={styles.page} ref={pageRef}>
       {/* ── 배경 ── */}
       <div className={styles.background} />
 
@@ -26,10 +53,7 @@ const VillagePage: React.FC = () => {
         <p>한번 돌아볼까요? 집을 선택해주세요!</p>
       </div>
 
-      {/*
-       * 나무 레이어: bottom은 집 이미지 하단에 맞춤(CSS: 집 bottom% + 팻말 높이 변수)
-       * left는 집보다 ±5% 이내, z-index 3으로 집(5)보다 뒤
-       */}
+      {/* ── 나무 레이어 ── */}
       <div className={styles.treeLayer} aria-hidden="true">
         <img src="/assets/trees/tree1.png" className={`${styles.vTree} ${styles.treeBeside1}`} alt="" />
         <img src="/assets/trees/tree2.png" className={`${styles.vTree} ${styles.treeBeside2}`} alt="" />
@@ -45,7 +69,7 @@ const VillagePage: React.FC = () => {
             key={song.id}
             className={`${styles.houseBtn} ${styles[song.styleKey as keyof typeof styles]}`}
             aria-label={song.title}
-            onClick={() => navigate(villageSongDetailPath(song.id))}
+            onClick={(e) => handleHouseClick(song, e)}
           >
             <img
               src={`/assets/houses/${song.houseImg}.png`}
@@ -53,7 +77,6 @@ const VillagePage: React.FC = () => {
               alt=""
               aria-hidden="true"
             />
-            {/* ── 팻말 ── */}
             <div className={styles.signPost}>
               <div className={styles.signBoard}>
                 <span className={styles.signText}>{song.title}</span>
@@ -63,6 +86,19 @@ const VillagePage: React.FC = () => {
           </button>
         ))}
       </div>
+
+      {/* ── 전환 리플: 집 클릭 시 wallColor가 화면 전체로 퍼짐 ── */}
+      {ripple && (
+        <div
+          className={styles.transitionRipple}
+          style={{
+            left: ripple.x,
+            top: ripple.y,
+            backgroundColor: ripple.color,
+          }}
+          aria-hidden="true"
+        />
+      )}
     </div>
   );
 };

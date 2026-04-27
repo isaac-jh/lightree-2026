@@ -176,30 +176,31 @@
  */
 @keyframes treeSway1 {
   0%, 100% { transform: rotate(0deg) translateX(0px); }
-  20%       { transform: rotate(1.8deg) translateX(3px); }
-  45%       { transform: rotate(-1.2deg) translateX(-2px); }
-  70%       { transform: rotate(2.2deg) translateX(4px); }
-  88%       { transform: rotate(-0.6deg) translateX(-1px); }
+  20%       { transform: rotate(2.5deg) translateX(5px); }
+  45%       { transform: rotate(-1.8deg) translateX(-3px); }
+  70%       { transform: rotate(3.0deg) translateX(6px); }
+  88%       { transform: rotate(-0.9deg) translateX(-2px); }
 }
 
 @keyframes treeSway2 {
   0%, 100% { transform: rotate(0deg) translateX(0px); }
-  25%       { transform: rotate(-1.6deg) translateX(-3px); }
-  55%       { transform: rotate(1.4deg) translateX(2px); }
-  80%       { transform: rotate(-0.8deg) translateX(-1px); }
+  25%       { transform: rotate(-2.2deg) translateX(-5px); }
+  55%       { transform: rotate(1.8deg) translateX(3px); }
+  80%       { transform: rotate(-1.2deg) translateX(-2px); }
 }
 
 @keyframes treeSway3 {
   0%, 100% { transform: rotate(0deg); }
-  30%       { transform: rotate(1.5deg); }
-  60%       { transform: rotate(-1.8deg); }
-  85%       { transform: rotate(0.8deg); }
+  30%       { transform: rotate(2.2deg); }
+  60%       { transform: rotate(-2.5deg); }
+  85%       { transform: rotate(1.2deg); }
 }
 
 @keyframes houseBob {
   0%, 100% { transform: translateY(0px); }
-  35%       { transform: translateY(-5px); }
-  65%       { transform: translateY(-3px); }
+  25%       { transform: translateY(-8px); }
+  55%       { transform: translateY(-5px); }
+  80%       { transform: translateY(-9px); }
 }
 
 /* ── UI 레이어 ── */
@@ -272,12 +273,21 @@
 
 /* ── 메뉴 버튼: 중앙 하단 배치 (나무/집 위 OK) ── */
 
+/*
+ * buttonGroup 전체를 띄워서 float 시킴 → button의 active transform과 분리
+ * float 애니메이션의 translateX(-50%)는 기존 가운데 정렬을 유지하기 위해 포함
+ */
 .buttonGroup {
   position: absolute;
   bottom: max(18%, calc(var(--safe-area-bottom) + 100px));
   left: 50%;
-  transform: translateX(-50%);
   pointer-events: auto;
+  animation: buttonGroupFloat 2.2s ease-in-out infinite;
+}
+
+@keyframes buttonGroupFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0px); }
+  50%       { transform: translateX(-50%) translateY(-8px); }
 }
 
 /**
@@ -298,6 +308,7 @@
   transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
+/* buttonGroup이 float하므로 버튼은 자신의 눌림 효과만 담당 */
 .menuButton:active {
   transform: translateY(4px);
   box-shadow:

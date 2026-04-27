@@ -6,7 +6,12 @@ import type { VillageSongSubSlug } from '@/data/villageSongSubPages';
 import styles from './VillageSongDetailPage.module.css';
 
 /**
- * 곡 허브 — 지그재그(미세 좌우 오프셋), 라벨은 벡터 위 겹침, 버튼은 벡터 PNG만
+ * 곡 허브
+ *
+ * - 6개 액션 버튼을 2열 그리드로 배치
+ * - 왼쪽 열: 홀수 인덱스(0,2,4), 오른쪽 열: 짝수 인덱스(1,3,5)
+ * - 오른쪽 열은 버튼 높이의 절반만큼 아래로 offset
+ * - 라벨은 벡터 이미지 세로 중앙에 위치
  */
 const HUB_ACTION_TO_SUB: Record<string, VillageSongSubSlug> = {
   ko: 'ko-ver',
@@ -51,6 +56,9 @@ const SHAPE_ACTIONS = [
   },
 ] as const;
 
+const LEFT_ACTIONS  = SHAPE_ACTIONS.filter((_, i) => i % 2 === 0); // ko, wave, guide
+const RIGHT_ACTIONS = SHAPE_ACTIONS.filter((_, i) => i % 2 !== 0); // star, inst, sheet
+
 const VillageSongDetailPage: React.FC = () => {
   const { songId: songIdParam } = useParams<{ songId: string }>();
   const navigate = useNavigate();
@@ -69,6 +77,26 @@ const VillageSongDetailPage: React.FC = () => {
 
   const pageStyle = { ['--wall-color' as string]: song.wallColor } as React.CSSProperties;
   const infoBg = `color-mix(in srgb, ${song.wallColor} 24%, white 76%)`;
+
+  const renderBtn = (act: (typeof SHAPE_ACTIONS)[number], colDelay: number) => (
+    <button
+      key={act.id}
+      type="button"
+      className={`${styles.shapeBtn} ${'tiltClass' in act ? (act as { tiltClass?: string }).tiltClass ?? '' : ''}`}
+      style={{ animationDelay: `${colDelay}s` }}
+      onClick={() => {
+        const sub = HUB_ACTION_TO_SUB[act.id];
+        if (sub) navigate(villageSongResourcePath(songId, sub));
+      }}
+    >
+      <span className={styles.shapeHitArea}>
+        <span className={styles.shapeLabel}>{act.label}</span>
+        <span className={styles.shapeImgWrap}>
+          <img src={act.vectorSrc} className={styles.shapeImg} alt="" aria-hidden />
+        </span>
+      </span>
+    </button>
+  );
 
   return (
     <div className={styles.page} style={pageStyle}>
@@ -92,31 +120,14 @@ const VillageSongDetailPage: React.FC = () => {
           <p className={styles.creditLine}>작곡: {song.composer}</p>
         </div>
 
-        <div className={styles.actionStack}>
-          {SHAPE_ACTIONS.map((act, index) => {
-            const isLeft = index % 2 === 0;
-            const shiftClass = isLeft ? styles.shapeShiftLeft : styles.shapeShiftRight;
-            return (
-              <button
-                key={act.id}
-                type="button"
-                className={`${styles.shapeBtn} ${shiftClass} ${
-                  'tiltClass' in act ? act.tiltClass : ''
-                }`}
-                onClick={() => {
-                  const sub = HUB_ACTION_TO_SUB[act.id];
-                  if (sub) navigate(villageSongResourcePath(songId, sub));
-                }}
-              >
-                <span className={styles.shapeHitArea}>
-                  <span className={styles.shapeLabel}>{act.label}</span>
-                  <span className={styles.shapeImgWrap}>
-                    <img src={act.vectorSrc} className={styles.shapeImg} alt="" aria-hidden />
-                  </span>
-                </span>
-              </button>
-            );
-          })}
+        {/* 2열 그리드: 왼쪽(0,2,4) + 오른쪽(1,3,5) — 오른쪽은 반 버튼 높이 아래로 */}
+        <div className={styles.actionGrid}>
+          <div className={styles.actionColLeft}>
+            {LEFT_ACTIONS.map((act, i) => renderBtn(act, 0.12 + i * 0.14))}
+          </div>
+          <div className={styles.actionColRight}>
+            {RIGHT_ACTIONS.map((act, i) => renderBtn(act, 0.19 + i * 0.14))}
+          </div>
         </div>
       </div>
     </div>

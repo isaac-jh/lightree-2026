@@ -1,5 +1,9 @@
 /* VillageSongDetailPage — 곡(집) 허브 */
 
+/*
+ * 진입 애니메이션: VillagePage 리플이 화면을 덮은 직후 등장
+ * scale(1.06) → scale(1): 집 안으로 줌인된 느낌을 자연스럽게 정착
+ */
 .page {
   position: absolute;
   inset: 0;
@@ -9,6 +13,12 @@
   flex-direction: column;
   background: var(--wall-color);
   color: #1a1a1a;
+  animation: detailPageIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes detailPageIn {
+  from { opacity: 0; transform: scale(1.06); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
 .main {
@@ -62,6 +72,12 @@
   border-radius: 20px;
   padding: 18px 20px 20px;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  animation: panelSlideIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.08s both;
+}
+
+@keyframes panelSlideIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .songTitle {
@@ -82,20 +98,48 @@
   color: #2a2a2a;
 }
 
-/* ── 버튼: 화면 중앙 기준 미세 좌우 지그재그, 벡터 이미지만 ── */
+/* ── 2열 그리드 레이아웃 ── */
 
-.actionStack {
+/*
+ * infoPanel 아래 영역을 좌/우 두 열로 나눔
+ * 오른쪽 열은 padding-top으로 버튼 높이의 절반만큼 아래로 offset
+ * flex: 1 로 남은 세로 공간을 채워 버튼들이 고르게 분산
+ */
+.actionGrid {
   flex: 1;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 18px 0 10px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0 8px;
+  padding: 20px 4px 10px;
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
 }
 
+.actionColLeft,
+.actionColRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/*
+ * 오른쪽 열: 버튼 높이(이미지 max-height 64px)의 절반 ≈ 32px 아래로 시작
+ * clamp로 화면 크기에 따라 부드럽게 조정
+ */
+.actionColRight {
+  padding-top: clamp(28px, 8vw, 40px);
+}
+
+/* ── 버튼: 벡터 이미지만, 라벨은 이미지 세로 중앙 ── */
+
+/*
+ * animation-delay는 renderBtn 함수에서 inline style로 주입
+ * (왼쪽 열 0.12s~, 오른쪽 열 0.19s~ 로 대각선 순서 진입)
+ */
 .shapeBtn {
   padding: 0;
   border: none;
@@ -104,21 +148,16 @@
   width: fit-content;
   max-width: min(160px, 62vw);
   transition: opacity 0.12s ease;
+  animation: btnFadeIn 0.35s ease-out both;
 }
 
 .shapeBtn:active {
   opacity: 0.82;
 }
 
-/**
- * 중앙 정렬 후 살짝만 좌/우로 밀어 목업 지그재그 유지
- */
-.shapeShiftLeft {
-  transform: translateX(calc(-1 * clamp(14px, 7vw, 36px)));
-}
-
-.shapeShiftRight {
-  transform: translateX(clamp(14px, 7vw, 36px));
+@keyframes btnFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .shapeHitArea {
@@ -126,10 +165,14 @@
   display: inline-block;
 }
 
+/*
+ * 라벨: 세로 정 중앙 배치 (top: 50% + translate -50%)
+ * 이미지 위에 텍스트가 겹쳐 보이는 구조
+ */
 .shapeLabel {
   position: absolute;
   left: 50%;
-  top: 0;
+  top: 50%;
   z-index: 2;
   transform: translate(-50%, -50%);
   margin: 0;
@@ -148,7 +191,6 @@
   pointer-events: none;
 }
 
-/** 배경색 없음 — 그림자만으로 버튼 구분 */
 .shapeImgWrap {
   position: relative;
   display: inline-flex;
@@ -173,17 +215,14 @@
 }
 
 @media (min-width: 768px) {
-  .actionStack {
+  .actionGrid {
     max-width: 440px;
-    gap: 18px;
+    gap: 0 12px;
   }
 
-  .shapeShiftLeft {
-    transform: translateX(calc(-1 * clamp(18px, 5vw, 40px)));
-  }
-
-  .shapeShiftRight {
-    transform: translateX(clamp(18px, 5vw, 40px));
+  .actionColLeft,
+  .actionColRight {
+    gap: 22px;
   }
 
   .shapeImg {
