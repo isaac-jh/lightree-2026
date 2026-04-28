@@ -31,28 +31,14 @@
   padding-left: var(--safe-area-left);
   padding-right: var(--safe-area-right);
 
-  /* 모바일(~480px): 전체 너비 사용 */
   max-width: var(--mobile-max-width);
 
   /* 박스 그림자로 모바일 영역 구분 (데스크톱에서만 보임) */
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.12);
 }
 
-/* 세로 태블릿 (481px ~ 768px): 전체 너비 사용 */
-@media (min-width: 481px) and (max-width: 768px) {
-  .container {
-    max-width: 100%;
-    box-shadow: none;
-  }
-}
-
-/* 가로 태블릿 & 데스크톱 (769px 이상): 모바일 너비 고정 + 중앙 정렬 */
-@media (min-width: 769px) {
-  .overlay {
-    /* TODO: 양 옆 배경 패턴/이미지로 교체 가능 */
-    background-color: var(--color-background-overlay);
-  }
-
+/* 데스크톱 (481px 이상): 모바일 너비 고정 + 중앙 정렬 */
+@media (min-width: 481px) {
   .container {
     max-width: var(--mobile-max-width);
     min-height: 100dvh;

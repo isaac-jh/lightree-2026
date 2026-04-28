@@ -214,23 +214,3 @@
   transform: rotate(-10deg);
 }
 
-@media (min-width: 768px) {
-  .actionGrid {
-    max-width: 440px;
-    gap: 0 12px;
-  }
-
-  .actionColLeft,
-  .actionColRight {
-    gap: 22px;
-  }
-
-  .shapeImg {
-    max-width: 122px;
-    max-height: 70px;
-  }
-
-  .shapeLabel {
-    font-size: 0.74rem;
-  }
-}

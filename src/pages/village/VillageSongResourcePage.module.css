@@ -477,12 +477,3 @@
   background: color-mix(in srgb, var(--theme-base) 28%, #f3f3f3 72%);
 }
 
-@media (min-width: 768px) {
-  .navImgWrap {
-    width: 84px;
-  }
-
-  .thumbCard {
-    max-width: 400px;
-  }
-}

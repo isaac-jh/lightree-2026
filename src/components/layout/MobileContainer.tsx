@@ -8,14 +8,9 @@ interface MobileContainerProps {
 /**
  * 모바일 전용 레이아웃 컨테이너
  *
- * - 데스크톱/태블릿 가로 모드: 화면 중앙에 모바일 너비로 고정
- * - 모바일 세로 / 세로 태블릿: 전체 너비 활용
- * - 양 옆 여백은 배경 오버레이로 처리
+ * - 모바일(~480px): 전체 너비 활용
+ * - 데스크톱(481px 이상): 화면 중앙에 모바일 너비(480px)로 고정
  * - iOS Safe Area (노치, Dynamic Island, 홈 인디케이터) 대응
- *
- * 지원 범위:
- * - iPhone 8+ (375px 이상)
- * - 세로 태블릿 (768px까지)
  */
 const MobileContainer: React.FC<MobileContainerProps> = ({ children }) => {
   return (
