@@ -4,6 +4,12 @@
    ============================================ */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
 
+@font-face {
+  font-family: 'Default';
+  src: url('/fonts/default.ttf') format('truetype');
+  font-display: swap;
+}
+
 /* ============================================
    CSS 변수 정의
    - 모바일 레이아웃 기준 크기 및 색상 토큰

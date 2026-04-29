@@ -23,7 +23,7 @@
  * (디졸브 오버레이가 스플래시를 가리므로 최소한의 처리만)
  */
 .splash.exiting {
-  animation: splashOut 0.25s ease-out forwards;
+  animation: splashOut 0.65s ease-out forwards;
 }
 
 @keyframes splashOut {
