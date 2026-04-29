@@ -11,11 +11,11 @@ type ViewMode = 'grid' | 'list';
  * 라우팅은 반대(아래 = /home/5, 위 = /home/1)
  */
 const HOUSES = [
-  { houseClass: 'house1', houseSrc: '/assets/houses/house1.svg', signClass: 'sign1', signSrc: '/assets/signs/sign_song1.svg', listSrc: '/assets/signs/list_sign_song1.svg', songId: 5 },
-  { houseClass: 'house2', houseSrc: '/assets/houses/house2.svg', signClass: 'sign2', signSrc: '/assets/signs/sign_song2.svg', listSrc: '/assets/signs/list_sign_song2.svg', songId: 4 },
+  { houseClass: 'house1', houseSrc: '/assets/houses/house1.svg', signClass: 'sign1', signSrc: '/assets/signs/sign_song1.svg', listSrc: '/assets/signs/list_sign_song1.svg', songId: 1 },
+  { houseClass: 'house2', houseSrc: '/assets/houses/house2.svg', signClass: 'sign2', signSrc: '/assets/signs/sign_song2.svg', listSrc: '/assets/signs/list_sign_song2.svg', songId: 2 },
   { houseClass: 'house3', houseSrc: '/assets/houses/house3.svg', signClass: 'sign3', signSrc: '/assets/signs/sign_song3.svg', listSrc: '/assets/signs/list_sign_song3.svg', songId: 3 },
-  { houseClass: 'house4', houseSrc: '/assets/houses/house4.svg', signClass: 'sign4', signSrc: '/assets/signs/sign_song4.svg', listSrc: '/assets/signs/list_sign_song4.svg', songId: 2 },
-  { houseClass: 'house5', houseSrc: '/assets/houses/house5.svg', signClass: 'sign5', signSrc: '/assets/signs/sign_song5.svg', listSrc: '/assets/signs/list_sign_song5.svg', songId: 1 },
+  { houseClass: 'house4', houseSrc: '/assets/houses/house4.svg', signClass: 'sign4', signSrc: '/assets/signs/sign_song4.svg', listSrc: '/assets/signs/list_sign_song4.svg', songId: 4 },
+  { houseClass: 'house5', houseSrc: '/assets/houses/house5.svg', signClass: 'sign5', signSrc: '/assets/signs/sign_song5.svg', listSrc: '/assets/signs/list_sign_song5.svg', songId: 5 },
 ];
 
 const VillagePage: React.FC = () => {

@@ -1,216 +1,89 @@
-/* VillageSongDetailPage — 곡(집) 허브 */
+/* ============================================
+   VillageSongDetailPage
+   - 페이지 배경: song.wallColor (인라인 스타일)
+   ============================================ */
 
-/*
- * 진입 애니메이션: VillagePage 리플이 화면을 덮은 직후 등장
- * scale(1.06) → scale(1): 집 안으로 줌인된 느낌을 자연스럽게 정착
- */
 .page {
   position: absolute;
   inset: 0;
-  overflow-x: hidden;
   overflow-y: auto;
+  padding:
+    calc(var(--safe-area-top) + 18px)
+    5%
+    calc(var(--safe-area-bottom) + 24px)
+    5%;
   display: flex;
   flex-direction: column;
-  background: var(--wall-color);
-  color: #1a1a1a;
-  animation: detailPageIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  gap: 18px;
 }
 
-@keyframes detailPageIn {
-  from { opacity: 0; transform: scale(1.06); }
-  to   { opacity: 1; transform: scale(1); }
-}
+/* ── 상단 안내 (main_text_label + 곡 정보 텍스트) ── */
 
-.main {
+.titleWrap {
   position: relative;
-  z-index: 0;
-  flex: 1;
+  width: 100%;
+}
+
+.titleImg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.titleText {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  padding: max(12px, var(--safe-area-top)) 14px max(16px, var(--safe-area-bottom));
-}
-
-.backBtn {
-  align-self: flex-start;
-  margin-bottom: 10px;
-  padding: 0;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-.backCircle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  padding: 5% 12% 7% 8%;
+  text-align: left;
+  font-family: 'Default', 'Noto Sans KR', sans-serif;
+  color: #5C4A1F;
 }
 
-.backChevron {
-  font-size: 26px;
-  font-weight: 800;
-  line-height: 1;
-  margin-top: -3px;
+.title {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
 }
 
-.backBtn:active .backCircle {
-  transform: scale(0.94);
+.authors {
+  margin: 0;
+  font-size: 0.74rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.005em;
 }
 
-.backBtn .backCircle {
+/* ── 곡 메뉴 버튼 리스트 ── */
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.songButton {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0;
+  line-height: 0;
   transition: transform 0.12s ease;
 }
 
-.infoPanel {
-  align-self: center;
-  width: 100%;
-  max-width: 360px;
-  border-radius: 20px;
-  padding: 18px 20px 20px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-  animation: panelSlideIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.08s both;
+.songButton:active {
+  transform: scale(0.98);
 }
 
-@keyframes panelSlideIn {
-  from { opacity: 0; transform: translateY(-10px) scale(0.96); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.songTitle {
-  margin: 0 0 12px;
-  font-size: 1.25rem;
-  font-weight: 900;
-  line-height: 1.35;
-  text-align: center;
-  letter-spacing: -0.02em;
-}
-
-.creditLine {
-  margin: 0;
-  font-size: 0.88rem;
-  font-weight: 700;
-  line-height: 1.5;
-  text-align: center;
-  color: #2a2a2a;
-}
-
-/* ── 2열 그리드 레이아웃 ── */
-
-/*
- * infoPanel 아래 영역을 좌/우 두 열로 나눔
- * 오른쪽 열은 padding-top으로 버튼 높이의 절반만큼 아래로 offset
- * flex: 1 로 남은 세로 공간을 채워 버튼들이 고르게 분산
- */
-.actionGrid {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 0 8px;
-  padding: 20px 4px 10px;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.actionColLeft,
-.actionColRight {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-/*
- * 오른쪽 열: 버튼 높이(이미지 max-height 64px)의 절반 ≈ 32px 아래로 시작
- * clamp로 화면 크기에 따라 부드럽게 조정
- */
-.actionColRight {
-  padding-top: clamp(28px, 8vw, 40px);
-}
-
-/* ── 버튼: 벡터 이미지만, 라벨은 이미지 세로 중앙 ── */
-
-/*
- * animation-delay는 renderBtn 함수에서 inline style로 주입
- * (왼쪽 열 0.12s~, 오른쪽 열 0.19s~ 로 대각선 순서 진입)
- */
-.shapeBtn {
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  width: fit-content;
-  max-width: min(160px, 62vw);
-  transition: opacity 0.12s ease;
-  animation: btnFadeIn 0.35s ease-out both;
-}
-
-.shapeBtn:active {
-  opacity: 0.82;
-}
-
-@keyframes btnFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-.shapeHitArea {
-  position: relative;
-  display: inline-block;
-}
-
-/*
- * 라벨: 세로 정 중앙 배치 (top: 50% + translate -50%)
- * 이미지 위에 텍스트가 겹쳐 보이는 구조
- */
-.shapeLabel {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 2;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  width: max-content;
-  max-width: min(140px, 52vw);
-  font-size: 0.68rem;
-  font-weight: 900;
-  line-height: 1.15;
-  text-align: center;
-  color: #111;
-  letter-spacing: -0.03em;
-  white-space: normal;
-  text-shadow:
-    0 0 6px rgba(255, 255, 255, 0.95),
-    0 1px 0 rgba(255, 255, 255, 0.9);
-  pointer-events: none;
-}
-
-.shapeImgWrap {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.shapeImg {
+.songButton img {
   display: block;
-  width: auto;
+  width: 100%;
   height: auto;
-  max-width: min(112px, 44vw);
-  max-height: 64px;
-  object-fit: contain;
-  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.18));
 }
-
-.shapeTiltStar .shapeImgWrap {
-  transform: rotate(-10deg);
-}
-
