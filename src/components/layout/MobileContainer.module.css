@@ -7,20 +7,32 @@
 .overlay {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   min-height: 100dvh;
   min-height: 100vh; /* dvh 미지원 fallback */
   background-color: var(--color-background-overlay);
 
-  /* 데스크톱에서 양 옆 여백 영역의 배경 스타일 */
+  /* 데스크톱·letterbox에서 노출되는 외곽 배경 */
   /* TODO: 브랜딩에 맞게 오버레이 배경 디자인 변경 가능 */
 }
 
 .container {
   position: relative;
   width: 100%;
-  min-height: 100dvh;
-  min-height: 100vh;
+  max-width: var(--mobile-max-width);
+
+  /*
+   * 최소 가로:세로 비율 9:21 보장 (모바일 뷰 중 가장 길쭉한 비율).
+   * 이보다 길쭉한 화면에서는 height가 9:21로 제한되고
+   * 남는 공간(상하)에 overlay 배경이 노출됨.
+   *
+   * 계산: 컨테이너 너비 = min(100vw, --mobile-max-width)
+   *       최대 컨테이너 높이 = 컨테이너 너비 * (21 / 9)
+   *       실제 높이 = min(viewport 높이, 위 값)
+   */
+  height: min(100vh, calc(min(100vw, var(--mobile-max-width)) * 21 / 9));
+  height: min(100dvh, calc(min(100vw, var(--mobile-max-width)) * 21 / 9));
+
   background-color: var(--color-background);
   overflow-x: hidden;
   overflow-y: auto;
@@ -31,17 +43,6 @@
   padding-left: var(--safe-area-left);
   padding-right: var(--safe-area-right);
 
-  max-width: var(--mobile-max-width);
-
-  /* 박스 그림자로 모바일 영역 구분 (데스크톱에서만 보임) */
+  /* 박스 그림자로 모바일 영역 구분 (데스크톱·letterbox에서만 노출) */
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.12);
-}
-
-/* 데스크톱 (481px 이상): 모바일 너비 고정 + 중앙 정렬 */
-@media (min-width: 481px) {
-  .container {
-    max-width: var(--mobile-max-width);
-    min-height: 100dvh;
-    min-height: 100vh;
-  }
 }

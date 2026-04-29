@@ -194,6 +194,12 @@
   gap: 10px;
   z-index: 20;
   pointer-events: none;
+  transition: opacity 0.45s ease-out;
+}
+
+/* 인트로 진입 시 로고+부제목 페이드아웃 */
+.topContentHidden {
+  opacity: 0;
 }
 
 /* 로고: 위에서 내려옴 */
@@ -246,6 +252,56 @@
   to   { opacity: 1; }
 }
 
+/* ── 인트로 페이즈 (intro_text_label) ── */
+
+.introWrap {
+  position: absolute;
+  top: calc(var(--safe-area-top) + 24px);
+  left: 5%;
+  right: 5%;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-out 0.35s;
+}
+
+.introWrapVisible {
+  opacity: 1;
+}
+
+.introImg {
+  display: block;
+  width: 100%;
+}
+
+.introContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10% 7%;
+  text-align: center;
+  font-family: 'Default', 'Noto Sans KR', sans-serif;
+  color: #5C4A1F;
+}
+
+.introTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 14px 0;
+  letter-spacing: 0.01em;
+}
+
+.introBody {
+  font-size: 0.74rem;
+  font-weight: 500;
+  line-height: 1.75;
+  margin: 0;
+  letter-spacing: 0.005em;
+}
+
 /* ── 하단 입장 버튼 ── */
 
 .bottomButtonWrap {
@@ -275,6 +331,12 @@
   color: #ffffff;
   white-space: nowrap;
   letter-spacing: 0.04em;
+  transition: opacity 0.35s ease-out;
+}
+
+/* 페이즈 전환 시 비활성 텍스트 */
+.bottomButtonTextHidden {
+  opacity: 0;
 }
 
 @keyframes buttonAppear {
