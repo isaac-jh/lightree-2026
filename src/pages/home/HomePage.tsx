@@ -23,12 +23,17 @@ const HomePage: React.FC<HomePageProps> = ({ isEntering }) => {
     return () => clearTimeout(timer);
   }, [phase]);
 
+  const [isExiting, setIsExiting] = useState(false);
+
   const handleTap = useCallback(() => {
     if (!isReady) return;
     if (phase === 'home') {
       setPhase('intro');
     } else {
-      navigate(VILLAGE_PATH);
+      // intro → village: 상단 UI 페이드아웃 후 라우팅 (씬은 VillagePage에서 그대로 이어짐)
+      setIsReady(false);
+      setIsExiting(true);
+      setTimeout(() => navigate(VILLAGE_PATH), 380);
     }
   }, [isReady, phase, navigate]);
 
@@ -41,15 +46,18 @@ const HomePage: React.FC<HomePageProps> = ({ isEntering }) => {
 
   return (
     <div
-      className={[styles.page, isEntering ? styles.entering : ''].join(' ')}
+      className={[
+        styles.page,
+        isEntering ? styles.entering : '',
+        isExiting ? styles.exiting : '',
+      ].join(' ')}
       onClick={handleTap}
     >
       {/* 배경 */}
       <div className={styles.background} />
 
-      {/* 씬: hill + 집 + 나무 (양 페이즈 공통) */}
+      {/* 씬: hill + 집 + 나무 (양 페이즈 공통). hill_second는 VillagePage에서 등장 */}
       <div className={styles.scene} aria-hidden="true">
-        <img src="/assets/hill_second.svg" className={styles.hillSecond} alt="" />
         <img src="/assets/houses/house4.svg" className={`${styles.house} ${styles.house4}`} alt="" />
         <img src="/assets/houses/house5.svg" className={`${styles.house} ${styles.house5}`} alt="" />
         <img src="/assets/hill.svg" className={styles.hill} alt="" />
