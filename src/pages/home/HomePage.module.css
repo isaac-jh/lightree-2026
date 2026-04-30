@@ -305,6 +305,7 @@
 
 /* ── 하단 입장 버튼 ── */
 
+/* MainBottomButton 컴포넌트의 위치/등장 애니메이션 wrap */
 .bottomButtonWrap {
   position: absolute;
   bottom: max(0px, var(--safe-area-bottom));
@@ -313,31 +314,6 @@
   pointer-events: none;
   animation: buttonAppear 0.45s cubic-bezier(0.34, 1.36, 0.64, 1) 1.5s both;
   z-index: 20;
-}
-
-.bottomButtonImg {
-  display: block;
-  width: 100%;
-}
-
-.bottomButtonText {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Default', 'Noto Sans KR', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #ffffff;
-  white-space: nowrap;
-  letter-spacing: 0.04em;
-  transition: opacity 0.35s ease-out;
-}
-
-/* 페이즈 전환 시 비활성 텍스트 */
-.bottomButtonTextHidden {
-  opacity: 0;
 }
 
 @keyframes buttonAppear {

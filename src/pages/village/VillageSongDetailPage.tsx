@@ -2,6 +2,8 @@ import React, { useCallback } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { getVillageSongById } from '@/data/villageSongMeta';
 import { villageSongResourcePath, VILLAGE_HOME_PATH } from '@/constants/albumPaths';
+import SongButton from '@/components/buttons/SongButton';
+import MainTextLabel from '@/components/labels/MainTextLabel';
 import styles from './VillageSongDetailPage.module.css';
 
 /**
@@ -9,13 +11,13 @@ import styles from './VillageSongDetailPage.module.css';
  * key는 라우팅 sub-slug. resource page에서 추후 매핑
  */
 const SONG_BUTTONS = [
-  { key: 'mv',     src: '/assets/buttons/song_button_music_video.svg',   label: '뮤직비디오' },
-  { key: 'ko',     src: '/assets/buttons/song_button_korean.svg',        label: '한국어 ver.' },
-  { key: 'en',     src: '/assets/buttons/song_button_english.svg',       label: '영어 ver.' },
-  { key: 'es',     src: '/assets/buttons/song_button_spanish.svg',       label: '스페인어 ver.' },
-  { key: 'inst',   src: '/assets/buttons/song_button_inst.svg',          label: 'Inst.' },
-  { key: 'guide',  src: '/assets/buttons/song_button_worship_guide.svg', label: '워십 가이드 영상' },
-  { key: 'sheet',  src: '/assets/buttons/song_button_song_sheet.svg',    label: '악보 (단선보, 밴드보)' },
+  { key: 'mv',    vector: '/assets/buttons/song_button_music_video_vector.svg',   label: '뮤직비디오' },
+  { key: 'ko',    vector: '/assets/buttons/song_button_korean_vector.svg',        label: '한국어 ver.' },
+  { key: 'en',    vector: '/assets/buttons/song_button_english_vector.svg',       label: '영어 ver.' },
+  { key: 'es',    vector: '/assets/buttons/song_button_spanish_vector.svg',       label: '스페인어 ver.' },
+  { key: 'inst',  vector: '/assets/buttons/song_button_inst_vector.svg',          label: 'Inst.' },
+  { key: 'guide', vector: '/assets/buttons/song_button_worship_guide_vector.svg', label: '워십 가이드 영상' },
+  { key: 'sheet', vector: '/assets/buttons/song_button_song_sheet_vector.svg',    label: '악보 (단선보, 밴드보)' },
 ];
 
 const VillageSongDetailPage: React.FC = () => {
@@ -37,28 +39,23 @@ const VillageSongDetailPage: React.FC = () => {
 
   return (
     <div className={styles.page} style={{ backgroundColor: song.wallColor }}>
-      {/* 상단 안내 라벨 (main_text_label에 곡 정보 오버레이) */}
-      <div className={styles.titleWrap}>
-        <img src="/assets/main_text_label.svg" className={styles.titleImg} alt="" aria-hidden="true" />
-        <div className={styles.titleText}>
-          <h1 className={styles.title}>{song.title}</h1>
-          <p className={styles.authors}>
-            작사: {song.lyricist}&nbsp;&nbsp;&nbsp;작곡: {song.composer}
-          </p>
-        </div>
-      </div>
+      {/* 상단 안내 라벨 (곡 정보 오버레이) */}
+      <MainTextLabel className={styles.titleWrap} align="left">
+        <h1 className={styles.title}>{song.title}</h1>
+        <p className={styles.authors}>
+          작사: {song.lyricist}&nbsp;&nbsp;&nbsp;작곡: {song.composer}
+        </p>
+      </MainTextLabel>
 
       {/* 곡 메뉴 버튼 리스트 */}
       <div className={styles.buttons}>
         {SONG_BUTTONS.map((btn) => (
-          <button
+          <SongButton
             key={btn.key}
-            className={styles.songButton}
+            vectorSrc={btn.vector}
+            label={btn.label}
             onClick={() => handleButtonClick(btn.key)}
-            aria-label={btn.label}
-          >
-            <img src={btn.src} alt="" aria-hidden="true" />
-          </button>
+          />
         ))}
       </div>
     </div>

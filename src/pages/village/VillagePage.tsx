@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { villageSongDetailPath } from '@/constants/albumPaths';
+import MainTextLabel from '@/components/labels/MainTextLabel';
+import MainBottomButton from '@/components/buttons/MainBottomButton';
 import styles from './VillagePage.module.css';
 
 type ViewMode = 'grid' | 'list';
@@ -120,19 +122,17 @@ const VillagePage: React.FC = () => {
       </div>
 
       {/* 상단 안내 (main_text_label) */}
-      <div className={styles.mainLabelWrap}>
-        <img src="/assets/main_text_label.svg" className={styles.mainLabelImg} alt="" aria-hidden="true" />
-        <div className={styles.mainLabelText}>
-          <p>라이트리 빌리지에는 5개의 곡이 있어요!</p>
-          <p>한번 돌아볼까요? 선택해주세요!</p>
-        </div>
-      </div>
+      <MainTextLabel className={styles.mainLabelWrap} align="center">
+        <p>라이트리 빌리지에는 5개의 곡이 있어요!</p>
+        <p>한번 돌아볼까요? 선택해주세요!</p>
+      </MainTextLabel>
 
-      {/* 하단 토글 버튼 (main_bottom_button.svg + 텍스트 오버레이) */}
-      <button className={styles.viewToggleBtn} onClick={toggleView}>
-        <img src="/assets/buttons/main_bottom_button.svg" className={styles.viewToggleImg} alt="" aria-hidden="true" />
-        <span className={styles.viewToggleText}>{isList ? '그림 뷰 보기' : '리스트 뷰 보기'}</span>
-      </button>
+      {/* 하단 토글 버튼 */}
+      <MainBottomButton
+        className={styles.viewToggleBtn}
+        onClick={toggleView}
+        text={isList ? '그림 뷰 보기' : '리스트 뷰 보기'}
+      />
 
       {/* ENG 버튼 */}
       <button className={styles.engButton} onClick={handleEng} aria-label="Switch to English">

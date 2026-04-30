@@ -1,0 +1,37 @@
+/* ============================================
+   MainTextLabel
+   - main_text_label.svg(말풍선)을 배경으로 한 텍스트 라벨
+   ============================================ */
+
+.wrap {
+  position: relative;
+  width: 100%;
+}
+
+.img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Default', 'Noto Sans KR', sans-serif;
+  color: #5C4A1F;
+}
+
+.alignCenter {
+  align-items: center;
+  text-align: center;
+  padding: 5% 7% 8% 7%;
+}
+
+.alignLeft {
+  align-items: flex-start;
+  text-align: left;
+  padding: 5% 12% 7% 8%;
+}

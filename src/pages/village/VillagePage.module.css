@@ -228,7 +228,7 @@
   max-width: 230px;
 }
 
-/* ── 상단 안내 (main_text_label) ── */
+/* ── 상단 안내 (MainTextLabel 위치/문구 스타일) ── */
 
 .mainLabelWrap {
   position: absolute;
@@ -240,30 +240,11 @@
   animation: fadeIn 0.5s ease-out 0.45s both;
 }
 
-.mainLabelImg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.mainLabelText {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 5% 7% 8% 7%;
-  text-align: center;
-  font-family: 'Default', 'Noto Sans KR', sans-serif;
-  color: #5C4A1F;
+.mainLabelWrap p {
+  margin: 0;
   font-size: 0.78rem;
   line-height: 1.7;
   font-weight: 600;
-}
-
-.mainLabelText p {
-  margin: 0;
 }
 
 @keyframes fadeIn {
@@ -271,41 +252,15 @@
   to   { opacity: 1; }
 }
 
-/* ── 하단 토글 버튼 (main_bottom_button.svg + 텍스트 오버레이) ── */
+/* ── 하단 토글 버튼 (MainBottomButton 위치) ── */
 
 .viewToggleBtn {
   position: absolute;
   bottom: max(0px, var(--safe-area-bottom));
   left: 0;
   right: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  font-size: 0;
-  line-height: 0;
   z-index: 25;
   animation: fadeIn 0.4s ease-out 0.7s both;
-}
-
-.viewToggleImg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.viewToggleText {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Default', 'Noto Sans KR', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #ffffff;
-  white-space: nowrap;
-  letter-spacing: 0.04em;
 }
 
 /* ── ENG 버튼 ── */

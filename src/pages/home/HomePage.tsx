@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import MainBottomButton, { MainBottomButtonText } from '@/components/buttons/MainBottomButton';
 import styles from './HomePage.module.css';
 
 interface HomePageProps {
@@ -95,15 +96,10 @@ const HomePage: React.FC<HomePageProps> = ({ isEntering }) => {
       </div>
 
       {/* 하단 버튼 (텍스트만 페이즈에 따라 교체) */}
-      <div className={styles.bottomButtonWrap}>
-        <img src="/assets/buttons/main_bottom_button.svg" className={styles.bottomButtonImg} alt="" aria-hidden="true" />
-        <span className={`${styles.bottomButtonText} ${isIntro ? styles.bottomButtonTextHidden : ''}`}>
-          라이트리 빌리지 입장하기
-        </span>
-        <span className={`${styles.bottomButtonText} ${isIntro ? '' : styles.bottomButtonTextHidden}`}>
-          다음
-        </span>
-      </div>
+      <MainBottomButton className={styles.bottomButtonWrap}>
+        <MainBottomButtonText hidden={isIntro}>라이트리 빌리지 입장하기</MainBottomButtonText>
+        <MainBottomButtonText hidden={!isIntro}>다음</MainBottomButtonText>
+      </MainBottomButton>
 
       {/* ENG 버튼 (양 페이즈 공통) */}
       <button className={styles.engButton} onClick={handleEng} aria-label="Switch to English">
