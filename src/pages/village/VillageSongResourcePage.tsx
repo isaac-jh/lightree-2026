@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { getVillageSongById } from '@/data/villageSongMeta';
-import { villageSongDetailPath, VILLAGE_HOME_PATH } from '@/constants/albumPaths';
+import { VILLAGE_HOME_PATH } from '@/constants/albumPaths';
 import MainTextLabel from '@/components/labels/MainTextLabel';
 import SongDetailBottomButton from '@/components/buttons/SongDetailBottomButton';
+import SongMenuBottomSheet from '@/components/menu/SongMenuBottomSheet';
 import styles from './VillageSongResourcePage.module.css';
 
 /**
@@ -39,14 +40,19 @@ const VillageSongResourcePage: React.FC = () => {
   const song = getVillageSongById(Number(songId));
   const menu = subSlug ? MENU_CONFIG[subSlug] : undefined;
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const handleHome = useCallback(() => {
     navigate(VILLAGE_HOME_PATH);
   }, [navigate]);
 
-  const handleMenu = useCallback(() => {
-    // TODO: 추후 별도 메뉴 화면 구현. 현재는 곡 상세(메뉴 버튼 리스트)로 복귀
-    if (song) navigate(villageSongDetailPath(song.id));
-  }, [navigate, song]);
+  const handleMenuOpen = useCallback(() => {
+    setIsMenuOpen(true);
+  }, []);
+
+  const handleMenuClose = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
 
   const handleDownload = useCallback(() => {
     // TODO: 다운로드 핸들러 연결
@@ -96,8 +102,16 @@ const VillageSongResourcePage: React.FC = () => {
       {/* 하단 메뉴 보기 버튼 */}
       <SongDetailBottomButton
         className={styles.menuViewBtn}
-        onClick={handleMenu}
+        onClick={handleMenuOpen}
         text="메뉴 보기"
+      />
+
+      {/* 곡 메뉴 바텀시트 (현재 페이지 슬러그는 자동 제외) */}
+      <SongMenuBottomSheet
+        isOpen={isMenuOpen}
+        songId={song.id}
+        currentSlug={subSlug}
+        onClose={handleMenuClose}
       />
     </div>
   );
