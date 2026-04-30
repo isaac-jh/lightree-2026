@@ -1,29 +1,71 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { villageSongDetailPath } from '@/constants/albumPaths';
+import { getVillageSongById } from '@/data/villageSongMeta';
 import MainTextLabel from '@/components/labels/MainTextLabel';
 import MainBottomButton from '@/components/buttons/MainBottomButton';
+import VillageHouse from '@/components/village/VillageHouse';
 import styles from './VillagePage.module.css';
 
 type ViewMode = 'grid' | 'list';
 
+interface RippleState {
+  x: number;
+  y: number;
+  color: string;
+}
+
 /**
- * 집 위치(아래→위) → 곡 번호 매핑.
- * 사인 SVG는 시각 순서(아래→위)로 sign_song1~5,
- * 라우팅은 반대(아래 = /home/5, 위 = /home/1)
+ * 빌리지 집 슬롯 정의 (아래→위 순서)
+ * - houseClass / signClass : page CSS 의 위치 className 키
+ * - 집 클릭 시 ripple 색상은 곡 상세 페이지 배경색(songMeta.wallColor)을 그대로 사용
+ *   → 다음 페이지로 자연스럽게 이어지는 화면 전환
  */
 const HOUSES = [
-  { houseClass: 'house1', houseSrc: '/assets/houses/house1.svg', signClass: 'sign1', signSrc: '/assets/signs/sign_song1.svg', listSrc: '/assets/signs/list_sign_song1.svg', songId: 1 },
-  { houseClass: 'house2', houseSrc: '/assets/houses/house2.svg', signClass: 'sign2', signSrc: '/assets/signs/sign_song2.svg', listSrc: '/assets/signs/list_sign_song2.svg', songId: 2 },
-  { houseClass: 'house3', houseSrc: '/assets/houses/house3.svg', signClass: 'sign3', signSrc: '/assets/signs/sign_song3.svg', listSrc: '/assets/signs/list_sign_song3.svg', songId: 3 },
-  { houseClass: 'house4', houseSrc: '/assets/houses/house4.svg', signClass: 'sign4', signSrc: '/assets/signs/sign_song4.svg', listSrc: '/assets/signs/list_sign_song4.svg', songId: 4 },
-  { houseClass: 'house5', houseSrc: '/assets/houses/house5.svg', signClass: 'sign5', signSrc: '/assets/signs/sign_song5.svg', listSrc: '/assets/signs/list_sign_song5.svg', songId: 5 },
+  { houseClass: 'house1', signClass: 'sign1', houseSrc: '/assets/houses/house1.svg', signSrc: '/assets/signs/sign_song1.svg', listSrc: '/assets/signs/list_sign_song1.svg', songId: 1 },
+  { houseClass: 'house2', signClass: 'sign2', houseSrc: '/assets/houses/house2.svg', signSrc: '/assets/signs/sign_song2.svg', listSrc: '/assets/signs/list_sign_song2.svg', songId: 2 },
+  { houseClass: 'house3', signClass: 'sign3', houseSrc: '/assets/houses/house3.svg', signSrc: '/assets/signs/sign_song3.svg', listSrc: '/assets/signs/list_sign_song3.svg', songId: 3 },
+  { houseClass: 'house4', signClass: 'sign4', houseSrc: '/assets/houses/house4.svg', signSrc: '/assets/signs/sign_song4.svg', listSrc: '/assets/signs/list_sign_song4.svg', songId: 4 },
+  { houseClass: 'house5', signClass: 'sign5', houseSrc: '/assets/houses/house5.svg', signSrc: '/assets/signs/sign_song5.svg', listSrc: '/assets/signs/list_sign_song5.svg', songId: 5 },
 ];
+
+/** 팻말 pop 애니메이션 시작 시점 */
+const SIGN_BASE_DELAY = 0.45;
+/** 팻말간 stagger 간격 */
+const SIGN_STEP_DELAY = 0.1;
+/** ripple 확장 → 라우팅 시점 (CSS 키프레임과 동기화) */
+const RIPPLE_DURATION = 550;
 
 const VillagePage: React.FC = () => {
   const navigate = useNavigate();
+  const pageRef = useRef<HTMLDivElement>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
+  const [ripple, setRipple] = useState<RippleState | null>(null);
 
+  const isList = viewMode === 'list';
+
+  /**
+   * 집 버튼 클릭 → 클릭 위치에서 곡 상세 페이지 배경색으로 ripple 시작
+   *               → 0.55s 후 /home/{songId} 로 라우팅
+   */
+  const handleHouseClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>, songId: number) => {
+      if (ripple || !pageRef.current) return;
+      const song = getVillageSongById(songId);
+      if (!song) return;
+      const btnRect = e.currentTarget.getBoundingClientRect();
+      const pageRect = pageRef.current.getBoundingClientRect();
+      setRipple({
+        x: btnRect.left + btnRect.width / 2 - pageRect.left,
+        y: btnRect.top + btnRect.height / 2 - pageRect.top,
+        color: song.wallColor,
+      });
+      window.setTimeout(() => navigate(villageSongDetailPath(songId)), RIPPLE_DURATION);
+    },
+    [ripple, navigate],
+  );
+
+  /** 리스트 뷰의 팻말 버튼 클릭 (ripple 없이 바로 라우팅) */
   const goToSong = useCallback(
     (songId: number) => {
       navigate(villageSongDetailPath(songId));
@@ -41,10 +83,8 @@ const VillagePage: React.FC = () => {
     // TODO: 언어 전환 시스템 연결
   }, []);
 
-  const isList = viewMode === 'list';
-
   return (
-    <div className={styles.page}>
+    <div className={styles.page} ref={pageRef}>
       {/* 배경 */}
       <div className={styles.background} />
 
@@ -56,7 +96,7 @@ const VillagePage: React.FC = () => {
         aria-hidden="true"
       />
 
-      {/* 뒤쪽 레이어: 뒤쪽 나무 + sign_credit (hill_second와 함께 올라옴) */}
+      {/* 뒤쪽 레이어: 뒤쪽 나무 + sign_credit */}
       <div className={styles.backLayer} aria-hidden="true">
         <img src="/assets/trees/tree2.svg" className={`${styles.backTree} ${styles.backTree1}`} alt="" />
         <img src="/assets/trees/tree3.svg" className={`${styles.backTree} ${styles.backTree2}`} alt="" />
@@ -67,11 +107,11 @@ const VillagePage: React.FC = () => {
         />
       </div>
 
-      {/* 메인 씬 (홈과 동일 — 그대로 복사) */}
+      {/* 메인 씬 */}
       <div className={styles.scene}>
         <img src="/assets/hill.svg" className={styles.hill} alt="" aria-hidden="true" />
 
-        {/* 나무 — 홈 화면과 완전히 동일 */}
+        {/* 나무 — 홈 화면과 완전히 동일 위치 */}
         <img src="/assets/trees/tree3.svg" className={`${styles.tree} ${styles.tree3}`} alt="" aria-hidden="true" />
         <img src="/assets/trees/tree1.svg" className={`${styles.tree} ${styles.tree1}`} alt="" aria-hidden="true" />
         <img src="/assets/trees/tree2.svg" className={`${styles.tree} ${styles.tree2}`} alt="" aria-hidden="true" />
@@ -79,27 +119,18 @@ const VillagePage: React.FC = () => {
         <img src="/assets/trees/tree5.svg" className={`${styles.tree} ${styles.tree5}`} alt="" aria-hidden="true" />
         <img src="/assets/trees/tree4.svg" className={`${styles.tree} ${styles.tree4}`} alt="" aria-hidden="true" />
 
-        {/* 집 (버튼) — 홈과 완전히 동일 위치 */}
-        {HOUSES.map((h) => (
-          <button
-            key={h.houseClass}
-            className={`${styles.houseBtn} ${styles[h.houseClass]} ${isList ? styles.gridHidden : ''}`}
-            onClick={() => goToSong(h.songId)}
-            aria-label={`${h.songId}번 곡으로 이동`}
-          >
-            <img src={h.houseSrc} alt="" aria-hidden="true" />
-          </button>
-        ))}
-
-        {/* 팻말 — 정적 이미지(클릭 X), 뿅 하고 등장 */}
+        {/* 집 + 팻말 */}
         {HOUSES.map((h, idx) => (
-          <img
-            key={h.signClass}
-            src={h.signSrc}
-            className={`${styles.signImg} ${styles[h.signClass]} ${isList ? styles.gridHidden : ''}`}
-            alt=""
-            aria-hidden="true"
-            style={{ animationDelay: `${0.45 + idx * 0.1}s` }}
+          <VillageHouse
+            key={h.houseClass}
+            houseSrc={h.houseSrc}
+            signSrc={h.signSrc}
+            songId={h.songId}
+            houseClassName={styles[h.houseClass]}
+            signClassName={styles[h.signClass]}
+            signDelay={`${SIGN_BASE_DELAY + idx * SIGN_STEP_DELAY}s`}
+            hidden={isList}
+            onClick={handleHouseClick}
           />
         ))}
       </div>
@@ -121,7 +152,7 @@ const VillagePage: React.FC = () => {
         </button>
       </div>
 
-      {/* 상단 안내 (main_text_label) */}
+      {/* 상단 안내 */}
       <MainTextLabel className={styles.mainLabelWrap} align="center">
         <p>라이트리 빌리지에는 5개의 곡이 있어요!</p>
         <p>한번 돌아볼까요? 선택해주세요!</p>
@@ -138,6 +169,19 @@ const VillagePage: React.FC = () => {
       <button className={styles.engButton} onClick={handleEng} aria-label="Switch to English">
         ENG
       </button>
+
+      {/* 화면 전환 ripple — 클릭 위치에서 wallColor 가 화면 전체로 퍼짐 */}
+      {ripple && (
+        <div
+          className={styles.transitionRipple}
+          style={{
+            left: ripple.x,
+            top: ripple.y,
+            backgroundColor: ripple.color,
+          }}
+          aria-hidden="true"
+        />
+      )}
     </div>
   );
 };

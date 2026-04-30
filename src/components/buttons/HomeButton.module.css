@@ -1,0 +1,34 @@
+/* ============================================
+   HomeButton
+   - 작은 집 아이콘 + "Home" 라벨
+   ============================================ */
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: transparent;
+  border: 0;
+  padding: 4px 6px;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+
+.btn:active {
+  transform: scale(0.94);
+}
+
+.icon {
+  display: block;
+  width: 36px;
+  height: auto;
+}
+
+.label {
+  font-family: 'Default', 'Noto Sans KR', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #5C4A1F;
+  letter-spacing: 0.02em;
+}

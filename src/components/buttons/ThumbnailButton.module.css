@@ -1,0 +1,61 @@
+/* ============================================
+   ThumbnailButton
+   - YouTube hqdefault 썸네일 + dim + play_button 오버레이
+   ============================================ */
+
+.btn {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0;
+  line-height: 0;
+  transition: transform 0.12s ease;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* 썸네일 프레임 — 16:9 비율, 회색 fallback bg */
+.frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #C4C4C4;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+/* YouTube 썸네일 이미지 — hqdefault 의 위/아래 letterbox 영역을
+   object-fit: cover 로 잘라내 16:9 컨텐츠만 노출 */
+.thumb {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* dim 오버레이 (썸네일 위에만 적용) */
+.dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* play_button — 항상 가운데 오버레이 */
+.playBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 18%;
+  max-width: 64px;
+  height: auto;
+  pointer-events: none;
+}

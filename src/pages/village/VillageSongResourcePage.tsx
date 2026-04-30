@@ -1,9 +1,19 @@
 import React, { useCallback, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { getVillageSongById } from '@/data/villageSongMeta';
+import {
+  getSongVideoUrl,
+  getSongDownloadUrl,
+  getSongSheetLeadUrl,
+  getSongSheetBandUrl,
+} from '@/data/villageSongLinks';
 import { VILLAGE_HOME_PATH } from '@/constants/albumPaths';
+import { openExternal } from '@/utils/openExternal';
 import MainTextLabel from '@/components/labels/MainTextLabel';
 import SongDetailBottomButton from '@/components/buttons/SongDetailBottomButton';
+import ThumbnailButton from '@/components/buttons/ThumbnailButton';
+import DownloadButton from '@/components/buttons/DownloadButton';
+import HomeButton from '@/components/buttons/HomeButton';
 import SongMenuBottomSheet from '@/components/menu/SongMenuBottomSheet';
 import styles from './VillageSongResourcePage.module.css';
 
@@ -11,27 +21,27 @@ import styles from './VillageSongResourcePage.module.css';
  * URL 슬러그(/home/:songId/:subSlug) 별 메뉴 설정
  * - label: 라벨에 표시될 메뉴 이름
  * - bgPattern: 배경 패턴 SVG 파일명
- * - thumbPrefix: 썸네일 파일 이름 prefix (song_{id}_{prefix}_thumbnail.svg)
+ * - hasVideo: YouTube 썸네일 버튼 표시
+ * - hasDownload: "다운받기" 버튼 표시
+ * - isSheet: 악보 화면 (썸네일 대신 sheet 이미지 + 단선보/밴드보 두 버튼)
  */
 const MENU_CONFIG: Record<
   string,
   {
     label: string;
     bgPattern: string;
-    thumbPrefix?: string;
-    /** "다운받기" 단일 버튼 표시 */
+    hasVideo?: boolean;
     hasDownload?: boolean;
-    /** 악보 화면 (썸네일 대신 sheet 이미지 + 단선보/밴드보 두 버튼) */
     isSheet?: boolean;
   }
 > = {
-  mv:    { label: '뮤직비디오',          bgPattern: 'mv_bg_pattern.svg',            thumbPrefix: 'mv',            hasDownload: false },
-  ko:    { label: '한국어 ver.',         bgPattern: 'korean_bg_pattern.svg',        thumbPrefix: 'korean',        hasDownload: true  },
-  en:    { label: '영어 ver.',           bgPattern: 'english_bg_pattern.svg',       thumbPrefix: 'english',       hasDownload: true  },
-  es:    { label: '스페인어 ver.',       bgPattern: 'spanish_bg_pattern.svg',       thumbPrefix: 'spanish',       hasDownload: true  },
-  inst:  { label: 'Inst.',               bgPattern: 'inst_bg_pattern.svg',          thumbPrefix: 'inst',          hasDownload: true  },
-  guide: { label: '워십 가이드 영상',    bgPattern: 'worship_guide_bg_pattern.svg', thumbPrefix: 'worship_guide', hasDownload: true  },
-  sheet: { label: '악보 (단선보, 밴드보)', bgPattern: 'song_sheet_bg_pattern.svg',                                isSheet: true     },
+  mv:    { label: '뮤직비디오',          bgPattern: 'mv_bg_pattern.svg',            hasVideo: true, hasDownload: false },
+  ko:    { label: '한국어 ver.',         bgPattern: 'korean_bg_pattern.svg',        hasVideo: true, hasDownload: true  },
+  en:    { label: '영어 ver.',           bgPattern: 'english_bg_pattern.svg',       hasVideo: true, hasDownload: true  },
+  es:    { label: '스페인어 ver.',       bgPattern: 'spanish_bg_pattern.svg',       hasVideo: true, hasDownload: true  },
+  inst:  { label: 'Inst.',               bgPattern: 'inst_bg_pattern.svg',          hasVideo: true, hasDownload: true  },
+  guide: { label: '워십 가이드 영상',    bgPattern: 'worship_guide_bg_pattern.svg', hasVideo: true, hasDownload: true  },
+  sheet: { label: '악보 (단선보, 밴드보)', bgPattern: 'song_sheet_bg_pattern.svg',                                  isSheet:  true     },
 };
 
 const VillageSongResourcePage: React.FC = () => {
@@ -54,17 +64,27 @@ const VillageSongResourcePage: React.FC = () => {
     setIsMenuOpen(false);
   }, []);
 
-  const handleDownload = useCallback(() => {
-    // TODO: 다운로드 핸들러 연결
-  }, []);
-
   if (!song || !menu) {
     return <Navigate to={VILLAGE_HOME_PATH} replace />;
   }
 
-  const thumbnailSrc = menu.thumbPrefix
-    ? `/assets/thumbnails/song_${song.id}_${menu.thumbPrefix}_thumbnail.svg`
-    : null;
+  /** 영상 URL (썸네일 클릭 시 새 창으로 오픈) */
+  const videoUrl = subSlug ? getSongVideoUrl(song.id, subSlug) : undefined;
+
+  /** 일반 메뉴 다운받기 → Google Drive (링크 미정 시 no-op) */
+  const handleDownloadClick = () => {
+    if (subSlug) openExternal(getSongDownloadUrl(song.id, subSlug));
+  };
+
+  /** 악보 단선보 다운받기 */
+  const handleSheetLeadClick = () => {
+    openExternal(getSongSheetLeadUrl(song.id));
+  };
+
+  /** 악보 밴드보 다운받기 */
+  const handleSheetBandClick = () => {
+    openExternal(getSongSheetBandUrl(song.id));
+  };
 
   return (
     <div
@@ -80,24 +100,29 @@ const VillageSongResourcePage: React.FC = () => {
       {/* 가운데 콘텐츠 */}
       <div className={styles.content}>
         {menu.isSheet ? (
-          <SheetContent songId={song.id} onDownloadLead={handleDownload} onDownloadBand={handleDownload} />
+          <SheetContent
+            songId={song.id}
+            onDownloadLead={handleSheetLeadClick}
+            onDownloadBand={handleSheetBandClick}
+          />
         ) : (
           <>
-            {thumbnailSrc && (
-              <img src={thumbnailSrc} className={styles.thumbnail} alt="" aria-hidden="true" />
+            {menu.hasVideo && (
+              <ThumbnailButton
+                videoUrl={videoUrl}
+                ariaLabel={`${menu.label} 영상 보기`}
+                className={styles.thumbBtn}
+              />
             )}
             {menu.hasDownload && (
-              <DownloadButton text="다운받기" onClick={handleDownload} className={styles.downloadBtn} />
+              <DownloadButton text="다운받기" onClick={handleDownloadClick} className={styles.downloadBtn} />
             )}
           </>
         )}
       </div>
 
       {/* 좌측 하단 Home 버튼 */}
-      <button type="button" className={styles.homeBtn} onClick={handleHome} aria-label="빌리지로 이동">
-        <img src="/assets/buttons/home_button.svg" className={styles.homeBtnIcon} alt="" aria-hidden="true" />
-        <span className={styles.homeBtnText}>Home</span>
-      </button>
+      <HomeButton className={styles.homeBtn} onClick={handleHome} />
 
       {/* 하단 메뉴 보기 버튼 */}
       <SongDetailBottomButton
@@ -145,30 +170,6 @@ const SheetContent: React.FC<SheetContentProps> = ({ songId, onDownloadLead, onD
       <DownloadButton text="밴드보 다운받기" onClick={onDownloadBand} />
     </div>
   </>
-);
-
-/* ── 다운받기 버튼 (song_detail_button_download.svg + 텍스트 오버레이) ── */
-interface DownloadButtonProps {
-  text: string;
-  onClick?: () => void;
-  className?: string;
-}
-
-const DownloadButton: React.FC<DownloadButtonProps> = ({ text, onClick, className }) => (
-  <button
-    type="button"
-    className={[styles.dlBtn, className].filter(Boolean).join(' ')}
-    onClick={onClick}
-    aria-label={text}
-  >
-    <img
-      src="/assets/buttons/song_detail_button_download.svg"
-      className={styles.dlBtnImg}
-      alt=""
-      aria-hidden="true"
-    />
-    <span className={styles.dlBtnText}>{text}</span>
-  </button>
 );
 
 export default VillageSongResourcePage;

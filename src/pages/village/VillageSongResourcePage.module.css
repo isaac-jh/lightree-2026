@@ -54,54 +54,14 @@
   padding: 0 6%;
 }
 
-.thumbnail {
-  display: block;
+/* ThumbnailButton 위치/사이즈 (YouTube 영상 링크) */
+.thumbBtn {
   width: 86%;
   max-width: 380px;
-  height: auto;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
 }
 
-/* ── 다운받기 버튼 ── */
-
-.dlBtn {
-  position: relative;
-  display: block;
-  width: 56%;
-  max-width: 220px;
-  background: transparent;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  font-size: 0;
-  line-height: 0;
-  transition: transform 0.12s ease;
-}
-
-.dlBtn:active {
-  transform: scale(0.97);
-}
-
-.dlBtnImg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.dlBtnText {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Default', 'Noto Sans KR', sans-serif;
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: #5C4A1F;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-
+/* DownloadButton 추가 마진 (썸네일 ↔ 다운받기 사이 여백) */
 .downloadBtn {
   margin-top: 4px;
 }
@@ -143,39 +103,12 @@
   width: 100%;
 }
 
-/* ── Home 버튼 (좌측 하단) ── */
-
+/* HomeButton 위치 (좌측 하단 — bottom 메뉴보기 버튼 위) */
 .homeBtn {
   position: absolute;
   bottom: calc(var(--safe-area-bottom) + 50px);
   left: 12px;
   z-index: 30;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  background: transparent;
-  border: 0;
-  padding: 4px 6px;
-  cursor: pointer;
-}
-
-.homeBtn:active {
-  transform: scale(0.94);
-}
-
-.homeBtnIcon {
-  display: block;
-  width: 36px;
-  height: auto;
-}
-
-.homeBtnText {
-  font-family: 'Default', 'Noto Sans KR', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #5C4A1F;
-  letter-spacing: 0.02em;
 }
 
 /* ── 하단 "메뉴 보기" 버튼 (SongDetailBottomButton 위치) ── */

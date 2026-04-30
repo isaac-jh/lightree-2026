@@ -76,15 +76,7 @@
   z-index: 2;
 }
 
-/* ── 집 ── */
-
-.house {
-  position: absolute;
-  object-fit: contain;
-}
-
-/*
- * 색상 → 위치 매핑 (스크린샷 기준)
+/* ── 집 위치 (VillageHouse 가 className 으로 받아 사용) ──
  * house1: 분홍 큰 집 (#EFA1D3) → 전면 중앙
  * house2: 파란 집 (#D0E3FC) → 좌측 중단
  * house3: 마우브 지붕 (#D094BA) + 라일락 문 → 우측 중단

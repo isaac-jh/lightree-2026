@@ -1,0 +1,42 @@
+/* ============================================
+   DownloadButton
+   - song_detail_button_download.svg + 텍스트 오버레이
+   ============================================ */
+
+.btn {
+  position: relative;
+  display: block;
+  width: 56%;
+  max-width: 220px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0;
+  line-height: 0;
+  transition: transform 0.12s ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Default', 'Noto Sans KR', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #5C4A1F;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
