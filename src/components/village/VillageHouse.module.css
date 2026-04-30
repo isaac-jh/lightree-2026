@@ -5,9 +5,15 @@
    ============================================ */
 
 /* 장식용 img 모드 (HomePage 등) */
-.houseImg {
+.houseSlot {
   position: absolute;
+}
+
+.houseImg {
+  position: relative;
+  z-index: 2;
   display: block;
+  width: 100%;
   height: auto;
   object-fit: contain;
   pointer-events: none;
@@ -16,7 +22,9 @@
 
 /* 인터랙티브 button 모드 (/home VillagePage) */
 .houseBtn {
-  position: absolute;
+  position: relative;
+  z-index: 2;
+  width: 100%;
   padding: 0;
   border: 0;
   background: transparent;
@@ -36,6 +44,16 @@
   width: 100%;
   height: auto;
   pointer-events: none;
+}
+
+.treeImg {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  transition: opacity 0.35s ease-out;
 }
 
 /* 팻말 (signSrc 가 있을 때만 렌더) — 마운트 시 scale pop */

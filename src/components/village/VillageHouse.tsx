@@ -14,6 +14,14 @@ interface VillageHouseProps {
   signClassName?: string;
   /** 팻말 등장(scale pop) 애니메이션 딜레이 (예: '0.45s') */
   signDelay?: string;
+  /** 집 기준으로 배치할 첫 번째 나무 SVG 경로 */
+  tree1Src?: string;
+  /** 집 기준으로 배치할 두 번째 나무 SVG 경로 */
+  tree2Src?: string;
+  /** 첫 번째 나무 위치/사이즈 className (집 래퍼 기준 absolute) */
+  tree1ClassName?: string;
+  /** 두 번째 나무 위치/사이즈 className (집 래퍼 기준 absolute) */
+  tree2ClassName?: string;
   /**
    * 그리드↔리스트 전환 등으로 집·팻말을 페이드아웃 시킬 때 true.
    * (마운트 시 팻말 pop 애니메이션은 그대로 진행)
@@ -49,6 +57,10 @@ const VillageHouse: React.FC<VillageHouseProps> = ({
   houseClassName,
   signClassName,
   signDelay,
+  tree1Src,
+  tree2Src,
+  tree1ClassName,
+  tree2ClassName,
   hidden,
   onClick,
   children,
@@ -58,7 +70,7 @@ const VillageHouse: React.FC<VillageHouseProps> = ({
   const houseElement = isInteractive ? (
     <button
       type="button"
-      className={[styles.houseBtn, houseClassName, hidden ? styles.hidden : '']
+      className={[styles.houseBtn, hidden ? styles.hidden : '']
         .filter(Boolean)
         .join(' ')}
       onClick={(e) => onClick!(e, songId!)}
@@ -69,7 +81,7 @@ const VillageHouse: React.FC<VillageHouseProps> = ({
   ) : (
     <img
       src={houseSrc}
-      className={[styles.houseImg, houseClassName, hidden ? styles.hidden : '']
+      className={[styles.houseImg, hidden ? styles.hidden : '']
         .filter(Boolean)
         .join(' ')}
       alt=""
@@ -79,7 +91,29 @@ const VillageHouse: React.FC<VillageHouseProps> = ({
 
   return (
     <>
-      {houseElement}
+      <div className={[styles.houseSlot, houseClassName].filter(Boolean).join(' ')}>
+        {tree1Src && (
+          <img
+            src={tree1Src}
+            className={[styles.treeImg, tree1ClassName, hidden ? styles.hidden : '']
+              .filter(Boolean)
+              .join(' ')}
+            alt=""
+            aria-hidden="true"
+          />
+        )}
+        {tree2Src && (
+          <img
+            src={tree2Src}
+            className={[styles.treeImg, tree2ClassName, hidden ? styles.hidden : '']
+              .filter(Boolean)
+              .join(' ')}
+            alt=""
+            aria-hidden="true"
+          />
+        )}
+        {houseElement}
+      </div>
       {signSrc && (
         <img
           src={signSrc}

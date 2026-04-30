@@ -60,28 +60,45 @@ const HomePage: React.FC<HomePageProps> = ({ isEntering }) => {
 
       {/* 씬: hill + 집 + 나무 (양 페이즈 공통). 팻말은 /home(VillagePage)에서만 등장 */}
       <div className={styles.scene} aria-hidden="true">
-        {/* 뒤쪽 집 2개 (z-index 낮음) */}
-        <VillageHouse houseSrc="/assets/houses/house4.svg" houseClassName={styles.house4} />
-        <VillageHouse houseSrc="/assets/houses/house5.svg" houseClassName={styles.house5} />
-
         <img src="/assets/hill.svg" className={styles.hill} alt="" />
-
-        {/* 뒤쪽 나무 */}
-        <img src="/assets/trees/tree1.svg" className={`${styles.tree} ${styles.tree1}`} alt="" />
-        <img src="/assets/trees/tree3.svg" className={`${styles.tree} ${styles.tree3}`} alt="" />
-        <img src="/assets/trees/tree2.svg" className={`${styles.tree} ${styles.tree2}`} alt="" />
-
-        {/* 중간 깊이 집 */}
-        <VillageHouse houseSrc="/assets/houses/house3.svg" houseClassName={styles.house3} />
-        <VillageHouse houseSrc="/assets/houses/house2.svg" houseClassName={styles.house2} />
-
-        {/* 앞쪽 나무 */}
-        <img src="/assets/trees/tree6.svg" className={`${styles.tree} ${styles.tree6}`} alt="" />
-        <img src="/assets/trees/tree5.svg" className={`${styles.tree} ${styles.tree5}`} alt="" />
-        <img src="/assets/trees/tree4.svg" className={`${styles.tree} ${styles.tree4}`} alt="" />
-
-        {/* 가장 앞 큰 집 */}
-        <VillageHouse houseSrc="/assets/houses/house1.svg" houseClassName={styles.house1} />
+        <img src="/assets/trees/tree2.svg" className={`${styles.tree} ${styles.tree1}`} alt="" />
+        <img src="/assets/trees/tree3.svg" className={`${styles.tree} ${styles.tree2}`} alt="" />
+        <VillageHouse
+          houseSrc="/assets/houses/house5.svg" 
+          houseClassName={styles.house5}
+          tree1Src="/assets/trees/tree1.svg"
+          tree1ClassName={styles.house5Tree1}
+          tree2Src="/assets/trees/tree1.svg"
+          tree2ClassName={styles.house5Tree2}
+        />
+        <VillageHouse 
+          houseSrc="/assets/houses/house4.svg"
+          houseClassName={styles.house4} 
+          tree1Src="/assets/trees/tree3.svg"
+          tree1ClassName={styles.house4Tree1}
+          tree2Src="/assets/trees/tree1.svg"
+          tree2ClassName={styles.house4Tree2}
+        />
+        <VillageHouse 
+          houseSrc="/assets/houses/house3.svg" 
+          houseClassName={styles.house3} 
+          tree1Src="/assets/trees/tree4.svg"
+          tree1ClassName={styles.house3Tree1}
+        />
+        <VillageHouse
+          houseSrc="/assets/houses/house2.svg"
+          houseClassName={styles.house2} 
+          tree1Src="/assets/trees/tree1.svg"
+          tree1ClassName={styles.house2Tree1}
+          tree2Src="/assets/trees/tree1.svg"
+          tree2ClassName={styles.house2Tree2}
+        />
+        <VillageHouse
+          houseSrc="/assets/houses/house1.svg"
+          houseClassName={styles.house1}
+          tree1Src="/assets/trees/tree5.svg"
+          tree1ClassName={styles.house1Tree1}
+        />
       </div>
 
       {/* 홈 페이즈: 로고 + 부제목 (intro 진입 시 페이드아웃) */}

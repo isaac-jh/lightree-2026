@@ -49,8 +49,8 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  right: 0;
-  height: 65%;
+  width: 100%;
+  aspect-ratio: 375 / 322;
   pointer-events: none;
   animation: sceneSlideUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
 }
@@ -85,38 +85,94 @@
  */
 
 .house1 {
-  width: 30%;
-  left: 25%;
-  bottom: 22%;
+  width: 26.667%;
+  left: 6.667%;
+  bottom: 37.267%;
   z-index: 10;
 }
 
+.house1Tree1 {
+  width: 52%;
+  left: -12%;
+  bottom: -10%;
+  z-index: 11;
+}
+
 .house2 {
-  width: 22%;
-  left: 4%;
-  bottom: 31%;
+  width: 25.333%;
+  left: 34.667%;
+  bottom: 12.422%;
   z-index: 6;
 }
 
+.house2Tree1 {
+  width: 52%;
+  left: -12%;
+  bottom: -5%;
+  z-index: 7;
+}
+
+.house2Tree2 {
+  width: 80%;
+  left: 70%;
+  bottom: 2%;
+  z-index: 0;
+}
+
 .house3 {
-  width: 26%;
-  left: 69%;
-  bottom: 45%;
+  width: 24%;
+  right: 0%;
+  bottom: 49.689%;
   z-index: 5;
 }
 
+.house3Tree1 {
+  width: 45%;
+  right: -5px;
+  bottom: -10%;
+  z-index: 11;
+}
+
 .house4 {
-  width: 24%;
-  left: 1%;
-  bottom: 54%;
+  width: 26.667%;
+  left: 0%;
+  bottom: 77.640%;
   z-index: 3;
 }
 
+.house4Tree1 {
+  width: 52%;
+  left: -12%;
+  bottom: -30%;
+  z-index: 11;
+}
+
+.house4Tree2 {
+  width: 52%;
+  right: -40%;
+  bottom: 10%;
+  z-index: 0;
+}
+
 .house5 {
-  width: 25%;
-  left: 50%;
-  bottom: 57%;
+  width: 26.667%;
+  right: 8%;
+  bottom: 86.957%;
   z-index: 3;
+}
+
+.house5Tree1 {
+  width: 40%;
+  left: -12%;
+  bottom: 0;
+  z-index: 11;
+}
+
+.house5Tree2 {
+  width: 60%;
+  right: -25%;
+  bottom: 5px;
+  z-index: 0;
 }
 
 /* ── 나무 ── */
@@ -128,49 +184,17 @@
 
 /* tree1: 큰 나무, house4와 house5 사이 (언덕 위) */
 .tree1 {
-  width: 12%;
-  left: 26%;
-  bottom: 58%;
+  width: 15.667%;
+  right: 26.667%;
+  bottom: 62.112%;
   z-index: 4;
 }
 
 /* tree2: 둥근 덤불, 우측 끝 (house3 우측) */
 .tree2 {
-  width: 13%;
-  left: 87%;
-  bottom: 56%;
-  z-index: 7;
-}
-
-/* tree3: 중간 나무, house5와 house3 사이 */
-.tree3 {
-  width: 12%;
-  left: 40%;
-  bottom: 50%;
-  z-index: 4;
-}
-
-/* tree4: 작은 덤불, house1 오른쪽 (전면) */
-.tree4 {
-  width: 9%;
-  left: 56%;
-  bottom: 22%;
-  z-index: 11;
-}
-
-/* tree5: 평평한 덤불, house3 왼쪽 위 */
-.tree5 {
-  width: 11%;
-  left: 60%;
-  bottom: 38%;
-  z-index: 7;
-}
-
-/* tree6: 중간 나무, house2와 house1 사이 */
-.tree6 {
-  width: 11%;
-  left: 22%;
-  bottom: 28%;
+  width: 16%;
+  right: 1.333%;
+  bottom: 12.422%;
   z-index: 7;
 }
 
@@ -178,13 +202,13 @@
 
 .topContent {
   position: absolute;
-  top: calc(var(--safe-area-top) + 32px);
+  top: calc(var(--safe-area-top) + 15%);
   left: 0;
   right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 30px;
   z-index: 20;
   pointer-events: none;
   transition: opacity 0.45s ease-out;
