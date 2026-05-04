@@ -4,15 +4,11 @@ import MainBottomButton, { MainBottomButtonText } from '@/components/buttons/Mai
 import VillageHouse from '@/components/village/VillageHouse';
 import styles from './HomePage.module.css';
 
-interface HomePageProps {
-  isEntering: boolean;
-}
-
 type Phase = 'home' | 'intro';
 
 const VILLAGE_PATH = `/albums/2026/${import.meta.env.VITE_ALBUM_2026_PATH}/home`;
 
-const HomePage: React.FC<HomePageProps> = ({ isEntering }) => {
+const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const [phase, setPhase] = useState<Phase>('home');
   const [isReady, setIsReady] = useState(false);
@@ -48,11 +44,7 @@ const HomePage: React.FC<HomePageProps> = ({ isEntering }) => {
 
   return (
     <div
-      className={[
-        styles.page,
-        isEntering ? styles.entering : '',
-        isExiting ? styles.exiting : '',
-      ].join(' ')}
+      className={[styles.page, isExiting ? styles.exiting : ''].join(' ')}
       onClick={handleTap}
     >
       {/* 배경 */}

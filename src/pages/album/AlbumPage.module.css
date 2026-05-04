@@ -1,6 +1,6 @@
 /**
  * 앨범 페이지 스테이지
- * - SplashPage, HomePage가 position:absolute로 쌓이는 컨테이너
+ * - HomePage가 position:absolute로 채워지는 컨테이너
  */
 .stage {
   position: relative;

@@ -8,16 +8,6 @@
   overflow: hidden;
 }
 
-/* 스플래시 → 홈 크로스페이드 진입 */
-.page.entering {
-  animation: pageFadeIn 0.65s ease-out both;
-}
-
-@keyframes pageFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
 /* 인트로 → 빌리지 전환 시 상단 UI만 페이드아웃 (씬은 그대로 유지) */
 .page.exiting .topContent,
 .page.exiting .introWrap,

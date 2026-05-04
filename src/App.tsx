@@ -13,7 +13,7 @@ import VillageSongResourcePage from '@/pages/village/VillageSongResourcePage';
  *
  * 라우팅 구조:
  *   /                              → LandingPage  (흰 화면 + 로고)
- *   /albums/2026/{UUID}            → AlbumPage    (스플래시 → 메인)
+ *   /albums/2026/{UUID}            → AlbumPage    (메인 화면)
  *   /albums/2026/{UUID}/home       → VillagePage  (마을 지도 – 집 5채)
  *   /albums/2026/{UUID}/home/:id   → VillageSongDetailPage (곡 허브, id = 1~5)
  *   /albums/2026/{UUID}/home/:id/:sub → VillageSongResourcePage (가이드·Inst.·ver.·악보 등)
