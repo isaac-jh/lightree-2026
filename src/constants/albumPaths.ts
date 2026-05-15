@@ -10,6 +10,9 @@ export const ALBUM_2026_BASE = `/albums/2026/${ALBUM_2026_PATH}`;
 /** 빌리지(마을) 지도 */
 export const VILLAGE_HOME_PATH = `${ALBUM_2026_BASE}/home`;
 
+/** 스텝 크레딧(full-screen) — 반드시 `/home/:songId` 보다 선행 라우트로 등록 */
+export const VILLAGE_CREDITS_PATH = `${VILLAGE_HOME_PATH}/credits`;
+
 /**
  * 곡 상세(집 안) 경로
  * @param songId 1~5

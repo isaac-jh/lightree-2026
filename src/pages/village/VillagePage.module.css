@@ -71,13 +71,27 @@
   bottom: 58%;
 }
 
-.signCredit {
+/**
+ * 스텝 크레딧 간판 클릭 영역 — backLayer 에서 유일하게 pointer-events 활성화
+ */
+.signCreditTouchable {
   position: absolute;
   width: 22%;
   left: 25%;
   bottom: 67%;
-  height: auto;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  pointer-events: auto;
   transition: opacity 0.35s ease-out;
+}
+
+.signCreditTouchable img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* ── 메인 씬 (홈과 동일) ── */

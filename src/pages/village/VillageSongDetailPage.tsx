@@ -6,6 +6,7 @@ import { villageSongResourcePath, VILLAGE_HOME_PATH } from '@/constants/albumPat
 import { useLocale } from '@/context/LocaleContext';
 import SongButton from '@/components/buttons/SongButton';
 import MainTextLabel from '@/components/labels/MainTextLabel';
+import ScreenBackUnderlineButton from '@/components/navigation/ScreenBackUnderlineButton';
 import styles from './VillageSongDetailPage.module.css';
 
 const VillageSongDetailPage: React.FC = () => {
@@ -14,6 +15,10 @@ const VillageSongDetailPage: React.FC = () => {
   const { locale, messages } = useLocale();
   const song = getVillageSongById(Number(songId));
   const copy = song ? getSongLocaleCopy(locale, song.id) : undefined;
+
+  const handleBack = useCallback(() => {
+    navigate(VILLAGE_HOME_PATH);
+  }, [navigate]);
 
   const handleButtonClick = useCallback(
     (subSlug: string) => {
@@ -29,6 +34,11 @@ const VillageSongDetailPage: React.FC = () => {
 
   return (
     <div className={styles.page} style={{ backgroundColor: song.wallColor }}>
+      <ScreenBackUnderlineButton
+        label={messages.songDetail.goBack}
+        onClick={handleBack}
+        className={styles.backTop}
+      />
       <MainTextLabel className={styles.titleWrap} align="left">
         <h1 className={styles.title}>{copy.title}</h1>
         <p className={styles.authors}>

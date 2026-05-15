@@ -59,6 +59,7 @@ export interface LocaleMessages {
     ariaCredits: string;
   };
   songDetail: {
+    goBack: string;
     lyricistPrefix: string;
     composerPrefix: string;
   };
@@ -78,8 +79,11 @@ export interface LocaleMessages {
   };
   songs: Record<VillageSongId, { title: string; lyricist: string; composer: string }>;
   credits: {
+    /** main_text_label 타이틀 (스텝 크레딧 등) */
+    screenTitle: string;
+    /** credit_text_label 안 스크롤 영역 본문 (여러 줄) */
     all: string;
-  }
+  };
 }
 
 /** 한국어·영어 UI 문자열 */
@@ -109,6 +113,7 @@ export const SITE_MESSAGES: Record<Locale, LocaleMessages> = {
       ariaCredits: '스텝 크레딧',
     },
     songDetail: {
+      goBack: '뒤로 가기',
       lyricistPrefix: '작사',
       composerPrefix: '작곡',
     },
@@ -141,6 +146,7 @@ export const SITE_MESSAGES: Record<Locale, LocaleMessages> = {
       5: { title: '기쁜 걸 어떡해!', lyricist: '정성민', composer: '임채민' },
     },
     credits: {
+      screenTitle: '스텝 크레딧',
       all: `Singers
 고은유, 이율, 이현, 전하율, 정하영, 조선율
 
@@ -223,6 +229,7 @@ Translation Team
       ariaCredits: 'Staff Credits',
     },
     songDetail: {
+      goBack: 'Back',
       lyricistPrefix: 'Lyrics',
       composerPrefix: 'Composition',
     },
@@ -275,6 +282,7 @@ Translation Team
       },
     },
     credits: {
+      screenTitle: 'Staff Credits',
       all: `Singers 
 Eunyu Ko, Yool Lee, Hyun Lee,
 Hayul Jeon, Hayeong Jeong, Sun yul Jo 

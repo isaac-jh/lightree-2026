@@ -1,0 +1,21 @@
+.backBtn {
+  display: inline-block;
+  margin: 0;
+  padding: 0 calc(var(--safe-area-left, 0px) + max(14px, 3%)) 12px;
+  align-self: flex-start;
+  border: none;
+  background: none;
+  font-family: var(--font-family-base, inherit);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #4a3820;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+}
+
+.backBtn:active {
+  opacity: 0.82;
+}

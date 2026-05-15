@@ -8,13 +8,17 @@
   inset: 0;
   overflow-y: auto;
   padding:
-    calc(var(--safe-area-top) + 18px)
+    calc(var(--safe-area-top) + 6px)
     5%
     calc(var(--safe-area-bottom) + 24px)
     5%;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 14px;
+}
+
+.backTop {
+  margin-top: -2px;
 }
 
 /* ── 상단 안내 (MainTextLabel 안쪽 곡 제목/작사·작곡 텍스트 스타일) ── */

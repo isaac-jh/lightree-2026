@@ -1,0 +1,102 @@
+.page {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding-top: var(--safe-area-top);
+  background-color: #faf6e9;
+}
+
+.backAdjust {
+  padding-top: 8px;
+}
+
+/**
+ * 제목 라벨: 가로폭 고정해서 말풍선 비율 유지 (모바일 뷰에서 중앙 정렬 느낌)
+ */
+.titleLabel {
+  width: min(92%, 340px);
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.titlePlain {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+/**
+ * 크레딧 박스: SVG를 배경으로 두고 안쪽 패딩 영역만 스크롤
+ */
+.creditFrame {
+  position: relative;
+  flex: 1;
+  width: min(94%, 360px);
+  max-height: calc(100% - 28px - 108px - var(--safe-area-bottom, 16px));
+  margin: 8px auto 0;
+  min-height: 0;
+}
+
+.creditSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+.creditScroller {
+  position: absolute;
+  inset: 9% 8% 8% 7%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+}
+
+/**
+ * 크레딧 롤 패널 안 얇은 갈색톱 스크롤 (scroll_sample.png 톤 참고)
+ */
+.creditScroller::-webkit-scrollbar {
+  width: 5px;
+}
+
+.creditScroller::-webkit-scrollbar-track {
+  background: rgba(230, 215, 190, 0.55);
+  border-radius: 999px;
+  margin-block: 4px;
+}
+
+.creditScroller::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      180deg,
+      #d4af6a 0%,
+      #8b7355 28%,
+      #5e4d38 92%,
+      #b89a74 100%
+    );
+}
+
+.creditScroller {
+  scrollbar-width: thin;
+  scrollbar-color: #7d6548 rgba(228, 210, 180, 0.65);
+}
+
+.creditBody {
+  margin: 0;
+  padding: 10px calc(14px + 2px);
+  padding-right: 10px;
+  font-family: var(--font-family-base, sans-serif);
+  font-size: 0.76rem;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: 0.015em;
+  color: #3d3018;
+  white-space: pre-wrap;
+  word-break: keep-all;
+}

@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { villageSongDetailPath } from '@/constants/albumPaths';
+import { villageSongDetailPath, VILLAGE_CREDITS_PATH } from '@/constants/albumPaths';
 import { getVillageSongById } from '@/data/villageSongMeta';
 import MainTextLabel from '@/components/labels/MainTextLabel';
 import MainBottomButton from '@/components/buttons/MainBottomButton';
@@ -105,11 +105,14 @@ const VillagePage: React.FC = () => {
       <div className={styles.backLayer} aria-hidden="true">
         <img src="/assets/trees/tree2.svg" className={`${styles.backTree} ${styles.backTree1}`} alt="" />
         <img src="/assets/trees/tree3.svg" className={`${styles.backTree} ${styles.backTree2}`} alt="" />
-        <img
-          src="/assets/signs/sign_credit.svg"
-          className={`${styles.signCredit} ${isList ? styles.gridHidden : ''}`}
-          alt=""
-        />
+        <button
+          type="button"
+          className={[styles.signCreditTouchable, isList ? styles.gridHidden : ''].join(' ')}
+          onClick={() => navigate(VILLAGE_CREDITS_PATH)}
+          aria-label={messages.village.ariaCredits}
+        >
+          <img src="/assets/signs/sign_credit.svg" alt="" aria-hidden="true" />
+        </button>
       </div>
 
       {/* 메인 씬 */}
@@ -157,6 +160,7 @@ const VillagePage: React.FC = () => {
           type="button"
           className={`${styles.listSignBtn} ${styles.listSignCredit}`}
           aria-label={messages.village.ariaCredits}
+          onClick={() => navigate(VILLAGE_CREDITS_PATH)}
         >
           <img src="/assets/signs/list_sign_credit.svg" alt="" aria-hidden="true" />
         </button>
