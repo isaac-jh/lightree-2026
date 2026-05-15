@@ -1,6 +1,7 @@
 /**
- * 빌리지 곡(집) 메타 — 곡 상세 화면에서 공통 사용
- * wallColor: 곡 상세 페이지의 페이지 배경색
+ * 빌리지 곡(집) 구조 메타 — 배경색·스타일 키 등 비언어 정보
+ *
+ * 제목·작사·작곡 문자열은 {@link SITE_MESSAGES} (`src/content/siteContent.ts`) 에서 로케일별로 관리합니다.
  */
 export type VillageSongId = 1 | 2 | 3 | 4 | 5;
 
@@ -8,54 +9,17 @@ export type VillageSongStyleKey = 'song1' | 'song2' | 'song3' | 'song4' | 'song5
 
 export interface VillageSongMeta {
   id: VillageSongId;
-  title: string;
-  lyricist: string;
-  composer: string;
   styleKey: VillageSongStyleKey;
+  /** 곡 상세·ripple 전환 등 페이지 배경색 */
   wallColor: string;
 }
 
 export const VILLAGE_SONGS: readonly VillageSongMeta[] = [
-  {
-    id: 1,
-    title: '믿음으로 승리해요',
-    lyricist: '오권',
-    composer: '성희경',
-    styleKey: 'song1',
-    wallColor: '#BCD6F0',
-  },
-  {
-    id: 2,
-    title: '나는야 하나님 자녀',
-    lyricist: '김영순',
-    composer: '김은지',
-    styleKey: 'song2',
-    wallColor: '#EE9FB5',
-  },
-  {
-    id: 3,
-    title: '나는 기쁨의 예배자',
-    lyricist: '김모세',
-    composer: '김은지',
-    styleKey: 'song3',
-    wallColor: '#F8E4A0',
-  },
-  {
-    id: 4,
-    title: '감사로 살아가요',
-    lyricist: '박성준',
-    composer: '김희연',
-    styleKey: 'song4',
-    wallColor: '#B091CD',
-  },
-  {
-    id: 5,
-    title: '기쁜 걸 어떡해!',
-    lyricist: '정성민',
-    composer: '임채민',
-    styleKey: 'song5',
-    wallColor: '#8DAE7C',
-  },
+  { id: 1, styleKey: 'song1', wallColor: '#BCD6F0' },
+  { id: 2, styleKey: 'song2', wallColor: '#EE9FB5' },
+  { id: 3, styleKey: 'song3', wallColor: '#F8E4A0' },
+  { id: 4, styleKey: 'song4', wallColor: '#B091CD' },
+  { id: 5, styleKey: 'song5', wallColor: '#8DAE7C' },
 ] as const;
 
 /** 숫자 id로 곡 메타 조회 (1~5만 유효) */

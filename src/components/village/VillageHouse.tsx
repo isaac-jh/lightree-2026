@@ -35,6 +35,8 @@ interface VillageHouseProps {
     e: React.MouseEvent<HTMLButtonElement>,
     songId: number,
   ) => void;
+  /** 인터랙티브 모드일 때 버튼 접근성 이름 (로케일 문자열은 호출부에서 전달) */
+  ariaLabel?: string;
   /** 집 옆에 함께 렌더할 추가 요소 (예: 나무) — 위치는 호출부 CSS로 부여 */
   children?: React.ReactNode;
 }
@@ -63,6 +65,7 @@ const VillageHouse: React.FC<VillageHouseProps> = ({
   tree2ClassName,
   hidden,
   onClick,
+  ariaLabel,
   children,
 }) => {
   const isInteractive = !!onClick && songId !== undefined;
@@ -74,7 +77,7 @@ const VillageHouse: React.FC<VillageHouseProps> = ({
         .filter(Boolean)
         .join(' ')}
       onClick={(e) => onClick!(e, songId!)}
-      aria-label={`${songId}번 곡으로 이동`}
+      aria-label={ariaLabel ?? `Song ${songId}`}
     >
       <img src={houseSrc} alt="" aria-hidden="true" />
     </button>

@@ -5,6 +5,7 @@ import { getVillageSongById } from '@/data/villageSongMeta';
 import MainTextLabel from '@/components/labels/MainTextLabel';
 import MainBottomButton from '@/components/buttons/MainBottomButton';
 import VillageHouse from '@/components/village/VillageHouse';
+import { useLocale } from '@/context/LocaleContext';
 import styles from './VillagePage.module.css';
 
 type ViewMode = 'grid' | 'list';
@@ -38,6 +39,7 @@ const RIPPLE_DURATION = 550;
 
 const VillagePage: React.FC = () => {
   const navigate = useNavigate();
+  const { messages, toggleLocale } = useLocale();
   const pageRef = useRef<HTMLDivElement>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [ripple, setRipple] = useState<RippleState | null>(null);
@@ -78,10 +80,13 @@ const VillagePage: React.FC = () => {
     setViewMode((m) => (m === 'grid' ? 'list' : 'grid'));
   }, []);
 
-  const handleEng = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    // TODO: 언어 전환 시스템 연결
-  }, []);
+  const handleEng = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      toggleLocale();
+    },
+    [toggleLocale],
+  );
 
   return (
     <div className={styles.page} ref={pageRef}>
@@ -128,6 +133,7 @@ const VillagePage: React.FC = () => {
             songId={h.songId}
             houseClassName={styles[h.houseClass]}
             signClassName={styles[h.signClass]}
+            ariaLabel={messages.village.ariaGoToSong(h.songId)}
             signDelay={`${SIGN_BASE_DELAY + idx * SIGN_STEP_DELAY}s`}
             hidden={isList}
             onClick={handleHouseClick}
@@ -142,32 +148,39 @@ const VillagePage: React.FC = () => {
             key={`list-${h.houseClass}`}
             className={styles.listSignBtn}
             onClick={() => goToSong(h.songId)}
-            aria-label={`${h.songId}번 곡으로 이동`}
+            aria-label={messages.village.ariaGoToSong(h.songId)}
           >
             <img src={h.listSrc} alt="" aria-hidden="true" />
           </button>
         ))}
-        <button className={`${styles.listSignBtn} ${styles.listSignCredit}`} aria-label="스텝 크레딧">
+        <button
+          type="button"
+          className={`${styles.listSignBtn} ${styles.listSignCredit}`}
+          aria-label={messages.village.ariaCredits}
+        >
           <img src="/assets/signs/list_sign_credit.svg" alt="" aria-hidden="true" />
         </button>
       </div>
 
       {/* 상단 안내 */}
       <MainTextLabel className={styles.mainLabelWrap} align="center">
-        <p>라이트리 빌리지에는 5개의 곡이 있어요!</p>
-        <p>한번 돌아볼까요? 선택해주세요!</p>
+        <p>{messages.village.bubbleLine1}</p>
+        <p>{messages.village.bubbleLine2}</p>
       </MainTextLabel>
 
-      {/* 하단 토글 버튼 */}
       <MainBottomButton
         className={styles.viewToggleBtn}
         onClick={toggleView}
-        text={isList ? '그림 뷰 보기' : '리스트 뷰 보기'}
+        text={isList ? messages.village.viewGrid : messages.village.viewList}
       />
 
-      {/* ENG 버튼 */}
-      <button className={styles.engButton} onClick={handleEng} aria-label="Switch to English">
-        ENG
+      <button
+        type="button"
+        className={styles.engButton}
+        onClick={handleEng}
+        aria-label={messages.langToggleAria}
+      >
+        {messages.langToggleLabel}
       </button>
 
       {/* 화면 전환 ripple — 클릭 위치에서 wallColor 가 화면 전체로 퍼짐 */}

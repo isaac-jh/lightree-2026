@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ALBUM_2026_BASE } from '@/constants/albumPaths';
+import { LocaleProvider } from '@/context/LocaleContext';
 import MobileContainer from '@/components/layout/MobileContainer';
 import LandingPage from '@/pages/landing/LandingPage';
 import AlbumPage from '@/pages/album/AlbumPage';
@@ -24,7 +25,8 @@ import VillageSongResourcePage from '@/pages/village/VillageSongResourcePage';
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <MobileContainer>
+      <LocaleProvider>
+        <MobileContainer>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path={ALBUM_2026_BASE}           element={<AlbumPage />} />
@@ -40,7 +42,8 @@ const App: React.FC = () => {
           {/* 정의되지 않은 모든 경로 → 루트로 리다이렉트 */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </MobileContainer>
+        </MobileContainer>
+      </LocaleProvider>
     </BrowserRouter>
   );
 };

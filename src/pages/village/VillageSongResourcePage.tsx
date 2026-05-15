@@ -7,7 +7,13 @@ import {
   getSongSheetLeadUrl,
   getSongSheetBandUrl,
 } from '@/data/villageSongLinks';
+import {
+  RESOURCE_MENU_META,
+  type SongMenuSlug,
+  getSongLocaleCopy,
+} from '@/content/siteContent';
 import { VILLAGE_HOME_PATH } from '@/constants/albumPaths';
+import { useLocale } from '@/context/LocaleContext';
 import { openExternal } from '@/utils/openExternal';
 import MainTextLabel from '@/components/labels/MainTextLabel';
 import SongDetailBottomButton from '@/components/buttons/SongDetailBottomButton';
@@ -17,38 +23,21 @@ import HomeButton from '@/components/buttons/HomeButton';
 import SongMenuBottomSheet from '@/components/menu/SongMenuBottomSheet';
 import styles from './VillageSongResourcePage.module.css';
 
-/**
- * URL 슬러그(/home/:songId/:subSlug) 별 메뉴 설정
- * - label: 라벨에 표시될 메뉴 이름
- * - bgPattern: 배경 패턴 SVG 파일명
- * - hasVideo: YouTube 썸네일 버튼 표시
- * - hasDownload: "다운받기" 버튼 표시
- * - isSheet: 악보 화면 (썸네일 대신 sheet 이미지 + 단선보/밴드보 두 버튼)
- */
-const MENU_CONFIG: Record<
-  string,
-  {
-    label: string;
-    bgPattern: string;
-    hasVideo?: boolean;
-    hasDownload?: boolean;
-    isSheet?: boolean;
-  }
-> = {
-  mv:    { label: '뮤직비디오',          bgPattern: 'mv_bg_pattern.svg',            hasVideo: true, hasDownload: false },
-  ko:    { label: '한국어 ver.',         bgPattern: 'korean_bg_pattern.svg',        hasVideo: true, hasDownload: true  },
-  en:    { label: '영어 ver.',           bgPattern: 'english_bg_pattern.svg',       hasVideo: true, hasDownload: true  },
-  es:    { label: '스페인어 ver.',       bgPattern: 'spanish_bg_pattern.svg',       hasVideo: true, hasDownload: true  },
-  inst:  { label: 'Inst.',               bgPattern: 'inst_bg_pattern.svg',          hasVideo: true, hasDownload: true  },
-  guide: { label: '워십 가이드 영상',    bgPattern: 'worship_guide_bg_pattern.svg', hasVideo: true, hasDownload: true  },
-  sheet: { label: '악보 (단선보, 밴드보)', bgPattern: 'song_sheet_bg_pattern.svg',                                  isSheet:  true     },
-};
+/** URL subSlug 가 곡 리소스 메뉴 키인지 확인 */
+function isSongMenuSlug(value: string): value is SongMenuSlug {
+  return value in RESOURCE_MENU_META;
+}
 
 const VillageSongResourcePage: React.FC = () => {
   const { songId, subSlug } = useParams<{ songId: string; subSlug: string }>();
   const navigate = useNavigate();
+  const { locale, messages } = useLocale();
   const song = getVillageSongById(Number(songId));
-  const menu = subSlug ? MENU_CONFIG[subSlug] : undefined;
+
+  const menu =
+    subSlug && isSongMenuSlug(subSlug) ? RESOURCE_MENU_META[subSlug] : undefined;
+  const menuLabel =
+    subSlug && isSongMenuSlug(subSlug) ? messages.songMenu[subSlug] : '';
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -64,24 +53,22 @@ const VillageSongResourcePage: React.FC = () => {
     setIsMenuOpen(false);
   }, []);
 
-  if (!song || !menu) {
+  if (!song || !menu || !subSlug || !isSongMenuSlug(subSlug)) {
     return <Navigate to={VILLAGE_HOME_PATH} replace />;
   }
 
-  /** 영상 URL (썸네일 클릭 시 새 창으로 오픈) */
-  const videoUrl = subSlug ? getSongVideoUrl(song.id, subSlug) : undefined;
+  const songCopy = getSongLocaleCopy(locale, song.id);
 
-  /** 일반 메뉴 다운받기 → Google Drive (링크 미정 시 no-op) */
+  const videoUrl = getSongVideoUrl(song.id, subSlug);
+
   const handleDownloadClick = () => {
-    if (subSlug) openExternal(getSongDownloadUrl(song.id, subSlug));
+    openExternal(getSongDownloadUrl(song.id, subSlug));
   };
 
-  /** 악보 단선보 다운받기 */
   const handleSheetLeadClick = () => {
     openExternal(getSongSheetLeadUrl(song.id));
   };
 
-  /** 악보 밴드보 다운받기 */
   const handleSheetBandClick = () => {
     openExternal(getSongSheetBandUrl(song.id));
   };
@@ -91,13 +78,11 @@ const VillageSongResourcePage: React.FC = () => {
       className={styles.page}
       style={{ backgroundImage: `url(/assets/patterns/${menu.bgPattern})` }}
     >
-      {/* 상단 라벨: 곡명(작게) + 메뉴 이름(크게) */}
       <MainTextLabel className={styles.titleWrap} align="left">
-        <p className={styles.songTitle}>{song.title}</p>
-        <h2 className={styles.menuName}>{menu.label}</h2>
+        <p className={styles.songTitle}>{songCopy?.title ?? ''}</p>
+        <h2 className={styles.menuName}>{menuLabel}</h2>
       </MainTextLabel>
 
-      {/* 가운데 콘텐츠 */}
       <div className={styles.content}>
         {menu.isSheet ? (
           <SheetContent
@@ -110,28 +95,34 @@ const VillageSongResourcePage: React.FC = () => {
             {menu.hasVideo && (
               <ThumbnailButton
                 videoUrl={videoUrl}
-                ariaLabel={`${menu.label} 영상 보기`}
+                ariaLabel={messages.resource.openVideoAria(menuLabel)}
                 className={styles.thumbBtn}
               />
             )}
             {menu.hasDownload && (
-              <DownloadButton text="다운받기" onClick={handleDownloadClick} className={styles.downloadBtn} />
+              <DownloadButton
+                text={messages.resource.download}
+                onClick={handleDownloadClick}
+                className={styles.downloadBtn}
+              />
             )}
           </>
         )}
       </div>
 
-      {/* 좌측 하단 Home 버튼 */}
-      <HomeButton className={styles.homeBtn} onClick={handleHome} />
+      <HomeButton
+        className={styles.homeBtn}
+        onClick={handleHome}
+        label={messages.resource.homeButtonLabel}
+        ariaLabel={messages.resource.homeButtonAria}
+      />
 
-      {/* 하단 메뉴 보기 버튼 */}
       <SongDetailBottomButton
         className={styles.menuViewBtn}
         onClick={handleMenuOpen}
-        text="메뉴 보기"
+        text={messages.resource.showMenu}
       />
 
-      {/* 곡 메뉴 바텀시트 (현재 페이지 슬러그는 자동 제외) */}
       <SongMenuBottomSheet
         isOpen={isMenuOpen}
         songId={song.id}
@@ -142,34 +133,50 @@ const VillageSongResourcePage: React.FC = () => {
   );
 };
 
-/* ── 악보 화면 컨텐츠 ── */
 interface SheetContentProps {
   songId: number;
   onDownloadLead: () => void;
   onDownloadBand: () => void;
 }
 
-const SheetContent: React.FC<SheetContentProps> = ({ songId, onDownloadLead, onDownloadBand }) => (
-  <>
-    <div className={styles.sheetStack}>
-      <img
-        src={`/assets/sheets/song_sheet_${songId}_2.svg`}
-        className={`${styles.sheetImg} ${styles.sheetImgBack}`}
-        alt=""
-        aria-hidden="true"
-      />
-      <img
-        src={`/assets/sheets/song_sheet_${songId}_1.svg`}
-        className={`${styles.sheetImg} ${styles.sheetImgFront}`}
-        alt=""
-        aria-hidden="true"
-      />
-    </div>
-    <div className={styles.sheetButtons}>
-      <DownloadButton text="단선보 다운받기" onClick={onDownloadLead} />
-      <DownloadButton text="밴드보 다운받기" onClick={onDownloadBand} />
-    </div>
-  </>
-);
+/**
+ * 악보 화면 전용 레이아웃 (단선보 / 밴드보 다운로드 버튼)
+ */
+const SheetContent: React.FC<SheetContentProps> = ({
+  songId,
+  onDownloadLead,
+  onDownloadBand,
+}) => {
+  const { messages } = useLocale();
+
+  return (
+    <>
+      <div className={styles.sheetStack}>
+        <img
+          src={`/assets/sheets/song_sheet_${songId}_2.svg`}
+          className={`${styles.sheetImg} ${styles.sheetImgBack}`}
+          alt=""
+          aria-hidden="true"
+        />
+        <img
+          src={`/assets/sheets/song_sheet_${songId}_1.svg`}
+          className={`${styles.sheetImg} ${styles.sheetImgFront}`}
+          alt=""
+          aria-hidden="true"
+        />
+      </div>
+      <div className={styles.sheetButtons}>
+        <DownloadButton
+          text={messages.resource.downloadLead}
+          onClick={onDownloadLead}
+        />
+        <DownloadButton
+          text={messages.resource.downloadBand}
+          onClick={onDownloadBand}
+        />
+      </div>
+    </>
+  );
+};
 
 export default VillageSongResourcePage;

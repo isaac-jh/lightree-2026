@@ -20,7 +20,7 @@ export function villageSongDetailPath(songId: number): string {
 
 /**
  * 곡 안 리소스 화면 (뮤직비디오 / 한국어·영어·스페인어 ver. / Inst. / 워십 가이드 / 악보)
- * @param subSlug `songMenuItems` 의 key (mv, ko, en, es, inst, guide, sheet)
+ * @param subSlug `siteContent` 의 `SongMenuSlug` (mv, ko, en, es, inst, guide, sheet)
  */
 export function villageSongResourcePath(songId: number, subSlug: string): string {
   return `${VILLAGE_HOME_PATH}/${songId}/${subSlug}`;

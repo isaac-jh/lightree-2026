@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainBottomButton, { MainBottomButtonText } from '@/components/buttons/MainBottomButton';
 import VillageHouse from '@/components/village/VillageHouse';
+import { useLocale } from '@/context/LocaleContext';
 import styles from './HomePage.module.css';
 
 type Phase = 'home' | 'intro';
@@ -10,6 +11,7 @@ const VILLAGE_PATH = `/albums/2026/${import.meta.env.VITE_ALBUM_2026_PATH}/home`
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
+  const { messages, toggleLocale } = useLocale();
   const [phase, setPhase] = useState<Phase>('home');
   const [isReady, setIsReady] = useState(false);
 
@@ -35,10 +37,13 @@ const HomePage: React.FC = () => {
     }
   }, [isReady, phase, navigate]);
 
-  const handleEng = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    // TODO: 언어 전환 시스템 연결
-  }, []);
+  const handleEng = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      toggleLocale();
+    },
+    [toggleLocale],
+  );
 
   const isIntro = phase === 'intro';
 
@@ -95,10 +100,10 @@ const HomePage: React.FC = () => {
 
       {/* 홈 페이즈: 로고 + 부제목 (intro 진입 시 페이드아웃) */}
       <div className={`${styles.topContent} ${isIntro ? styles.topContentHidden : ''}`}>
-        <img src="/assets/logo2.svg" className={styles.logo} alt="라이트리" />
+        <img src="/assets/logo2.svg" className={styles.logo} alt={messages.brandAlt} />
         <div className={styles.subtitleWrap}>
           <img src="/assets/sub_title_label.svg" className={styles.subtitleImg} alt="" aria-hidden="true" />
-          <span className={styles.subtitleText}>2026 라이트리 빌리지</span>
+          <span className={styles.subtitleText}>{messages.home.subtitle2026}</span>
         </div>
       </div>
 
@@ -106,24 +111,31 @@ const HomePage: React.FC = () => {
       <div className={`${styles.introWrap} ${isIntro ? styles.introWrapVisible : ''}`}>
         <img src="/assets/intro_text_label.svg" className={styles.introImg} alt="" aria-hidden="true" />
         <div className={styles.introContent}>
-          <h2 className={styles.introTitle}>라이트리 어린이 몸찬양 앨범</h2>
+          <h2 className={styles.introTitle}>{messages.home.introTitle}</h2>
           <p className={styles.introBody}>
-            라이트리는 어린이 찬양을 위한 디지털 앨범 플랫폼입니다.
-            <br />곡 감상, 영상 시청, 악보까지
-            <br />모든 콘텐츠를 직관적으로 이용할 수 있도록 구성되어 있습니다.
+            {messages.home.introBodyLines.map((line, i) => (
+              <React.Fragment key={line}>
+                {i > 0 && <br />}
+                {line}
+              </React.Fragment>
+            ))}
           </p>
         </div>
       </div>
 
       {/* 하단 버튼 (텍스트만 페이즈에 따라 교체) */}
       <MainBottomButton className={styles.bottomButtonWrap}>
-        <MainBottomButtonText hidden={isIntro}>라이트리 빌리지 입장하기</MainBottomButtonText>
-        <MainBottomButtonText hidden={!isIntro}>다음</MainBottomButtonText>
+        <MainBottomButtonText hidden={isIntro}>{messages.home.btnEnterVillage}</MainBottomButtonText>
+        <MainBottomButtonText hidden={!isIntro}>{messages.home.btnNext}</MainBottomButtonText>
       </MainBottomButton>
 
-      {/* ENG 버튼 (양 페이즈 공통) */}
-      <button className={styles.engButton} onClick={handleEng} aria-label="Switch to English">
-        ENG
+      <button
+        type="button"
+        className={styles.engButton}
+        onClick={handleEng}
+        aria-label={messages.langToggleAria}
+      >
+        {messages.langToggleLabel}
       </button>
     </div>
   );
