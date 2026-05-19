@@ -73,9 +73,7 @@ const VillageHouse: React.FC<VillageHouseProps> = ({
   const houseElement = isInteractive ? (
     <button
       type="button"
-      className={[styles.houseBtn, hidden ? styles.hidden : '']
-        .filter(Boolean)
-        .join(' ')}
+      className={styles.houseBtn}
       onClick={(e) => onClick!(e, songId!)}
       aria-label={ariaLabel ?? `Song ${songId}`}
     >
@@ -84,9 +82,7 @@ const VillageHouse: React.FC<VillageHouseProps> = ({
   ) : (
     <img
       src={houseSrc}
-      className={[styles.houseImg, hidden ? styles.hidden : '']
-        .filter(Boolean)
-        .join(' ')}
+      className={styles.houseImg}
       alt=""
       aria-hidden="true"
     />
@@ -94,13 +90,15 @@ const VillageHouse: React.FC<VillageHouseProps> = ({
 
   return (
     <>
-      <div className={[styles.houseSlot, houseClassName].filter(Boolean).join(' ')}>
+      <div
+        className={[styles.houseSlot, houseClassName, hidden ? styles.hidden : '']
+          .filter(Boolean)
+          .join(' ')}
+      >
         {tree1Src && (
           <img
             src={tree1Src}
-            className={[styles.treeImg, tree1ClassName, hidden ? styles.hidden : '']
-              .filter(Boolean)
-              .join(' ')}
+            className={[styles.treeImg, tree1ClassName].filter(Boolean).join(' ')}
             alt=""
             aria-hidden="true"
           />
@@ -108,9 +106,7 @@ const VillageHouse: React.FC<VillageHouseProps> = ({
         {tree2Src && (
           <img
             src={tree2Src}
-            className={[styles.treeImg, tree2ClassName, hidden ? styles.hidden : '']
-              .filter(Boolean)
-              .join(' ')}
+            className={[styles.treeImg, tree2ClassName].filter(Boolean).join(' ')}
             alt=""
             aria-hidden="true"
           />

@@ -7,6 +7,7 @@
 /* 장식용 img 모드 (HomePage 등) */
 .houseSlot {
   position: absolute;
+  transition: opacity 0.35s ease-out;
 }
 
 .houseImg {
@@ -78,4 +79,11 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s ease-out;
+}
+
+/* signPop(both)이 opacity:1 을 유지해 .hidden 이 무시되는 것 방지 */
+.signImg.hidden {
+  animation: none;
+  opacity: 0;
+  transform: scale(1);
 }
