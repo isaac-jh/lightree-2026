@@ -80,10 +80,8 @@
   transition: opacity 0.35s ease-out;
 }
 
-.signCreditTouchable img {
-  display: block;
+.signCreditSign {
   width: 100%;
-  height: auto;
 }
 
 /* ── 메인 씬 (hill 375×322 — HomePage / AlbumPage 와 동일 좌표계) ── */
@@ -251,6 +249,14 @@
 
 /* ── 팻말 위치 (VillageHouse 컴포넌트가 className 으로 받아 사용) ── */
 
+.sign1,
+.sign2,
+.sign3,
+.sign4,
+.sign5 {
+  position: absolute;
+}
+
 .sign1 { width: 21%; left: 4%; bottom: 32%; z-index: 10; }
 .sign2 { width: 22%; left: 34%; bottom: 10%; z-index: 11; }
 .sign3 { width: 22%; right: 1%; bottom: 42%; z-index:  9; }
@@ -326,10 +332,23 @@
   transform: scale(0.97);
 }
 
-.listSignBtn img {
-  display: block;
+.listSign {
   width: 100%;
-  height: auto;
+}
+
+/* list_sign.svg — 지지대가 더 얇아 판면 비율만 조정 */
+.listSignLabel {
+  top: 6%;
+  bottom: 14%;
+  left: 6%;
+  right: 6%;
+  font-size: clamp(0.62rem, 3.2vw, 0.82rem);
+}
+
+.listSignCreditLabel {
+  top: 6%;
+  bottom: 16%;
+  font-size: clamp(0.58rem, 2.8vw, 0.76rem);
 }
 
 .listSignCredit {

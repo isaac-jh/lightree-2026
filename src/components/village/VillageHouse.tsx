@@ -1,10 +1,13 @@
 import React from 'react';
+import VillageSign from '@/components/village/VillageSign';
 import styles from './VillageHouse.module.css';
 
 interface VillageHouseProps {
   /** 집 SVG 경로 */
   houseSrc: string;
-  /** 팻말 SVG 경로. 미지정 시 팻말 미렌더 (HomePage 등 /home 외 화면) */
+  /** 팻말에 표시할 곡명 등 (로케일). 지정 시 그리드 팻말 렌더 */
+  signLabel?: string;
+  /** 팻말 배경 SVG. 미지정 시 sign.svg */
   signSrc?: string;
   /** 클릭 시 부모로 전달되는 곡 번호. onClick과 함께 지정 시 집이 버튼이 됨 */
   songId?: number;
@@ -47,13 +50,14 @@ interface VillageHouseProps {
  * - onClick + songId 지정 시: 집이 `<button>` (인터랙티브, /home 빌리지 화면)
  * - 둘 다 미지정 시: 집이 `<img>` (장식용, HomePage 등)
  *
- * - signSrc 가 있으면 팻말이 함께 렌더되며, 마운트 시 scale pop 애니메이션
- *   (signDelay 로 stagger 가능). 팻말은 호출부에서 signSrc 제공 여부로 토글됨.
+ * - signLabel 이 있으면 글자 없는 팻말 SVG 위에 텍스트를 올려 렌더
+ *   (signDelay 로 stagger 가능).
  *
  * - hidden=true 시 집·팻말 페이드아웃 (그리드 → 리스트 뷰 전환 등)
  */
 const VillageHouse: React.FC<VillageHouseProps> = ({
   houseSrc,
+  signLabel,
   signSrc,
   songId,
   houseClassName,
@@ -113,15 +117,13 @@ const VillageHouse: React.FC<VillageHouseProps> = ({
         )}
         {houseElement}
       </div>
-      {signSrc && (
-        <img
-          src={signSrc}
-          className={[styles.signImg, signClassName, hidden ? styles.hidden : '']
-            .filter(Boolean)
-            .join(' ')}
-          style={signDelay ? { animationDelay: signDelay } : undefined}
-          alt=""
-          aria-hidden="true"
+      {signLabel && (
+        <VillageSign
+          signSrc={signSrc}
+          label={signLabel}
+          className={signClassName}
+          animationDelay={signDelay}
+          hidden={hidden}
         />
       )}
       {children}

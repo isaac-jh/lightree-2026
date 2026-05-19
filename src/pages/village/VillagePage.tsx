@@ -1,10 +1,11 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { villageSongDetailPath, VILLAGE_CREDITS_PATH } from '@/constants/albumPaths';
-import { getVillageSongById } from '@/data/villageSongMeta';
+import { getVillageSongById, type VillageSongId } from '@/data/villageSongMeta';
 import MainTextLabel from '@/components/labels/MainTextLabel';
 import MainBottomButton from '@/components/buttons/MainBottomButton';
 import VillageHouse from '@/components/village/VillageHouse';
+import VillageSign from '@/components/village/VillageSign';
 import { useLocale } from '@/context/LocaleContext';
 import styles from './VillagePage.module.css';
 
@@ -22,15 +23,17 @@ interface RippleState {
  * - 집 클릭 시 ripple 색상은 곡 상세 페이지 배경색(songMeta.wallColor)을 그대로 사용
  *   → 다음 페이지로 자연스럽게 이어지는 화면 전환
  */
+const LIST_SIGN_SRC = '/assets/signs/list_sign.svg';
+const CREDIT_GRID_SIGN_SRC = '/assets/signs/credit_sign.svg';
+const CREDIT_LIST_SIGN_SRC = '/assets/signs/list_credit_sign.svg';
+
 /** 렌더 순서: 뒤(5) → 앞(1). 집·나무 좌표는 HomePage(AlbumPage)와 동일 */
 const HOUSES = [
   {
     houseClass: 'house5',
     signClass: 'sign5',
     houseSrc: '/assets/houses/house5.svg',
-    signSrc: '/assets/signs/sign_song5.svg',
-    listSrc: '/assets/signs/list_sign_song5.svg',
-    songId: 5,
+    songId: 5 as VillageSongId,
     tree1Src: '/assets/trees/tree1.svg',
     tree1Class: 'house5Tree1',
     tree2Src: '/assets/trees/tree1.svg',
@@ -40,9 +43,7 @@ const HOUSES = [
     houseClass: 'house4',
     signClass: 'sign4',
     houseSrc: '/assets/houses/house4.svg',
-    signSrc: '/assets/signs/sign_song4.svg',
-    listSrc: '/assets/signs/list_sign_song4.svg',
-    songId: 4,
+    songId: 4 as VillageSongId,
     tree1Src: '/assets/trees/tree3.svg',
     tree1Class: 'house4Tree1',
     tree2Src: '/assets/trees/tree1.svg',
@@ -52,9 +53,7 @@ const HOUSES = [
     houseClass: 'house3',
     signClass: 'sign3',
     houseSrc: '/assets/houses/house3.svg',
-    signSrc: '/assets/signs/sign_song3.svg',
-    listSrc: '/assets/signs/list_sign_song3.svg',
-    songId: 3,
+    songId: 3 as VillageSongId,
     tree1Src: '/assets/trees/tree4.svg',
     tree1Class: 'house3Tree1',
   },
@@ -62,9 +61,7 @@ const HOUSES = [
     houseClass: 'house2',
     signClass: 'sign2',
     houseSrc: '/assets/houses/house2.svg',
-    signSrc: '/assets/signs/sign_song2.svg',
-    listSrc: '/assets/signs/list_sign_song2.svg',
-    songId: 2,
+    songId: 2 as VillageSongId,
     tree1Src: '/assets/trees/tree1.svg',
     tree1Class: 'house2Tree1',
     tree2Src: '/assets/trees/tree1.svg',
@@ -74,9 +71,7 @@ const HOUSES = [
     houseClass: 'house1',
     signClass: 'sign1',
     houseSrc: '/assets/houses/house1.svg',
-    signSrc: '/assets/signs/sign_song1.svg',
-    listSrc: '/assets/signs/list_sign_song1.svg',
-    songId: 1,
+    songId: 1 as VillageSongId,
     tree1Src: '/assets/trees/tree5.svg',
     tree1Class: 'house1Tree1',
   },
@@ -156,7 +151,12 @@ const VillagePage: React.FC = () => {
               onClick={() => navigate(VILLAGE_CREDITS_PATH)}
               aria-label={messages.village.ariaCredits}
             >
-              <img src="/assets/signs/sign_credit.svg" alt="" aria-hidden="true" />
+              <VillageSign
+                signSrc={CREDIT_GRID_SIGN_SRC}
+                label={messages.credits.screenTitle}
+                className={styles.signCreditSign}
+                animated={false}
+              />
             </button>
           </div>
         </div>
@@ -172,7 +172,7 @@ const VillagePage: React.FC = () => {
           <VillageHouse
             key={h.houseClass}
             houseSrc={h.houseSrc}
-            signSrc={h.signSrc}
+            signLabel={messages.songs[h.songId].title}
             songId={h.songId}
             houseClassName={styles[h.houseClass]}
             signClassName={styles[h.signClass]}
@@ -197,7 +197,13 @@ const VillagePage: React.FC = () => {
             onClick={() => goToSong(h.songId)}
             aria-label={messages.village.ariaGoToSong(h.songId)}
           >
-            <img src={h.listSrc} alt="" aria-hidden="true" />
+            <VillageSign
+              signSrc={LIST_SIGN_SRC}
+              label={messages.songs[h.songId].title}
+              className={styles.listSign}
+              labelClassName={styles.listSignLabel}
+              animated={false}
+            />
           </button>
         ))}
         <button
@@ -206,7 +212,13 @@ const VillagePage: React.FC = () => {
           aria-label={messages.village.ariaCredits}
           onClick={() => navigate(VILLAGE_CREDITS_PATH)}
         >
-          <img src="/assets/signs/list_sign_credit.svg" alt="" aria-hidden="true" />
+          <VillageSign
+            signSrc={CREDIT_LIST_SIGN_SRC}
+            label={messages.credits.screenTitle}
+            className={styles.listSign}
+            labelClassName={styles.listSignCreditLabel}
+            animated={false}
+          />
         </button>
       </div>
 
