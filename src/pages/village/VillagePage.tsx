@@ -91,7 +91,7 @@ const RIPPLE_DURATION = 550;
 
 const VillagePage: React.FC = () => {
   const navigate = useNavigate();
-  const { messages, toggleLocale } = useLocale();
+  const { messages } = useLocale();
   const pageRef = useRef<HTMLDivElement>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [ripple, setRipple] = useState<RippleState | null>(null);
@@ -131,14 +131,6 @@ const VillagePage: React.FC = () => {
     e.stopPropagation();
     setViewMode((m) => (m === 'grid' ? 'list' : 'grid'));
   }, []);
-
-  const handleEng = useCallback(
-    (e: React.MouseEvent) => {
-      e.stopPropagation();
-      toggleLocale();
-    },
-    [toggleLocale],
-  );
 
   return (
     <div className={styles.page} ref={pageRef}>
