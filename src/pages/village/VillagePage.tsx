@@ -78,6 +78,8 @@ const HOUSES = [
   },
 ] as const;
 
+const reversedHouses = [...HOUSES].reverse();
+
 /** 팻말 pop 애니메이션 시작 시점 */
 const SIGN_BASE_DELAY = 0.45;
 /** 팻말간 stagger 간격 */
@@ -194,7 +196,7 @@ const VillagePage: React.FC = () => {
 
       {/* 리스트 뷰 (페이지 전체 영역) */}
       <div className={`${styles.listLayer} ${isList ? styles.listLayerVisible : ''}`}>
-        {HOUSES.map((h) => (
+        {reversedHouses.map((h) => (
           <button
             key={`list-${h.houseClass}`}
             className={styles.listSignBtn}

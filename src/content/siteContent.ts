@@ -464,12 +464,26 @@ export const RESOURCE_MENU_META: Record<
  *   },
  */
 export const SITE_LINKS: Partial<Record<VillageSongId, SongLinksEntry>> = {
-  // 1: {
-  //   videos: { mv: 'https://youtu.be/...', ko: 'https://youtu.be/...' },
-  //   downloads: { ko: 'https://drive.google.com/...', ... },
-  //   sheetLead: 'https://...',
-  //   sheetBand: 'https://...',
-  // },
+  1: {
+    videos: {
+      mv: 'https://youtu.be/3IbpADYMC2Q?si=p5k3hTsvZVEtOGmo',
+      ko: 'https://youtu.be/47DjKrpF4Ks?si=Z_e9RZTHSdHG0SN8',
+      en: 'https://youtu.be/bd9Vx7RiVDg?si=eDrBTL34wH09BoRq',
+      es: 'https://youtu.be/bd9Vx7RiVDg?si=zNPfQpqkIuBDOnm_',
+      inst: 'https://youtu.be/hzBZAiujJkk?si=AlWqOfgoY0-zcgX9',
+      guide: 'https://youtu.be/AFkNsMYJTKc?si=DtiFOlVMI3X7VCiH',
+    },
+    downloads: {
+      mv: 'https://drive.google.com/file/d/17DOtQM2y6Yf7PSlLiCt029yVQyNLcYvX/view?usp=sharing',
+      ko: 'https://drive.google.com/file/d/17DOtQM2y6Yf7PSlLiCt029yVQyNLcYvX/view?usp=sharing',
+      en: 'https://drive.google.com/file/d/17DOtQM2y6Yf7PSlLiCt029yVQyNLcYvX/view?usp=sharing',
+      es: 'https://drive.google.com/file/d/17DOtQM2y6Yf7PSlLiCt029yVQyNLcYvX/view?usp=sharing',
+      inst: 'https://drive.google.com/file/d/17DOtQM2y6Yf7PSlLiCt029yVQyNLcYvX/view?usp=sharing',
+      guide: 'https://drive.google.com/file/d/17DOtQM2y6Yf7PSlLiCt029yVQyNLcYvX/view?usp=sharing',
+    },
+    sheetLead: 'https://drive.google.com/file/d/1kh60XUFb30sJS86r_ve-VuFfUrFqueiN/view?usp=sharing',
+    sheetBand: 'https://drive.google.com/file/d/1kh60XUFb30sJS86r_ve-VuFfUrFqueiN/view?usp=sharing',
+  },
 };
 
 /** 로케일별 메시지 객체 반환 */

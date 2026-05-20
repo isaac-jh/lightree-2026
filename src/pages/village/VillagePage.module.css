@@ -296,7 +296,7 @@
 .listLayer {
   position: absolute;
   /* 상단 말풍선·하단 메인 버튼과 겹치지 않도록 픽셀+safe-area 로 여유 확보 */
-  top: max(132px, calc(var(--safe-area-top) + 96px));
+  top: max(20%, calc(var(--safe-area-top) + 96px));
   left: 6%;
   right: 6%;
   bottom: max(100px, calc(var(--safe-area-bottom) + 84px));

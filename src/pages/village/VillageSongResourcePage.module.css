@@ -20,11 +20,12 @@
   left: 5%;
   right: 5%;
   z-index: 10;
+  width: 91%
 }
 
 .songTitle {
   margin: 0 0 2px 0;
-  font-size: 0.78rem;
+  font-size: 1rem;
   font-weight: 500;
   letter-spacing: 0.005em;
   line-height: 1.2;
@@ -32,7 +33,7 @@
 
 .menuName {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1.25;
@@ -42,7 +43,7 @@
 
 .content {
   position: absolute;
-  top: 26%;
+  top: 10%;
   left: 0;
   right: 0;
   bottom: 12%;
@@ -86,13 +87,13 @@
 .sheetImgBack {
   top: 0;
   right: 0;
-  transform: rotate(4deg);
+  transform: rotate(14deg);
 }
 
 .sheetImgFront {
   bottom: 0;
   left: 0;
-  transform: rotate(-3deg);
+  transform: rotate(-10deg);
 }
 
 .sheetButtons {

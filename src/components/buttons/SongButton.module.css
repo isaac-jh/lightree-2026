@@ -56,8 +56,8 @@
 
 .label {
   font-family: 'Default', 'Noto Sans KR', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 500;
   color: #5C4A1F;
   letter-spacing: 0.01em;
   white-space: nowrap;
