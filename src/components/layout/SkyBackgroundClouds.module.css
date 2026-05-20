@@ -11,6 +11,18 @@
 }
 
 /**
+ * 화면 세로를 2등분했을 때 상단 절반에만 구름을 두고, 아래로 튀어나온 부분은 잘라낸다.
+ */
+.upperHalf {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 50%;
+  overflow: hidden;
+}
+
+/**
  * 수평: 뷰포트 오른쪽 밖에서 시작해 왼쪽으로 완전히 빠져나갈 때까지 선형 반복
  */
 .drift {
