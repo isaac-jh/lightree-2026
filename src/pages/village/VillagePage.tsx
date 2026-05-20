@@ -7,6 +7,7 @@ import MainBottomButton from '@/components/buttons/MainBottomButton';
 import VillageHouse from '@/components/village/VillageHouse';
 import VillageSign from '@/components/village/VillageSign';
 import { useLocale } from '@/context/LocaleContext';
+import SkyBackgroundClouds from '@/components/layout/SkyBackgroundClouds';
 import styles from './VillagePage.module.css';
 
 type ViewMode = 'grid' | 'list';
@@ -129,8 +130,10 @@ const VillagePage: React.FC = () => {
 
   return (
     <div className={styles.page} ref={pageRef}>
-      {/* 배경 */}
-      <div className={styles.background} />
+      {/* 배경: bg.svg 기저색 + cloud.svg 애니메이션 */}
+      <div className={styles.background} aria-hidden="true">
+        <SkyBackgroundClouds />
+      </div>
 
       {/* 메인 씬 — hill(375×322) 좌표계 */}
       <div className={styles.scene}>

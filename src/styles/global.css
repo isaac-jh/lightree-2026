@@ -32,6 +32,12 @@
   --color-text-secondary: #666666;
   --color-border: #e5e5e5;
 
+  /**
+   * Home/Village 공통 하늘 바탕 — 구 `bg.svg` 첫 path fill(#EBF5FC).
+   * 구름은 `SkyBackgroundClouds` + `public/assets/cloud.svg` 로 분리 렌더.
+   */
+  --scene-sky-bg: #ebf5fc;
+
   /* ── 브랜드 색상 ── */
   --color-splash-bg: #f7f562;       /* 스플래시 배경 노란색 */
   --color-loading-bar: #f07820;     /* 로딩바 주황색 */

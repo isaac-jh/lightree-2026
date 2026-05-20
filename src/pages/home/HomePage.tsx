@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import MainBottomButton, { MainBottomButtonText } from '@/components/buttons/MainBottomButton';
 import VillageHouse from '@/components/village/VillageHouse';
 import { useLocale } from '@/context/LocaleContext';
+import SkyBackgroundClouds from '@/components/layout/SkyBackgroundClouds';
 import styles from './HomePage.module.css';
 
 type Phase = 'home' | 'intro';
@@ -52,8 +53,10 @@ const HomePage: React.FC = () => {
       className={[styles.page, isExiting ? styles.exiting : ''].join(' ')}
       onClick={handleTap}
     >
-      {/* 배경 */}
-      <div className={styles.background} />
+      {/* 배경: bg.svg 기저색 + cloud.svg 애니메이션 */}
+      <div className={styles.background} aria-hidden="true">
+        <SkyBackgroundClouds />
+      </div>
 
       {/* 씬: hill + 집 + 나무 (양 페이즈 공통). 팻말은 /home(VillagePage)에서만 등장 */}
       <div className={styles.scene} aria-hidden="true">

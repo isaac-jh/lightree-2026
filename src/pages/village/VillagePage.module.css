@@ -8,15 +8,12 @@
   overflow: hidden;
 }
 
-/* ── 배경 (z-0) ── */
+/* ── 배경 (z-0): 예전 bg.svg 기저색 + cloud.svg 레이어(SkyBackgroundClouds) ── */
 
 .background {
   position: absolute;
   inset: 0;
-  background-image: url('/assets/bg.svg');
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
+  background-color: var(--scene-sky-bg);
   z-index: 0;
 }
 

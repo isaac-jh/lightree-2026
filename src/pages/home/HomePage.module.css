@@ -22,10 +22,7 @@
 .background {
   position: absolute;
   inset: 0;
-  background-image: url('/assets/bg.svg');
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
+  background-color: var(--scene-sky-bg);
   z-index: 0;
 }
 
