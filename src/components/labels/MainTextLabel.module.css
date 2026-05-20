@@ -20,7 +20,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-family: 'Default', 'Noto Sans KR', sans-serif;
+  font-family: var(--font-family-display, 'Default', 'Noto Sans KR', sans-serif);
   color: #5C4A1F;
 }
 

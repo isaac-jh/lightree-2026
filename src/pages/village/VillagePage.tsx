@@ -155,6 +155,7 @@ const VillagePage: React.FC = () => {
                 signSrc={CREDIT_GRID_SIGN_SRC}
                 label={messages.credits.screenTitle}
                 className={styles.signCreditSign}
+                overlayLayout="house"
                 animated={false}
               />
             </button>
@@ -201,7 +202,7 @@ const VillagePage: React.FC = () => {
               signSrc={LIST_SIGN_SRC}
               label={messages.songs[h.songId].title}
               className={styles.listSign}
-              labelClassName={styles.listSignLabel}
+              overlayLayout="list"
               animated={false}
             />
           </button>
@@ -216,7 +217,7 @@ const VillagePage: React.FC = () => {
             signSrc={CREDIT_LIST_SIGN_SRC}
             label={messages.credits.screenTitle}
             className={styles.listSign}
-            labelClassName={styles.listSignCreditLabel}
+            overlayLayout="list"
             animated={false}
           />
         </button>

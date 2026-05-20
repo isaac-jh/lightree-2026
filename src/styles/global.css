@@ -44,6 +44,8 @@
   /* TODO: 커스텀 폰트 적용 시 여기에 font-family 값만 변경 */
   --font-family-base: 'Noto Sans KR', -apple-system, BlinkMacSystemFont,
     'Segoe UI', sans-serif;
+  /** 말풍선·판지·메인 버튼 등 UI 표시체 (public/fonts/default.ttf @font-face 'Default') */
+  --font-family-display: 'Default', 'Noto Sans KR', sans-serif;
   --font-size-base: 16px;
   --line-height-base: 1.5;
 

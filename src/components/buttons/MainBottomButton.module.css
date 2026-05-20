@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Default', 'Noto Sans KR', sans-serif;
+  font-family: var(--font-family-display, 'Default', 'Noto Sans KR', sans-serif);
   font-size: 0.95rem;
   font-weight: 700;
   color: #ffffff;

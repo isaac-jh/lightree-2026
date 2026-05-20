@@ -399,6 +399,11 @@ export const RESOURCE_MENU_META: Record<
   SongMenuSlug,
   {
     bgPattern: string;
+    /**
+     * 화면 기본 채색. 패턴 SVG는 흰색 반투명 블롭만 있어 단독 배경이 비어 보였음.
+     * TODO: 디자인과 색 헥스 확정 후 조정 가능
+     */
+    themeBgColor: string;
     hasVideo?: boolean;
     hasDownload?: boolean;
     isSheet?: boolean;
@@ -406,36 +411,43 @@ export const RESOURCE_MENU_META: Record<
 > = {
   mv: {
     bgPattern: 'mv_bg_pattern.svg',
+    themeBgColor: '#E685B5',
     hasVideo: true,
     hasDownload: false,
   },
   ko: {
     bgPattern: 'korean_bg_pattern.svg',
+    themeBgColor: '#89B9E8',
     hasVideo: true,
     hasDownload: true,
   },
   en: {
     bgPattern: 'english_bg_pattern.svg',
+    themeBgColor: '#B189E8',
     hasVideo: true,
     hasDownload: true,
   },
   es: {
     bgPattern: 'spanish_bg_pattern.svg',
+    themeBgColor: '#D185B5',
     hasVideo: true,
     hasDownload: true,
   },
   inst: {
     bgPattern: 'inst_bg_pattern.svg',
+    themeBgColor: '#A8C6B1',
     hasVideo: true,
     hasDownload: true,
   },
   guide: {
     bgPattern: 'worship_guide_bg_pattern.svg',
+    themeBgColor: '#B189E8',
     hasVideo: true,
     hasDownload: true,
   },
   sheet: {
     bgPattern: 'song_sheet_bg_pattern.svg',
+    themeBgColor: '#69A1E8',
     isSheet: true,
   },
 };

@@ -298,15 +298,17 @@
 
 .listLayer {
   position: absolute;
-  top: 22%;
+  /* 상단 말풍선·하단 메인 버튼과 겹치지 않도록 픽셀+safe-area 로 여유 확보 */
+  top: max(132px, calc(var(--safe-area-top) + 96px));
   left: 6%;
   right: 6%;
-  bottom: 12%;
+  bottom: max(100px, calc(var(--safe-area-bottom) + 84px));
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: clamp(8px, 2dvh, 12px);
+  min-height: 0;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s ease-out 0.2s;
@@ -323,8 +325,10 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  width: 78%;
-  max-width: 320px;
+  width: 74%;
+  max-width: 310px;
+  flex: 0 1 auto;
+  max-height: min(62px, 13.2dvh);
   transition: transform 0.12s ease;
 }
 
@@ -334,27 +338,29 @@
 
 .listSign {
   width: 100%;
+  max-height: min(62px, 13.2dvh);
 }
 
-/* list_sign.svg — 지지대가 더 얇아 판면 비율만 조정 */
-.listSignLabel {
-  top: 6%;
-  bottom: 14%;
-  left: 6%;
-  right: 6%;
-  font-size: clamp(0.62rem, 3.2vw, 0.82rem);
-}
-
-.listSignCreditLabel {
-  top: 6%;
-  bottom: 16%;
-  font-size: clamp(0.58rem, 2.8vw, 0.76rem);
+/**
+ * 리스트 팻말 SVG 높이를 제한하면서 비율 유지 (안쪽 텍스트는 VillageSign absolute 유지)
+ */
+.listSignBtn .listSign img {
+  max-height: min(62px, 13.2dvh);
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
 }
 
 .listSignCredit {
-  margin-top: 32px;
+  margin-top: clamp(10px, 2.8dvh, 24px);
   width: 56%;
-  max-width: 230px;
+  max-width: 220px;
+  max-height: min(52px, 11.8dvh);
+}
+
+.listSignCredit .listSign,
+.listSignCredit .listSign img {
+  max-height: min(52px, 11.8dvh);
 }
 
 /* ── 상단 안내 (MainTextLabel 위치/문구 스타일) ── */

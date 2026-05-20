@@ -5,7 +5,8 @@
   align-self: flex-start;
   border: none;
   background: none;
-  font-family: var(--font-family-base, inherit);
+  /** MainTextLabel / 팻말과 동일한 표시체 (글로벌 --font-family-display) */
+  font-family: var(--font-family-display, 'Default', 'Noto Sans KR', sans-serif);
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0.02em;

@@ -73,10 +73,14 @@ const VillageSongResourcePage: React.FC = () => {
     openExternal(getSongSheetBandUrl(song.id));
   };
 
+  /* 테마 채색 아래 깔고, 패턴 SVG(흰 반투명 블롭만 포함) 위에 레이어링 */
   return (
     <div
       className={styles.page}
-      style={{ backgroundImage: `url(/assets/patterns/${menu.bgPattern})` }}
+      style={{
+        backgroundColor: menu.themeBgColor,
+        backgroundImage: `url(/assets/patterns/${menu.bgPattern})`,
+      }}
     >
       <MainTextLabel className={styles.titleWrap} align="left">
         <p className={styles.songTitle}>{songCopy?.title ?? ''}</p>

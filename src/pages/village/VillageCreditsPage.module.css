@@ -39,6 +39,7 @@
   max-height: calc(100% - 28px - 108px - var(--safe-area-bottom, 16px));
   margin: 8px auto 0;
   min-height: 0;
+  overflow: hidden;
 }
 
 .creditSvg {
@@ -50,11 +51,22 @@
 
 .creditScroller {
   position: absolute;
-  inset: 9% 8% 8% 7%;
+  /* SVG 테두리보다 더 안쪽 — 본문이 이미지 밖으로 보이지 않도록 */
+  inset: 13% 12% 12% 11%;
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #7d6548 rgba(228, 210, 180, 0.65);
+}
+
+.creditScrollerInner {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  min-height: min-content;
 }
 
 /**
@@ -82,21 +94,18 @@
     );
 }
 
-.creditScroller {
-  scrollbar-width: thin;
-  scrollbar-color: #7d6548 rgba(228, 210, 180, 0.65);
-}
-
 .creditBody {
   margin: 0;
-  padding: 10px calc(14px + 2px);
-  padding-right: 10px;
+  padding: 6px 10px;
+  max-width: 100%;
+  box-sizing: border-box;
   font-family: var(--font-family-base, sans-serif);
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  line-height: 1.55;
-  letter-spacing: 0.015em;
+  line-height: 1.52;
+  letter-spacing: 0.012em;
   color: #3d3018;
   white-space: pre-wrap;
-  word-break: keep-all;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }

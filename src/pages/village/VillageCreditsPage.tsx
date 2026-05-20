@@ -42,7 +42,9 @@ const VillageCreditsPage: React.FC = () => {
         />
         {/* 본문: SVG 화면 좌표에 맞춘 inset 안에서 스크롤 */}
         <div className={styles.creditScroller}>
-          <pre className={styles.creditBody}>{messages.credits.all}</pre>
+          <div className={styles.creditScrollerInner}>
+            <pre className={styles.creditBody}>{messages.credits.all}</pre>
+          </div>
         </div>
       </div>
     </div>

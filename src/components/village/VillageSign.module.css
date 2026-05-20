@@ -1,3 +1,8 @@
+/* ============================================
+   VillageSign — 래퍼(sign) + 배경(signImg) + 텍스트(overlay*)
+   텍스트는 overlayLayout 에 따라 클래스가 완전히 분리됨 (그리드/리스트 간섭 방지).
+   ============================================ */
+
 .sign {
   position: relative;
   pointer-events: none;
@@ -9,28 +14,67 @@
   height: auto;
 }
 
-/*
- * 팻말 SVG 하단 지지대(막대) 영역을 제외한 판 면 안에서 정중앙 정렬
- * (sign.svg 90×48 기준 — 판면 대략 top 5% ~ bottom 20%)
+/**
+ * ── 공통 텍스트 박스 (오버레이 전용 분기 전 기본 규격)
  */
-.signLabel {
+.overlayHouse,
+.overlayList {
+  box-sizing: border-box;
   position: absolute;
-  left: 8%;
-  right: 8%;
-  top: 5%;
-  bottom: 20%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
   text-align: center;
-  font-family: 'Default', 'Noto Sans KR', sans-serif;
-  font-size: clamp(0.48rem, 2.8vw, 0.68rem);
+  font-family: var(--font-family-display, 'Default', 'Noto Sans KR', sans-serif);
   font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: #5c4a1f;
+  overflow: hidden;
   word-break: keep-all;
+  overflow-wrap: break-word;
+  color: #5c4a1f;
+  padding-inline: 2px;
+}
+
+/**
+ * 집 옆 그리드 팻말 — sign.svg(90×48) 베지 보드 타원 영역 근처에 맞춤
+ * 세로 폭 안에서 플렉스 정중앙 (막대·스탠드 영역 아래쪽은 확보)
+ */
+.overlayHouse {
+  left: 7%;
+  right: 7%;
+  top: 2%;
+  bottom: 43%;
+  line-height: 1.08;
+  font-size: clamp(0.4rem, 2.65vmin, 0.62rem);
+  letter-spacing: -0.02em;
+}
+
+/**
+ * 리스트 행 전용 — list_sign.svg(167×52) 판 형태 (집 옆 레이아웃과 독립)
+ */
+.overlayList {
+  left: 5%;
+  right: 5%;
+  top: 6%;
+  bottom: 17%;
+  line-height: 1.08;
+  font-size: clamp(0.58rem, 3.35vmin, 0.82rem);
+  letter-spacing: -0.025em;
+}
+
+/* 영문일 때 추가로 붙는 마커 클래스 (아래 결합 선택자만으로 스타일) */
+.localeEnHouse,
+.localeEnList {
+  opacity: 1;
+}
+
+.overlayHouse.localeEnHouse {
+  font-size: clamp(0.33rem, 2.08vmin, 0.53rem);
+  line-height: 1.06;
+}
+
+.overlayList.localeEnList {
+  font-size: clamp(0.46rem, 3vmin, 0.74rem);
+  line-height: 1.06;
 }
 
 .signAnimated {
