@@ -54,10 +54,22 @@
 .overlayList {
   left: 5%;
   right: 5%;
-  top: 25%;
+  top: 22%;
   bottom: 17%;
   line-height: 1.08;
-  font-size: clamp(1rem, 3.35vmin, 0.82rem);
+  /**
+   * 700px 이하: 기존 clamp(0.58rem, 3.35vmin, 0.82rem) 과 동일
+   * 700px 초과: max(0.82rem) 만 dvh 에 따라 1.05rem 까지 점진 확대
+   */
+  font-size: clamp(
+    0.58rem,
+    3.35vmin,
+    clamp(
+      0.82rem,
+      calc(0.82rem + (100dvh - 700px) / 900 * 0.23rem),
+      1.05rem
+    )
+  );
   letter-spacing: -0.025em;
 }
 
@@ -73,28 +85,16 @@
 }
 
 .overlayList.localeEnList {
-  font-size: clamp(0.46rem, 3vmin, 0.74rem);
+  font-size: clamp(
+    0.46rem,
+    3vmin,
+    clamp(
+      0.74rem,
+      calc(0.74rem + (100dvh - 700px) / 900 * 0.18rem),
+      0.92rem
+    )
+  );
   line-height: 1.06;
-}
-
-@media (min-height: 700px) {
-  .overlayList {
-    font-size: clamp(0.62rem, 3.55vmin, 0.88rem);
-  }
-
-  .overlayList.localeEnList {
-    font-size: clamp(0.48rem, 3.15vmin, 0.78rem);
-  }
-}
-
-@media (min-height: 800px) {
-  .overlayList {
-    font-size: clamp(0.66rem, 3.75vmin, 0.92rem);
-  }
-
-  .overlayList.localeEnList {
-    font-size: clamp(0.5rem, 3.3vmin, 0.82rem);
-  }
 }
 
 .signAnimated {
