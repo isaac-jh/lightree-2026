@@ -77,6 +77,26 @@
   line-height: 1.06;
 }
 
+@media (min-height: 700px) {
+  .overlayList {
+    font-size: clamp(0.62rem, 3.55vmin, 0.88rem);
+  }
+
+  .overlayList.localeEnList {
+    font-size: clamp(0.48rem, 3.15vmin, 0.78rem);
+  }
+}
+
+@media (min-height: 800px) {
+  .overlayList {
+    font-size: clamp(0.66rem, 3.75vmin, 0.92rem);
+  }
+
+  .overlayList.localeEnList {
+    font-size: clamp(0.5rem, 3.3vmin, 0.82rem);
+  }
+}
+
 .signAnimated {
   transform-origin: bottom center;
   animation: signPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;

@@ -10,7 +10,7 @@
 }
 
 .backAdjust {
-  padding-top: 8px;
+  padding-top: 12px;
 }
 
 /**
@@ -30,14 +30,27 @@
 }
 
 /**
- * 크레딧 박스: SVG를 배경으로 두고 안쪽 패딩 영역만 스크롤
+ * 크레딧 박스 외곽 — flex 여유만 잡고, 실제 종이 비율은 creditParchment 가 SVG 높이에 맞춤
  */
 .creditFrame {
-  position: relative;
   flex: 1;
+  min-height: 0;
+  width: 100%;
+  margin: 12px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+/**
+ * SVG(credit_text_label) 와 스크롤 영역이 같은 박스를 공유 — inset % 가 종이 안쪽에 정확히 맞음
+ */
+.creditParchment {
+  position: relative;
   width: min(94%, 360px);
-  max-height: calc(100% - 28px - 108px - var(--safe-area-bottom, 16px));
-  margin: 8px auto 0;
+  max-height: calc(100% - 4px);
+  flex: 0 1 auto;
   min-height: 0;
   overflow: hidden;
 }
@@ -46,27 +59,22 @@
   display: block;
   width: 100%;
   height: auto;
+  max-height: calc(
+    100vh - var(--safe-area-top) - var(--safe-area-bottom, 16px) - 148px
+  );
   pointer-events: none;
 }
 
 .creditScroller {
   position: absolute;
-  /* SVG 테두리보다 더 안쪽 — 본문이 이미지 밖으로 보이지 않도록 */
-  inset: 13% 12% 12% 11%;
+  /* credit_text_label(335×486) 안쪽 — 테두리와의 여백 최소화 */
+  inset: 7% 7% 7% 7%;
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
   scrollbar-width: thin;
   scrollbar-color: #7d6548 rgba(228, 210, 180, 0.65);
-}
-
-.creditScrollerInner {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: clip;
-  min-height: min-content;
 }
 
 /**
@@ -96,7 +104,8 @@
 
 .creditBody {
   margin: 0;
-  padding: 6px 10px;
+  padding: 0 2px 2px;
+  width: 100%;
   max-width: 100%;
   box-sizing: border-box;
   font-family: var(--font-family-base, sans-serif);
@@ -108,4 +117,5 @@
   white-space: pre-wrap;
   word-break: normal;
   overflow-wrap: anywhere;
+  overflow-x: hidden;
 }

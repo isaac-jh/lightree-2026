@@ -306,10 +306,43 @@
   justify-content: center;
   gap: clamp(8px, 2dvh, 12px);
   min-height: 0;
+  /* iPhone SE 기준 크기 — 큰 화면은 아래 미디어쿼리에서만 키움 */
+  --list-sign-max-h: 62px;
+  --list-sign-credit-max-h: 52px;
+  --list-sign-width: 74%;
+  --list-sign-credit-width: 56%;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s ease-out 0.2s;
   z-index: 15;
+}
+
+/** iPhone 12 / 14 Pro 등 세로 여유가 큰 기기 — label·bottom 버튼 침범 전까지 확대 */
+@media (min-height: 700px) {
+  .listLayer {
+    --list-sign-max-h: 68px;
+    --list-sign-credit-max-h: 58px;
+    --list-sign-width: 78%;
+    --list-sign-credit-width: 58%;
+  }
+}
+
+@media (min-height: 800px) {
+  .listLayer {
+    --list-sign-max-h: 74px;
+    --list-sign-credit-max-h: 62px;
+    --list-sign-width: 80%;
+    --list-sign-credit-width: 60%;
+  }
+}
+
+@media (min-height: 840px) {
+  .listLayer {
+    --list-sign-max-h: 78px;
+    --list-sign-credit-max-h: 66px;
+    --list-sign-width: 82%;
+    --list-sign-credit-width: 62%;
+  }
 }
 
 .listLayerVisible {
@@ -322,10 +355,10 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  width: 74%;
-  max-width: 310px;
+  width: var(--list-sign-width, 74%);
+  max-width: 340px;
   flex: 0 1 auto;
-  max-height: min(62px, 13.2dvh);
+  max-height: var(--list-sign-max-h, 62px);
   transition: transform 0.12s ease;
 }
 
@@ -335,14 +368,14 @@
 
 .listSign {
   width: 100%;
-  max-height: min(62px, 13.2dvh);
+  max-height: var(--list-sign-max-h, 62px);
 }
 
 /**
  * 리스트 팻말 SVG 높이를 제한하면서 비율 유지 (안쪽 텍스트는 VillageSign absolute 유지)
  */
 .listSignBtn .listSign img {
-  max-height: min(62px, 13.2dvh);
+  max-height: var(--list-sign-max-h, 62px);
   width: auto;
   max-width: 100%;
   margin-inline: auto;
@@ -350,14 +383,14 @@
 
 .listSignCredit {
   margin-top: clamp(10px, 2.8dvh, 24px);
-  width: 56%;
-  max-width: 220px;
-  max-height: min(52px, 11.8dvh);
+  width: var(--list-sign-credit-width, 56%);
+  max-width: 240px;
+  max-height: var(--list-sign-credit-max-h, 52px);
 }
 
 .listSignCredit .listSign,
 .listSignCredit .listSign img {
-  max-height: min(52px, 11.8dvh);
+  max-height: var(--list-sign-credit-max-h, 52px);
 }
 
 /* ── 상단 안내 (MainTextLabel 위치/문구 스타일) ── */

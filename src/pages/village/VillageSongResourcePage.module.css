@@ -20,7 +20,8 @@
   left: 5%;
   right: 5%;
   z-index: 10;
-  width: 91%
+  width: 91%;
+  animation: resourceEaseIn 0.55s ease-out 0.08s both;
 }
 
 .songTitle {
@@ -53,6 +54,31 @@
   justify-content: center;
   gap: 28px;
   padding: 0 6%;
+}
+
+/** 썸네일·다운로드·악보 스택 등 중앙 콘텐츠 stagger ease-in */
+.content > * {
+  animation: resourceEaseIn 0.5s ease-out both;
+}
+
+.content > *:nth-child(1) {
+  animation-delay: 0.16s;
+}
+
+.content > *:nth-child(2) {
+  animation-delay: 0.24s;
+}
+
+.sheetButtons > * {
+  animation: resourceEaseIn 0.5s ease-out both;
+}
+
+.sheetButtons > *:nth-child(1) {
+  animation-delay: 0.28s;
+}
+
+.sheetButtons > *:nth-child(2) {
+  animation-delay: 0.34s;
 }
 
 /* ThumbnailButton 위치/사이즈 (YouTube 영상 링크) */
@@ -110,6 +136,7 @@
   bottom: calc(var(--safe-area-bottom) + 50px);
   left: 12px;
   z-index: 30;
+  animation: resourceEaseIn 0.5s ease-out 0.3s both;
 }
 
 /* ── 하단 "메뉴 보기" 버튼 (SongDetailBottomButton 위치) ── */
@@ -120,4 +147,16 @@
   left: 0;
   right: 0;
   z-index: 25;
+  animation: resourceEaseIn 0.5s ease-out 0.38s both;
+}
+
+@keyframes resourceEaseIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

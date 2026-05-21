@@ -34,15 +34,15 @@ const VillageCreditsPage: React.FC = () => {
       </MainTextLabel>
 
       <div className={styles.creditFrame}>
-        <img
-          src="/assets/credit_text_label.svg"
-          className={styles.creditSvg}
-          alt=""
-          aria-hidden="true"
-        />
-        {/* 본문: SVG 화면 좌표에 맞춘 inset 안에서 스크롤 */}
-        <div className={styles.creditScroller}>
-          <div className={styles.creditScrollerInner}>
+        <div className={styles.creditParchment}>
+          <img
+            src="/assets/credit_text_label.svg"
+            className={styles.creditSvg}
+            alt=""
+            aria-hidden="true"
+          />
+          {/* 본문: 종이(SVG)와 동일 박스 기준 inset — creditFrame flex 높이와 분리 */}
+          <div className={styles.creditScroller}>
             <pre className={styles.creditBody}>{messages.credits.all}</pre>
           </div>
         </div>

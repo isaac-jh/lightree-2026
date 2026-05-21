@@ -33,9 +33,10 @@ const SongMenuBottomSheet: React.FC<SongMenuBottomSheetProps> = ({
 
   const handleSelect = useCallback(
     (slug: string) => {
+      onClose();
       navigate(villageSongResourcePath(songId, slug));
     },
-    [navigate, songId],
+    [navigate, onClose, songId],
   );
 
   const stop = useCallback((e: React.MouseEvent) => e.stopPropagation(), []);

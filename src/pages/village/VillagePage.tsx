@@ -97,10 +97,9 @@ const VillagePage: React.FC = () => {
   const isList = viewMode === 'list';
 
   /**
-   * 집 버튼 클릭 → 클릭 위치에서 곡 상세 페이지 배경색으로 ripple 시작
-   *               → 0.55s 후 /home/{songId} 로 라우팅
+   * 클릭 위치에서 곡 상세 배경색(wallColor) ripple 후 라우팅 — 그리드·리스트 공통
    */
-  const handleHouseClick = useCallback(
+  const navigateWithRipple = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>, songId: number) => {
       if (ripple || !pageRef.current) return;
       const song = getVillageSongById(songId);
@@ -117,12 +116,11 @@ const VillagePage: React.FC = () => {
     [ripple, navigate],
   );
 
-  /** 리스트 뷰의 팻말 버튼 클릭 (ripple 없이 바로 라우팅) */
-  const goToSong = useCallback(
-    (songId: number) => {
-      navigate(villageSongDetailPath(songId));
+  const handleHouseClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>, songId: number) => {
+      navigateWithRipple(e, songId);
     },
-    [navigate],
+    [navigateWithRipple],
   );
 
   const toggleView = useCallback((e: React.MouseEvent) => {
@@ -200,7 +198,7 @@ const VillagePage: React.FC = () => {
           <button
             key={`list-${h.houseClass}`}
             className={styles.listSignBtn}
-            onClick={() => goToSong(h.songId)}
+            onClick={(e) => navigateWithRipple(e, h.songId)}
             aria-label={messages.village.ariaGoToSong(h.songId)}
           >
             <VillageSign

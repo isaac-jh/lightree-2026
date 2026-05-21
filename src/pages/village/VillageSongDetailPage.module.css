@@ -19,12 +19,14 @@
 
 .backTop {
   margin-top: -2px;
+  animation: detailEaseIn 0.55s ease-out both;
 }
 
 /* ── 상단 안내 (MainTextLabel 안쪽 곡 제목/작사·작곡 텍스트 스타일) ── */
 
 .titleWrap {
   width: 100%;
+  animation: detailEaseIn 0.55s ease-out 0.1s both;
 }
 
 .title {
@@ -49,4 +51,28 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+/** 메뉴 버튼 stagger ease-in (SONG_MENU_STRUCTURE 7항목) */
+.buttons > button {
+  animation: detailEaseIn 0.5s ease-out both;
+}
+
+.buttons > button:nth-child(1) { animation-delay: 0.18s; }
+.buttons > button:nth-child(2) { animation-delay: 0.24s; }
+.buttons > button:nth-child(3) { animation-delay: 0.3s; }
+.buttons > button:nth-child(4) { animation-delay: 0.36s; }
+.buttons > button:nth-child(5) { animation-delay: 0.42s; }
+.buttons > button:nth-child(6) { animation-delay: 0.48s; }
+.buttons > button:nth-child(7) { animation-delay: 0.54s; }
+
+@keyframes detailEaseIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
