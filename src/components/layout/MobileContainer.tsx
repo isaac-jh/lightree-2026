@@ -16,7 +16,9 @@ interface MobileContainerProps {
 const MobileContainer: React.FC<MobileContainerProps> = ({ children }) => {
   return (
     <div className={styles.overlay}>
-      <div className={styles.container}>{children}</div>
+      <div className={styles.container}>
+        <div className={styles.appViewport}>{children}</div>
+      </div>
     </div>
   );
 };

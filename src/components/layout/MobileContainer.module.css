@@ -8,10 +8,12 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
-  min-height: 100dvh;
-  min-height: 100vh; /* dvh 미지원 fallback */
   height: 100dvh;
   height: 100vh;
+  max-height: 100dvh;
+  max-height: 100vh;
+  overflow: hidden;
+  overscroll-behavior: none;
   background-color: var(--color-background-overlay);
 
   /* 데스크톱·letterbox에서 노출되는 외곽 배경 */
@@ -20,17 +22,16 @@
 
 .container {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: var(--mobile-max-width);
   height: 100%;
-  min-height: 100dvh;
-  min-height: 100vh;
-  max-height: 100dvh;
-  max-height: 100vh;
-
+  max-height: 100%;
+  min-height: 0;
   background-color: var(--color-background);
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden;
+  overscroll-behavior: none;
 
   /* Safe area 패딩: 노치/홈 인디케이터 대응 */
   padding-top: var(--safe-area-top);
@@ -40,4 +41,15 @@
 
   /* 박스 그림자로 모바일 영역 구분 (데스크톱·letterbox에서만 노출) */
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.12);
+}
+
+/** 라우트 페이지가 채우는 영역 (safe-area 패딩 안쪽) */
+.appViewport {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
 }

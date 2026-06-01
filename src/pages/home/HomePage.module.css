@@ -5,7 +5,9 @@
 .page {
   position: absolute;
   inset: 0;
+  box-sizing: border-box;
   overflow: hidden;
+  min-height: 0;
 }
 
 /* 인트로 → 빌리지 전환 시 상단 UI만 페이드아웃 (씬은 그대로 유지) */
@@ -189,7 +191,7 @@
 
 .topContent {
   position: absolute;
-  top: calc(var(--safe-area-top) + 15%);
+  top: 15%;
   left: 0;
   right: 0;
   display: flex;
@@ -260,7 +262,7 @@
 
 .introWrap {
   position: absolute;
-  top: calc(var(--safe-area-top) + 24px);
+  top: 24px;
   left: 5%;
   right: 5%;
   z-index: 20;
@@ -311,7 +313,7 @@
 /* MainBottomButton 컴포넌트의 위치/등장 애니메이션 wrap */
 .bottomButtonWrap {
   position: absolute;
-  bottom: max(0px, var(--safe-area-bottom));
+  bottom: 0;
   left: 0;
   right: 0;
   pointer-events: none;
@@ -334,7 +336,7 @@
 
 .engButton {
   position: absolute;
-  top: max(20px, calc(var(--safe-area-top) + 14px));
+  top: 20px;
   right: 16px;
   z-index: 30;
   padding: 8px 18px;

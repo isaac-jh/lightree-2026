@@ -194,7 +194,8 @@ Recording Engineers 김도원, 신인섭, 조영광
 Mixing & Mastering 정태균
 
 Video Directors 최병호, 이여진, 이장훈
-Video Support  김세원, 김주형, 손형란
+Video Support 
+이동혁, 김세원, 손형란, 김주형, 김산
 Color Editor 김세원
 
 Art Director 김하영
@@ -341,7 +342,7 @@ Video Directors
 Byungho Choi, Yeojin Lee, Janghun Lee
 Video Support
 Dong Hyeok LEE, Saewon Kim,
-HyungRan Son, Juhyung Kim
+HyungRan Son, Juhyung Kim, San Kim
 Color Editor Saewon Kim
 
 Art Director Hayeong Kim

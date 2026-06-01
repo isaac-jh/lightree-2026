@@ -6,7 +6,9 @@
 .page {
   position: absolute;
   inset: 0;
+  box-sizing: border-box;
   overflow: hidden;
+  min-height: 0;
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -16,7 +18,7 @@
 
 .titleWrap {
   position: absolute;
-  top: max(16px, calc(var(--safe-area-top) + 16px));
+  top: 16px;
   left: 5%;
   right: 5%;
   z-index: 10;
@@ -164,7 +166,7 @@
 /* HomeButton 위치 (좌측 하단 — bottom 메뉴보기 버튼 위) */
 .homeBtn {
   position: absolute;
-  bottom: calc(var(--safe-area-bottom) + 40px);
+  bottom: 50px;
   left: 12px;
   z-index: 30;
   animation: resourceEaseIn 0.5s ease-out 0.3s both;
@@ -174,7 +176,7 @@
 
 .menuViewBtn {
   position: absolute;
-  bottom: max(0px, var(--safe-area-bottom));
+  bottom: 0;
   left: 0;
   right: 0;
   z-index: 25;

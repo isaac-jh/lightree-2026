@@ -1,17 +1,15 @@
 .page {
   position: absolute;
   inset: 0;
+  box-sizing: border-box;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding:
-    calc(var(--safe-area-top) + 6px)
-    5%
-    calc(var(--safe-area-bottom) + 16px)
-    5%;
+  min-height: 0;
+  padding: 6px 5% 16px 5%;
   background-color: #f3e7b8;
-  gap: 3%;
+  gap: 2%;
 }
 
 .backTop {
@@ -59,9 +57,7 @@
   display: block;
   width: 100%;
   height: auto;
-  max-height: calc(
-    100vh - var(--safe-area-top) - var(--safe-area-bottom, 16px) - 148px
-  );
+  max-height: 100%;
   pointer-events: none;
 }
 
