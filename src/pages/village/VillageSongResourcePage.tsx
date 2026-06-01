@@ -82,7 +82,7 @@ const VillageSongResourcePage: React.FC = () => {
         backgroundImage: `url(/assets/patterns/${menu.bgPattern})`,
       }}
     >
-      <MainTextLabel className={styles.titleWrap} align="left">
+      <MainTextLabel className={styles.titleWrap} align="left" balanceVertical>
         <p className={styles.songTitle}>{songCopy?.title ?? ''}</p>
         <h2 className={styles.menuName}>{menuLabel}</h2>
       </MainTextLabel>
@@ -90,7 +90,6 @@ const VillageSongResourcePage: React.FC = () => {
       <div className={styles.content}>
         {menu.isSheet ? (
           <SheetContent
-            songId={song.id}
             onDownloadLead={handleSheetLeadClick}
             onDownloadBand={handleSheetBandClick}
           />
@@ -137,8 +136,10 @@ const VillageSongResourcePage: React.FC = () => {
   );
 };
 
+const SHEET_IMAGE_1 = '/assets/sheets/song_sheet_1.svg';
+const SHEET_IMAGE_2 = '/assets/sheets/song_sheet_2.svg';
+
 interface SheetContentProps {
-  songId: number;
   onDownloadLead: () => void;
   onDownloadBand: () => void;
 }
@@ -146,24 +147,20 @@ interface SheetContentProps {
 /**
  * 악보 화면 전용 레이아웃 (단선보 / 밴드보 다운로드 버튼)
  */
-const SheetContent: React.FC<SheetContentProps> = ({
-  songId,
-  onDownloadLead,
-  onDownloadBand,
-}) => {
+const SheetContent: React.FC<SheetContentProps> = ({ onDownloadLead, onDownloadBand }) => {
   const { messages } = useLocale();
 
   return (
     <>
       <div className={styles.sheetStack}>
         <img
-          src={`/assets/sheets/song_sheet_${songId}_2.svg`}
+          src={SHEET_IMAGE_2}
           className={`${styles.sheetImg} ${styles.sheetImgBack}`}
           alt=""
           aria-hidden="true"
         />
         <img
-          src={`/assets/sheets/song_sheet_${songId}_1.svg`}
+          src={SHEET_IMAGE_1}
           className={`${styles.sheetImg} ${styles.sheetImgFront}`}
           alt=""
           aria-hidden="true"

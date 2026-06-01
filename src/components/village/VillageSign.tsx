@@ -45,7 +45,7 @@ const VillageSign: React.FC<VillageSignProps> = ({
   hidden,
 }) => {
   const { locale } = useLocale();
-  /** 영어 줄 수가 많을 때 레이아웃 전용으로 살짝 축소 */
+  /** 영문일 때 줄간격만 조정 */
   const localeFontAccent =
     locale !== 'en'
       ? ''

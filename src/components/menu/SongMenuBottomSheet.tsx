@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { villageSongResourcePath } from '@/constants/albumPaths';
-import { SONG_MENU_STRUCTURE } from '@/content/siteContent';
+import { isSongMenuItemComingSoon, SONG_MENU_STRUCTURE, type SongMenuSlug } from '@/content/siteContent';
 import { useLocale } from '@/context/LocaleContext';
 import SongButton from '@/components/buttons/SongButton';
 import styles from './SongMenuBottomSheet.module.css';
@@ -32,7 +32,8 @@ const SongMenuBottomSheet: React.FC<SongMenuBottomSheetProps> = ({
   const items = SONG_MENU_STRUCTURE.filter((item) => item.key !== currentSlug);
 
   const handleSelect = useCallback(
-    (slug: string) => {
+    (slug: SongMenuSlug) => {
+      if (isSongMenuItemComingSoon(slug)) return;
       onClose();
       navigate(villageSongResourcePath(songId, slug));
     },
@@ -53,18 +54,27 @@ const SongMenuBottomSheet: React.FC<SongMenuBottomSheetProps> = ({
         role="dialog"
         aria-modal={isOpen}
       >
-        <button type="button" className={styles.closeBtn} onClick={onClose}>
-          {messages.menuSheet.close}
-        </button>
-        <div className={styles.menuList}>
-          {items.map((item) => (
-            <SongButton
-              key={item.key}
-              vectorSrc={item.vector}
-              label={messages.songMenu[item.key]}
-              onClick={() => handleSelect(item.key)}
-            />
-          ))}
+        <img
+          src="/assets/buttons/menu_bottom_sheet.svg"
+          className={styles.sheetBg}
+          alt=""
+          aria-hidden="true"
+        />
+        <div className={styles.sheetInner}>
+          <button type="button" className={styles.closeBtn} onClick={onClose}>
+            {messages.menuSheet.close}
+          </button>
+          <div className={styles.menuList}>
+            {items.map((item) => (
+              <SongButton
+                key={item.key}
+                vectorSrc={item.vector}
+                label={messages.songMenu[item.key]}
+                comingSoon={isSongMenuItemComingSoon(item.key)}
+                onClick={() => handleSelect(item.key)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -5,33 +5,33 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding-top: var(--safe-area-top);
-  background-color: #faf6e9;
+  padding:
+    calc(var(--safe-area-top) + 6px)
+    5%
+    calc(var(--safe-area-bottom) + 16px)
+    5%;
+  background-color: #f3e7b8;
+  gap: 3%;
 }
 
-.backAdjust {
-  padding-top: 12px;
+.backTop {
+  margin-top: -5px;
+  animation: detailEaseIn 0.55s ease-out both;
 }
 
-/**
- * 제목 라벨: 가로폭 고정해서 말풍선 비율 유지 (모바일 뷰에서 중앙 정렬 느낌)
- */
 .titleLabel {
-  width: min(92%, 340px);
-  align-self: center;
+  width: 100%;
   flex-shrink: 0;
 }
 
 .titlePlain {
   margin: 0;
   font-size: 1rem;
-  font-weight: 800;
+  font-weight: 500;
   line-height: 1.35;
+  text-align: left;
 }
 
-/**
- * 크레딧 박스 외곽 — flex 여유만 잡고, 실제 종이 비율은 creditParchment 가 SVG 높이에 맞춤
- */
 .creditFrame {
   flex: 1;
   min-height: 0;
@@ -44,7 +44,7 @@
 }
 
 /**
- * SVG(credit_text_label) 와 스크롤 영역이 같은 박스를 공유 — inset % 가 종이 안쪽에 정확히 맞음
+ * 종이 SVG(credit_text_label 335×486) 크기 = 래퍼 높이. 스크롤은 이 박스 안에만.
  */
 .creditParchment {
   position: relative;
@@ -65,33 +65,62 @@
   pointer-events: none;
 }
 
-.creditScroller {
+/**
+ * credit_text_label 흰 영역 안쪽 — SVG 비율 기준 inset
+ */
+.creditScrollShell {
   position: absolute;
-  /* credit_text_label(335×486) 안쪽 — 테두리와의 여백 최소화 */
-  inset: 7% 7% 7% 7%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  top: 6.5%;
+  right: 8.5%;
+  bottom: 7.5%;
+  left: 8%;
   box-sizing: border-box;
-  scrollbar-width: thin;
-  scrollbar-color: #7d6548 rgba(228, 210, 180, 0.65);
+  display: grid;
+  grid-template-columns: 1fr 6px;
+  column-gap: 4px;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-/**
- * 크레딧 롤 패널 안 얇은 갈색톱 스크롤 (scroll_sample.png 톤 참고)
- */
+.creditScrollTrack {
+  grid-column: 2;
+  grid-row: 1;
+  width: 6px;
+  height: 100%;
+  max-height: 100%;
+  align-self: stretch;
+  border-radius: 999px;
+  background: rgba(228, 210, 180, 0.88);
+  pointer-events: none;
+}
+
+.creditScroller {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  z-index: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  padding-right: 10px;
+  pointer-events: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #7d6548 rgba(228, 210, 180, 0.88);
+}
+
 .creditScroller::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 
 .creditScroller::-webkit-scrollbar-track {
-  background: rgba(230, 215, 190, 0.55);
-  border-radius: 999px;
-  margin-block: 4px;
+  background: transparent;
 }
 
 .creditScroller::-webkit-scrollbar-thumb {
   border-radius: 999px;
+  min-height: 28px;
   background:
     linear-gradient(
       180deg,
@@ -104,7 +133,7 @@
 
 .creditBody {
   margin: 0;
-  padding: 0 2px 2px;
+  padding: 0 0 6px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -114,8 +143,16 @@
   line-height: 1.52;
   letter-spacing: 0.012em;
   color: #3d3018;
-  white-space: pre-wrap;
   word-break: normal;
   overflow-wrap: anywhere;
-  overflow-x: hidden;
+}
+
+.creditLine {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.roleLabel {
+  font-weight: 700;
+  color: #2a2210;
 }

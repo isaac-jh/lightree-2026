@@ -1,13 +1,13 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { villageSongDetailPath, VILLAGE_CREDITS_PATH } from '@/constants/albumPaths';
-import { getVillageSongById, type VillageSongId } from '@/data/villageSongMeta';
-import MainTextLabel from '@/components/labels/MainTextLabel';
 import MainBottomButton from '@/components/buttons/MainBottomButton';
+import MainTextLabel from '@/components/labels/MainTextLabel';
+import SkyBackgroundClouds from '@/components/layout/SkyBackgroundClouds';
 import VillageHouse from '@/components/village/VillageHouse';
 import VillageSign from '@/components/village/VillageSign';
+import { VILLAGE_CREDITS_PATH, villageSongDetailPath } from '@/constants/albumPaths';
 import { useLocale } from '@/context/LocaleContext';
-import SkyBackgroundClouds from '@/components/layout/SkyBackgroundClouds';
+import { getVillageSongById, type VillageSongId } from '@/data/villageSongMeta';
+import React, { useCallback, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './VillagePage.module.css';
 
 type ViewMode = 'grid' | 'list';
@@ -147,7 +147,11 @@ const VillagePage: React.FC = () => {
             <img src="/assets/trees/tree2.svg" className={`${styles.backTree} ${styles.backTree1}`} alt="" />
             <img src="/assets/trees/tree2.svg" className={`${styles.backTree} ${styles.backTree4}`} alt="" />
             <img src="/assets/trees/tree3.svg" className={`${styles.backTree} ${styles.backTree2}`} alt="" />
-            <img src="/assets/trees/tree6.svg" className={`${styles.backTree} ${styles.backTree3}`} alt="" />
+            <img
+              src="/assets/trees/tree6.svg"
+              className={[styles.backTree, styles.backTree3, isList ? styles.gridHidden : ''].join(' ')}
+              alt=""
+            />
             <button
               type="button"
               className={[styles.signCreditTouchable, isList ? styles.gridHidden : ''].join(' ')}
@@ -165,7 +169,7 @@ const VillagePage: React.FC = () => {
           </div>
         </div>
 
-        <img src="/assets/hill.svg" className={styles.hill} alt="" aria-hidden="true" />
+        <img src="/assets/hill2.svg" className={styles.hill} alt="" aria-hidden="true" />
 
         {/* 씬 나무 — HomePage(AlbumPage)와 동일 */}
         <img src="/assets/trees/tree2.svg" className={`${styles.tree} ${styles.tree1}`} alt="" aria-hidden="true" />
@@ -227,7 +231,7 @@ const VillagePage: React.FC = () => {
       </div>
 
       {/* 상단 안내 */}
-      <MainTextLabel className={styles.mainLabelWrap} align="center">
+      <MainTextLabel className={styles.mainLabelWrap} align="left">
         <p>{messages.village.bubbleLine1}</p>
         <p>{messages.village.bubbleLine2}</p>
       </MainTextLabel>

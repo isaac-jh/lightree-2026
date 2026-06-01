@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { VILLAGE_HOME_PATH } from '@/constants/albumPaths';
+import { formatCreditLine } from '@/content/creditRoleLabels';
 import { useLocale } from '@/context/LocaleContext';
 import MainTextLabel from '@/components/labels/MainTextLabel';
 import ScreenBackUnderlineButton from '@/components/navigation/ScreenBackUnderlineButton';
@@ -17,6 +18,11 @@ const VillageCreditsPage: React.FC = () => {
   const navigate = useNavigate();
   const { messages } = useLocale();
 
+  const creditLines = useMemo(
+    () => messages.credits.all.split('\n'),
+    [messages.credits.all],
+  );
+
   const handleBack = useCallback(() => {
     navigate(VILLAGE_HOME_PATH);
   }, [navigate]);
@@ -26,10 +32,10 @@ const VillageCreditsPage: React.FC = () => {
       <ScreenBackUnderlineButton
         label={messages.songDetail.goBack}
         onClick={handleBack}
-        className={styles.backAdjust}
+        className={styles.backTop}
       />
 
-      <MainTextLabel className={styles.titleLabel} align="center">
+      <MainTextLabel className={styles.titleLabel} align="left">
         <p className={styles.titlePlain}>{messages.credits.screenTitle}</p>
       </MainTextLabel>
 
@@ -41,9 +47,17 @@ const VillageCreditsPage: React.FC = () => {
             alt=""
             aria-hidden="true"
           />
-          {/* 본문: 종이(SVG)와 동일 박스 기준 inset — creditFrame flex 높이와 분리 */}
-          <div className={styles.creditScroller}>
-            <pre className={styles.creditBody}>{messages.credits.all}</pre>
+          <div className={styles.creditScrollShell}>
+            <div className={styles.creditScrollTrack} aria-hidden="true" />
+            <div className={styles.creditScroller}>
+              <div className={styles.creditBody}>
+                {creditLines.map((line, i) => (
+                  <p key={i} className={styles.creditLine}>
+                    {formatCreditLine(line, styles.roleLabel)}
+                  </p>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

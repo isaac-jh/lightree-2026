@@ -44,7 +44,7 @@
   top: 2%;
   bottom: 43%;
   line-height: 1.08;
-  font-size: clamp(0.7rem, 2.65vmin, 0.62rem);
+  font-size: 0.75rem;
   letter-spacing: -0.02em;
 }
 
@@ -57,43 +57,13 @@
   top: 22%;
   bottom: 17%;
   line-height: 1.08;
-  /**
-   * 700px 이하: 기존 clamp(0.58rem, 3.35vmin, 0.82rem) 과 동일
-   * 700px 초과: max(0.82rem) 만 dvh 에 따라 1.05rem 까지 점진 확대
-   */
-  font-size: clamp(
-    0.58rem,
-    3.35vmin,
-    clamp(
-      0.82rem,
-      calc(0.82rem + (100dvh - 700px) / 900 * 0.23rem),
-      1.05rem
-    )
-  );
+  font-size: 1.25rem;
   letter-spacing: -0.025em;
 }
 
-/* 영문일 때 추가로 붙는 마커 클래스 (아래 결합 선택자만으로 스타일) */
-.localeEnHouse,
-.localeEnList {
-  opacity: 1;
-}
-
-.overlayHouse.localeEnHouse {
-  font-size: clamp(0.33rem, 2.08vmin, 0.53rem);
-  line-height: 1.06;
-}
-
+/* 영문일 때 줄간격만 미세 조정 */
+.overlayHouse.localeEnHouse,
 .overlayList.localeEnList {
-  font-size: clamp(
-    0.46rem,
-    3vmin,
-    clamp(
-      0.74rem,
-      calc(0.74rem + (100dvh - 700px) / 900 * 0.18rem),
-      0.92rem
-    )
-  );
   line-height: 1.06;
 }
 

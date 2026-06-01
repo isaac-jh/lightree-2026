@@ -1,7 +1,12 @@
 import React, { useCallback } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { getVillageSongById } from '@/data/villageSongMeta';
-import { getSongLocaleCopy, SONG_MENU_STRUCTURE } from '@/content/siteContent';
+import {
+  getSongLocaleCopy,
+  isSongMenuItemComingSoon,
+  SONG_MENU_STRUCTURE,
+  type SongMenuSlug,
+} from '@/content/siteContent';
 import { villageSongResourcePath, VILLAGE_HOME_PATH } from '@/constants/albumPaths';
 import { useLocale } from '@/context/LocaleContext';
 import SongButton from '@/components/buttons/SongButton';
@@ -21,8 +26,8 @@ const VillageSongDetailPage: React.FC = () => {
   }, [navigate]);
 
   const handleButtonClick = useCallback(
-    (subSlug: string) => {
-      if (!song) return;
+    (subSlug: SongMenuSlug) => {
+      if (!song || isSongMenuItemComingSoon(subSlug)) return;
       navigate(villageSongResourcePath(song.id, subSlug));
     },
     [navigate, song],
@@ -39,7 +44,7 @@ const VillageSongDetailPage: React.FC = () => {
         onClick={handleBack}
         className={styles.backTop}
       />
-      <MainTextLabel className={styles.titleWrap} align="left">
+      <MainTextLabel className={styles.titleWrap} align="left" balanceVertical>
         <h1 className={styles.title}>{copy.title}</h1>
         <p className={styles.authors}>
           {messages.songDetail.lyricistPrefix}: {copy.lyricist}
@@ -54,6 +59,7 @@ const VillageSongDetailPage: React.FC = () => {
             key={item.key}
             vectorSrc={item.vector}
             label={messages.songMenu[item.key]}
+            comingSoon={isSongMenuItemComingSoon(item.key)}
             onClick={() => handleButtonClick(item.key)}
           />
         ))}

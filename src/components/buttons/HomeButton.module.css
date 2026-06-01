@@ -26,9 +26,12 @@
 }
 
 .label {
+  display: block;
+  width: 100%;
   font-family: 'Default', 'Noto Sans KR', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #5C4A1F;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #FFFFFF;
   letter-spacing: 0.02em;
+  text-align: center;
 }

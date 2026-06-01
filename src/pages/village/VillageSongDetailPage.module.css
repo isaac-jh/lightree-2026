@@ -6,7 +6,7 @@
 .page {
   position: absolute;
   inset: 0;
-  overflow-y: auto;
+  overflow: hidden;
   padding:
     calc(var(--safe-area-top) + 6px)
     5%
@@ -14,11 +14,12 @@
     5%;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
   gap: 3%;
 }
 
 .backTop {
-  margin-top: -2px;
+  margin-top: -5px;
   animation: detailEaseIn 0.55s ease-out both;
 }
 
@@ -32,16 +33,16 @@
 .title {
   margin: 0 0 4px 0;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.01em;
-  line-height: 1.25;
+  line-height: 0.5;
 }
 
 .authors {
   margin: 0;
   font-size: 1rem;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.35;
   letter-spacing: 0.005em;
 }
 
@@ -50,7 +51,7 @@
 .buttons {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 }
 
 /** 메뉴 버튼 stagger ease-in (SONG_MENU_STRUCTURE 7항목) */
@@ -66,6 +67,11 @@
 .buttons > button:nth-child(6) { animation-delay: 0.48s; }
 .buttons > button:nth-child(7) { animation-delay: 0.54s; }
 
+/* 스페인어 ver. (coming soon) — detailEaseIn 이 opacity:1 로 덮지 않도록 */
+.buttons > button[data-coming-soon] {
+  animation-name: detailEaseInComingSoon;
+}
+
 @keyframes detailEaseIn {
   from {
     opacity: 0;
@@ -73,6 +79,17 @@
   }
   to {
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes detailEaseInComingSoon {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 0.4;
     transform: translateY(0);
   }
 }

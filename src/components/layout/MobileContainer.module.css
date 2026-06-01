@@ -7,9 +7,11 @@
 .overlay {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   min-height: 100dvh;
   min-height: 100vh; /* dvh 미지원 fallback */
+  height: 100dvh;
+  height: 100vh;
   background-color: var(--color-background-overlay);
 
   /* 데스크톱·letterbox에서 노출되는 외곽 배경 */
@@ -20,22 +22,15 @@
   position: relative;
   width: 100%;
   max-width: var(--mobile-max-width);
-
-  /*
-   * 최소 가로:세로 비율 9:21 보장 (모바일 뷰 중 가장 길쭉한 비율).
-   * 이보다 길쭉한 화면에서는 height가 9:21로 제한되고
-   * 남는 공간(상하)에 overlay 배경이 노출됨.
-   *
-   * 계산: 컨테이너 너비 = min(100vw, --mobile-max-width)
-   *       최대 컨테이너 높이 = 컨테이너 너비 * (21 / 9)
-   *       실제 높이 = min(viewport 높이, 위 값)
-   */
-  height: min(100vh, calc(min(100vw, var(--mobile-max-width)) * 21 / 9));
-  height: min(100dvh, calc(min(100vw, var(--mobile-max-width)) * 21 / 9));
+  height: 100%;
+  min-height: 100dvh;
+  min-height: 100vh;
+  max-height: 100dvh;
+  max-height: 100vh;
 
   background-color: var(--color-background);
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
 
   /* Safe area 패딩: 노치/홈 인디케이터 대응 */
   padding-top: var(--safe-area-top);

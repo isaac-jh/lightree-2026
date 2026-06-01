@@ -6,6 +6,8 @@ interface MainTextLabelProps {
   children: React.ReactNode;
   /** 텍스트 정렬 (기본: center) */
   align?: 'center' | 'left';
+  /** 말풍선 안 텍스트 블록 세로 중앙 (곡 상세·리소스 등) */
+  balanceVertical?: boolean;
   /** 외부 wrap에 적용할 추가 className (위치/애니메이션 등은 소비자가 부여) */
   className?: string;
 }
@@ -14,7 +16,12 @@ interface MainTextLabelProps {
  * main_text_label.svg(말풍선 모양)을 배경으로 한 텍스트 라벨.
  * 자식 요소에 따라 제목/설명/안내 등 다양한 텍스트 구성을 받을 수 있다.
  */
-const MainTextLabel: React.FC<MainTextLabelProps> = ({ children, align = 'center', className }) => {
+const MainTextLabel: React.FC<MainTextLabelProps> = ({
+  children,
+  align = 'center',
+  balanceVertical = false,
+  className,
+}) => {
   return (
     <div className={[styles.wrap, className].filter(Boolean).join(' ')}>
       <img src="/assets/main_text_label.svg" className={styles.img} alt="" aria-hidden="true" />
@@ -22,7 +29,10 @@ const MainTextLabel: React.FC<MainTextLabelProps> = ({ children, align = 'center
         className={[
           styles.content,
           align === 'left' ? styles.alignLeft : styles.alignCenter,
-        ].join(' ')}
+          balanceVertical ? styles.balanceVertical : '',
+        ]
+          .filter(Boolean)
+          .join(' ')}
       >
         {children}
       </div>

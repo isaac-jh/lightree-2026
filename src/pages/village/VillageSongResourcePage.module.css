@@ -25,17 +25,17 @@
 }
 
 .songTitle {
-  margin: 0 0 2px 0;
+  margin: 0 0 4px 0;
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: 0.005em;
-  line-height: 1.2;
+  line-height: 0.5;
 }
 
 .menuName {
   margin: 0;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.01em;
   line-height: 1.25;
 }
@@ -63,6 +63,10 @@
 
 .content > *:nth-child(1) {
   animation-delay: 0.16s;
+}
+
+.content > .sheetStack {
+  animation: none;
 }
 
 .content > *:nth-child(2) {
@@ -96,8 +100,9 @@
 /* ── 악보 화면 ── */
 
 .sheetStack {
+  margin-bottom: 20px;
   position: relative;
-  width: 78%;
+  width: 65%;
   max-width: 320px;
   aspect-ratio: 1 / 1.05;
 }
@@ -112,14 +117,40 @@
 
 .sheetImgBack {
   top: 0;
-  right: 0;
-  transform: rotate(14deg);
+  right: -20px;
+  transform: rotate(15deg);
+  transform-origin: center center;
+  animation: sheetRiseBack 0.62s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
 }
 
 .sheetImgFront {
   bottom: 0;
-  left: 0;
-  transform: rotate(-10deg);
+  left: -20px;
+  transform: rotate(-15deg);
+  transform-origin: center center;
+  animation: sheetRiseFront 0.62s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both;
+}
+
+@keyframes sheetRiseFront {
+  from {
+    opacity: 0;
+    transform: translateY(48px) rotate(-15deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-15deg);
+  }
+}
+
+@keyframes sheetRiseBack {
+  from {
+    opacity: 0;
+    transform: translateY(48px) rotate(15deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(15deg);
+  }
 }
 
 .sheetButtons {
@@ -133,7 +164,7 @@
 /* HomeButton 위치 (좌측 하단 — bottom 메뉴보기 버튼 위) */
 .homeBtn {
   position: absolute;
-  bottom: calc(var(--safe-area-bottom) + 50px);
+  bottom: calc(var(--safe-area-bottom) + 40px);
   left: 12px;
   z-index: 30;
   animation: resourceEaseIn 0.5s ease-out 0.3s both;

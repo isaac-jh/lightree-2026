@@ -35,3 +35,9 @@
   text-align: left;
   padding: 5% 12% 7% 8%;
 }
+
+.balanceVertical {
+  justify-content: center;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}

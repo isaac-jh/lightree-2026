@@ -21,6 +21,14 @@ export type SongMenuSlug =
   | 'guide'
   | 'sheet';
 
+/**
+ * 곡 상세·메뉴 바텀시트 전용 coming soon (메뉴 슬러그 `es` 만).
+ * 빌리지 집/리스트(songId 1~5)와는 무관 — VillagePage 에서 사용하지 말 것.
+ */
+export function isSongMenuItemComingSoon(menuSlug: SongMenuSlug): boolean {
+  return menuSlug === 'es';
+}
+
 export type VillageSongId = 1 | 2 | 3 | 4 | 5;
 
 /** 슬러그 → YouTube URL, 슬러그 → 파일 다운로드 URL 등 */
@@ -121,7 +129,7 @@ export const SITE_MESSAGES: Record<Locale, LocaleMessages> = {
       mv: '뮤직비디오',
       ko: '한국어 ver.',
       en: '영어 ver.',
-      es: '스페인어 ver.',
+      es: '스페인어 ver. (coming soon)',
       inst: 'Inst.',
       guide: '워십 가이드 영상',
       sheet: '악보 (단선보, 밴드보)',
@@ -132,7 +140,7 @@ export const SITE_MESSAGES: Record<Locale, LocaleMessages> = {
       downloadBand: '밴드보 다운받기',
       openVideoAria: (menuLabel: string) => `${menuLabel} 영상 보기`,
       showMenu: '메뉴 보기',
-      homeButtonLabel: '홈',
+      homeButtonLabel: 'Home',
       homeButtonAria: '마을 지도로 이동',
     },
     menuSheet: {
@@ -237,7 +245,7 @@ Translation Team
       mv: 'Music Video',
       ko: 'Korean Ver.',
       en: 'English Ver.',
-      es: 'Spanish Ver.',
+      es: 'Spanish Ver. (coming soon)',
       inst: 'Inst.',
       guide: 'Worship Guide Video',
       sheet: 'Score (Lead sheet, Band sheet)',

@@ -50,8 +50,8 @@
 
 .backTree3 {
   width: 12%;
-  left: 25%;
-  bottom: 48%;
+  left: 16%;
+  bottom: 80%;
 }
 
 .backTree4 {
@@ -66,8 +66,8 @@
 .signCreditTouchable {
   position: absolute;
   width: 26.667%;
-  left: 28%;
-  bottom: 48%;
+  left: 20%;
+  bottom: 70%;
   margin: 0;
   padding: 0;
   border: none;
@@ -254,11 +254,12 @@
   position: absolute;
 }
 
-.sign1 { width: 21%; left: 4%; bottom: 32%; z-index: 10; }
-.sign2 { width: 22%; left: 34%; bottom: 10%; z-index: 11; }
-.sign3 { width: 22%; right: 1%; bottom: 42%; z-index:  9; }
-.sign4 { width: 23%; left: 25%; bottom: 70%; z-index:  8; }
-.sign5 { width: 23%; left: 53%; bottom: 80%; z-index:  3; }
+/* 그리드 팻말 — sign_credit(signCreditTouchable) 과 동일 너비 */
+.sign1 { width: 26.667%; left: 4%; bottom: 32%; z-index: 10; }
+.sign2 { width: 26.667%; left: 34%; bottom: 10%; z-index: 11; }
+.sign3 { width: 26.667%; right: 1%; bottom: 42%; z-index:  9; }
+.sign4 { width: 26.667%; left: 25%; bottom: 70%; z-index:  8; }
+.sign5 { width: 26.667%; left: 53%; bottom: 80%; z-index:  3; }
 
 /* sign_credit 등 backLayer 자식의 그리드↔리스트 페이드아웃 */
 .gridHidden {
@@ -307,37 +308,46 @@
   gap: clamp(8px, 2dvh, 12px);
   min-height: 0;
   /**
-   * 리스트 팻말 크기 — dvh 로 기기 높이에 따라 점진 확대 (SE ≈ 하한, Pro Max ≈ 상한)
-   * list_sign.svg 원본: 167×52 (벡터 — CSS 로 height 를 주면 비율 유지하며 확대됨)
+   * 리스트 팻말 크기 — list_credit_sign(스텝 크레딧) 과 동일
+   * list_sign.svg / list_credit_sign.svg 원본: 167×52
    */
-  --list-sign-max-h: clamp(62px, calc(18px + 7.2dvh), 96px);
-  --list-sign-credit-max-h: clamp(52px, calc(14px + 6dvh), 80px);
-  --list-sign-width: clamp(74%, calc(66% + 5dvh), 90%);
-  --list-sign-credit-width: clamp(56%, calc(48% + 4.5dvh), 72%);
+  --list-sign-max-h: clamp(52px, calc(14px + 6dvh), 80px);
+  --list-sign-width: clamp(56%, calc(48% + 4.5dvh), 72%);
+  --list-sign-credit-max-h: var(--list-sign-max-h);
+  --list-sign-credit-width: var(--list-sign-width);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s ease-out 0.2s;
+  visibility: hidden;
+  transition: opacity 0.35s ease-out 0.2s, visibility 0s linear 0.35s;
   z-index: 15;
 }
 
 .listLayerVisible {
   opacity: 1;
   pointer-events: auto;
+  visibility: visible;
+  transition: opacity 0.35s ease-out 0.2s, visibility 0s;
 }
 
 .listSignBtn {
   background: none;
   border: none;
   padding: 0;
-  cursor: pointer;
-  width: var(--list-sign-width, 74%);
-  max-width: min(92vw, 380px);
-  height: var(--list-sign-max-h, 62px);
+  cursor: default;
+  pointer-events: none;
+  width: var(--list-sign-width, 56%);
+  max-width: min(80vw, 280px);
+  height: var(--list-sign-max-h, 52px);
   flex: 0 0 auto;
   transition: transform 0.12s ease;
 }
 
-.listSignBtn:active {
+.listLayerVisible .listSignBtn {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.listLayerVisible .listSignBtn:active {
   transform: scale(0.97);
 }
 
@@ -390,8 +400,8 @@
 .mainLabelWrap p {
   margin: 0;
   font-size: 1rem;
-  line-height: 1.7;
-  font-weight: 600;
+  line-height: 1.2;
+  font-weight: 500;
 }
 
 @keyframes fadeIn {
