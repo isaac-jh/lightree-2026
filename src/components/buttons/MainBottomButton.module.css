@@ -17,7 +17,13 @@
 
 .img {
   display: block;
-  width: 100%;
+  /* 좌우 끝 여백이 남지 않도록 살짝 키워 화면 가장자리까지 덮는다.
+     전역 `img { max-width: 100% }` 가 폭을 100%로 제한하므로 none 으로 해제해야
+     calc(100% + ...) 가 실제로 적용된다. 넘치는 부분은 상위 컨테이너
+     (overflow: hidden)에서 잘려 깔끔하게 처리됨 */
+  width: calc(100% + 12px);
+  max-width: none;
+  margin-left: -6px;
   height: auto;
 }
 

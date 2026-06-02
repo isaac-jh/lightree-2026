@@ -269,6 +269,9 @@
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.5s ease-out 0.35s;
+  /* 라벨 폭 기준으로 폰트를 잡기 위한 컨테이너 쿼리 기준점.
+     카카오톡 등 인앱 브라우저의 폰트 확대와 무관하게 라벨 안에 텍스트가 맞도록 cqw 사용 */
+  container-type: inline-size;
 }
 
 .introWrapVisible {
@@ -287,15 +290,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10% 7%;
+  padding: 9% 7%;
   text-align: center;
   font-family: 'Default', 'Noto Sans KR', sans-serif;
   color: #5C4A1F;
+  /* 인앱 브라우저의 자동 텍스트 확대 비활성화 (라벨 밖 오버플로 방지) */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 .introTitle {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 500;
   margin: 0 0 14px 0;
   letter-spacing: 0.01em;
 }
@@ -306,6 +312,21 @@
   line-height: 1.75;
   margin: 0;
   letter-spacing: 0.005em;
+}
+
+/* ── 카카오톡 인앱 브라우저 전용 보정 ──
+   카카오톡에서만 라벨(introWrap) 폭 기준(cqw)으로 폰트를 축소해 텍스트가
+   라벨 밖으로 넘치지 않게 한다. 그 외 브라우저는 위의 기존 폰트 크기를 유지. */
+:global(html.kakaotalk) .introTitle {
+  font-size: clamp(13px, 4.6cqw, 1.25rem);
+  margin: 0 0 0.55em 0;
+  line-height: 1.25;
+}
+
+:global(html.kakaotalk) .introBody {
+  font-size: clamp(10px, 3.1cqw, 1rem);
+  line-height: 1.55;
+  word-break: keep-all;
 }
 
 /* ── 하단 입장 버튼 ── */
