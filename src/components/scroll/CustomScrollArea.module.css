@@ -1,0 +1,57 @@
+/* ============================================
+   CustomScrollArea
+   - 네이티브 스크롤바를 숨기고 직접 그린 트랙 + 썸을 사용
+   - 트랙(배경)/썸 모두 항상 표시, 동일 폭으로 정확히 겹침, 라운딩 처리
+   ============================================ */
+
+.root {
+  position: relative;
+  height: 100%;
+  min-height: 0;
+}
+
+/* 실제 스크롤이 일어나는 뷰포트. 네이티브 스크롤바는 완전히 숨긴다. */
+.viewport {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* 구 Edge/IE */
+}
+
+.viewport::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none; /* WebKit */
+}
+
+/* 스크롤바 배경(트랙) — 항상 표시. 우측 끝에 슬림 + 라운딩 */
+.track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: var(--scrollbar-size, 6px);
+  border-radius: 999px;
+  background: var(--scrollbar-track-color, rgba(0, 0, 0, 0.12));
+  pointer-events: none; /* 트랙 영역의 휠/터치는 뒤 콘텐츠가 받도록 */
+}
+
+/* 스크롤바(썸) — 트랙과 동일 폭으로 정확히 겹침. left:0 + 동일 width */
+.thumb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--scrollbar-size, 6px);
+  border-radius: 999px;
+  background: var(--scrollbar-thumb-color, rgba(0, 0, 0, 0.4));
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  will-change: transform;
+}
+
+.thumb:active {
+  cursor: grabbing;
+}

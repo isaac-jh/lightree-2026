@@ -5,6 +5,7 @@ import { formatCreditLine } from '@/content/creditRoleLabels';
 import { useLocale } from '@/context/LocaleContext';
 import MainTextLabel from '@/components/labels/MainTextLabel';
 import ScreenBackUnderlineButton from '@/components/navigation/ScreenBackUnderlineButton';
+import CustomScrollArea from '@/components/scroll/CustomScrollArea';
 import styles from './VillageCreditsPage.module.css';
 
 /**
@@ -48,8 +49,10 @@ const VillageCreditsPage: React.FC = () => {
             aria-hidden="true"
           />
           <div className={styles.creditScrollShell}>
-            <div className={styles.creditScrollTrack} aria-hidden="true" />
-            <div className={styles.creditScroller}>
+            <CustomScrollArea
+              className={styles.scrollArea}
+              viewportClassName={styles.creditScroller}
+            >
               <div className={styles.creditBody}>
                 {creditLines.map((line, i) => (
                   <p key={i} className={styles.creditLine}>
@@ -57,7 +60,7 @@ const VillageCreditsPage: React.FC = () => {
                   </p>
                 ))}
               </div>
-            </div>
+            </CustomScrollArea>
           </div>
         </div>
       </div>
