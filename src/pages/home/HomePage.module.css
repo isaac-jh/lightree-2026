@@ -318,13 +318,13 @@
    카카오톡에서만 라벨(introWrap) 폭 기준(cqw)으로 폰트를 축소해 텍스트가
    라벨 밖으로 넘치지 않게 한다. 그 외 브라우저는 위의 기존 폰트 크기를 유지. */
 :global(html.kakaotalk) .introTitle {
-  font-size: clamp(13px, 4.6cqw, 1.25rem);
+  font-size: 1rem;
   margin: 0 0 0.55em 0;
   line-height: 1.25;
 }
 
 :global(html.kakaotalk) .introBody {
-  font-size: clamp(10px, 3.1cqw, 1rem);
+  font-size: 0.75rem;
   line-height: 1.55;
   word-break: keep-all;
 }
