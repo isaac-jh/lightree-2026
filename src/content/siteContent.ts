@@ -327,7 +327,7 @@ Session Musicians
 - Gunwoo Park, InSub Shin (Bass Guitar)
 - JongSeong Kim, Seokhyun Seo (Electric Guitar)
 - JongSeong Kim (Acoustic Guitar)
-- 정홍수 Hong Su Jung (Drums / Percussion)
+- Hong Su Jung (Drums / Percussion)
 
 English Vocalists 
 Eunji Lee, Becky Jeong, Coco McKinley
@@ -491,7 +491,9 @@ export const SITE_LINKS: Partial<Record<VillageSongId, SongLinksEntry>> = {
     sheetLead: 'https://drive.google.com/drive/folders/1Jac07EzqWqWqhDWBRnHH4UrRlcezVyQ2?usp=sharing',
     sheetBand: 'https://drive.google.com/drive/folders/16i5In6gqFNHN2B54xXnyc-i0Q_Mz30Ck?usp=sharing',
   },
-  2: {
+  // 감사로 살아가요가 2번트랙인데 나는야 하나님 자녀가 2번트랙인 것으로 작업되어 2, 4번만 링크 교체
+  // 4번에 감사로 살아가요 링크 넣기
+  4: {
     videos: {
       mv: 'https://youtu.be/3IbpADYMC2Q?si=p5k3hTsvZVEtOGmo',
       ko: 'https://youtu.be/47DjKrpF4Ks?si=Z_e9RZTHSdHG0SN8',
@@ -527,7 +529,7 @@ export const SITE_LINKS: Partial<Record<VillageSongId, SongLinksEntry>> = {
     sheetLead: 'https://drive.google.com/drive/folders/1VOqk_FI-KnbesDnl2ffh8ekb8DehJWEX?usp=sharing',
     sheetBand: 'https://drive.google.com/drive/folders/1dk20wMD__ooBJJFLuGO318k9V_xk_rqb?usp=sharing',
   },
-  4: {
+  2: {
     videos: {
       mv: 'https://youtu.be/3IbpADYMC2Q?si=p5k3hTsvZVEtOGmo',
       ko: 'https://youtu.be/47DjKrpF4Ks?si=Z_e9RZTHSdHG0SN8',
