@@ -13,11 +13,12 @@ interface ThumbnailButtonProps {
 }
 
 const PLAY_BUTTON_SRC = '/assets/thumbnails/play_button.svg';
+const PLACEHOLDER_THUMB_SRC = '/assets/thumbnails/thumbnail_placeholder.png';
 
 /**
  * YouTube 영상 썸네일 버튼.
- * - videoUrl 의 video id 추출 → img.youtube.com/vi/{id}/hqdefault.jpg 표시 (dim 처리)
- * - id 추출 실패 시 회색 placeholder
+ * - youtu.be/VIDEO_ID 형식만 YouTube hqdefault 썸네일 사용
+ * - 그 외 URL·빈 값은 thumbnail_placeholder.png
  * - 항상 위에 play_button 오버레이
  */
 const ThumbnailButton: React.FC<ThumbnailButtonProps> = ({
@@ -27,7 +28,9 @@ const ThumbnailButton: React.FC<ThumbnailButtonProps> = ({
   className,
 }) => {
   const videoId = extractYouTubeId(videoUrl);
-  const thumbSrc = videoId ? youtubeThumbnailUrl(videoId) : undefined;
+  const thumbSrc = videoId
+    ? youtubeThumbnailUrl(videoId)
+    : PLACEHOLDER_THUMB_SRC;
   const handleClick = onClick ?? (() => openExternal(videoUrl));
 
   return (
@@ -38,12 +41,8 @@ const ThumbnailButton: React.FC<ThumbnailButtonProps> = ({
       aria-label={ariaLabel ?? '영상 보기'}
     >
       <span className={styles.frame}>
-        {thumbSrc && (
-          <>
-            <img src={thumbSrc} className={styles.thumb} alt="" aria-hidden="true" />
-            <span className={styles.dim} />
-          </>
-        )}
+        <img src={thumbSrc} className={styles.thumb} alt="" aria-hidden="true" />
+        <span className={styles.dim} />
         <img src={PLAY_BUTTON_SRC} className={styles.playBtn} alt="" aria-hidden="true" />
       </span>
     </button>

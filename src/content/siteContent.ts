@@ -475,12 +475,12 @@ export const RESOURCE_MENU_META: Record<
 export const SITE_LINKS: Partial<Record<VillageSongId, SongLinksEntry>> = {
   1: {
     videos: {
-      mv: 'https://youtu.be/3IbpADYMC2Q?si=p5k3hTsvZVEtOGmo',
-      ko: 'https://youtu.be/47DjKrpF4Ks?si=Z_e9RZTHSdHG0SN8',
-      en: 'https://youtu.be/bd9Vx7RiVDg?si=eDrBTL34wH09BoRq',
-      es: 'https://youtu.be/bd9Vx7RiVDg?si=zNPfQpqkIuBDOnm_',
-      inst: 'https://youtu.be/hzBZAiujJkk?si=AlWqOfgoY0-zcgX9',
-      guide: 'https://youtu.be/AFkNsMYJTKc?si=DtiFOlVMI3X7VCiH',
+      mv: 'https://youtu.be/y87CLsgp_K8',
+      ko: 'https://youtu.be/y87CLsgp_K8',
+      en: 'https://drive.google.com/drive/folders/1_MhIzb6qCLHvII1QFkf29NqA0HidGlSa?usp=sharing',
+      es: 'https://drive.google.com/drive/folders/1MfD301089qMfX-1arFUjXwAcvsiN9ovF?usp=sharing',
+      inst: 'https://drive.google.com/drive/folders/1DBDBc41IjuByu2tN6Qv8j3PXWch8QoHh?usp=sharing',
+      guide: 'https://youtu.be/38FGW-Xjj6A',
     },
     downloads: {
       ko: 'https://drive.google.com/drive/folders/1vvI9zNsvGLCORuEZwTTwqrFhFXz9HPTL?usp=sharing',
@@ -495,12 +495,12 @@ export const SITE_LINKS: Partial<Record<VillageSongId, SongLinksEntry>> = {
   // 4번에 감사로 살아가요 링크 넣기
   4: {
     videos: {
-      mv: 'https://youtu.be/3IbpADYMC2Q?si=p5k3hTsvZVEtOGmo',
-      ko: 'https://youtu.be/47DjKrpF4Ks?si=Z_e9RZTHSdHG0SN8',
-      en: 'https://youtu.be/bd9Vx7RiVDg?si=eDrBTL34wH09BoRq',
-      es: 'https://youtu.be/bd9Vx7RiVDg?si=zNPfQpqkIuBDOnm_',
-      inst: 'https://youtu.be/hzBZAiujJkk?si=AlWqOfgoY0-zcgX9',
-      guide: 'https://youtu.be/AFkNsMYJTKc?si=DtiFOlVMI3X7VCiH',
+      mv: 'https://youtu.be/27MsnzAHrlc',
+      ko: 'https://youtu.be/27MsnzAHrlc',
+      en: 'https://drive.google.com/drive/folders/1TLKTSXWo6DlNe0pmVGgJDySwFc3g5T0s?usp=sharing',
+      es: 'https://drive.google.com/drive/folders/1-PasA18t2Xr_Ad0yaNjtZLrGmFST4I2q?usp=sharing',
+      inst: 'https://drive.google.com/drive/folders/1cnpWYCZsx2MSQBk25FG2Ay2BnUW4jTj5?usp=sharing',
+      guide: 'https://youtu.be/kVqxUZzFW1k',
     },
     downloads: {
       ko: 'https://drive.google.com/drive/folders/1tsm7ecEjQ4FKms4UyPsXfAn10Wj_tErx?usp=sharing',
@@ -513,12 +513,12 @@ export const SITE_LINKS: Partial<Record<VillageSongId, SongLinksEntry>> = {
   },
   3: {
     videos: {
-      mv: 'https://youtu.be/3IbpADYMC2Q?si=p5k3hTsvZVEtOGmo',
-      ko: 'https://youtu.be/47DjKrpF4Ks?si=Z_e9RZTHSdHG0SN8',
-      en: 'https://youtu.be/bd9Vx7RiVDg?si=eDrBTL34wH09BoRq',
-      es: 'https://youtu.be/bd9Vx7RiVDg?si=zNPfQpqkIuBDOnm_',
-      inst: 'https://youtu.be/hzBZAiujJkk?si=AlWqOfgoY0-zcgX9',
-      guide: 'https://youtu.be/AFkNsMYJTKc?si=DtiFOlVMI3X7VCiH',
+      mv: 'https://youtu.be/SDLqIqPYHyw',
+      ko: 'https://youtu.be/SDLqIqPYHyw',
+      en: 'https://drive.google.com/drive/folders/1T-aAfF_hu5DRo_D3O2-EKT_JTX7MCaUe?usp=sharing',
+      es: 'https://drive.google.com/drive/folders/1yqA1T_g3nqHnEf9eCZKjsjwFjyCMDL9X?usp=sharing',
+      inst: 'https://drive.google.com/drive/folders/1WqMbQVHT-2h1F0Dgzn0SZjusQ1vqnZZJ?usp=sharing',
+      guide: 'https://youtu.be/lN_jQbGgyeQ',
     },
     downloads: {
       ko: 'https://drive.google.com/drive/folders/1a_kX6C0AZDOoFuesVQ7WOdpEAFzKaaz_?usp=sharing',
@@ -531,12 +531,12 @@ export const SITE_LINKS: Partial<Record<VillageSongId, SongLinksEntry>> = {
   },
   2: {
     videos: {
-      mv: 'https://youtu.be/3IbpADYMC2Q?si=p5k3hTsvZVEtOGmo',
-      ko: 'https://youtu.be/47DjKrpF4Ks?si=Z_e9RZTHSdHG0SN8',
-      en: 'https://youtu.be/bd9Vx7RiVDg?si=eDrBTL34wH09BoRq',
-      es: 'https://youtu.be/bd9Vx7RiVDg?si=zNPfQpqkIuBDOnm_',
-      inst: 'https://youtu.be/hzBZAiujJkk?si=AlWqOfgoY0-zcgX9',
-      guide: 'https://youtu.be/AFkNsMYJTKc?si=DtiFOlVMI3X7VCiH',
+      mv: 'https://youtu.be/0tEZpxbPrBw',
+      ko: 'https://youtu.be/0tEZpxbPrBw',
+      en: 'https://drive.google.com/drive/folders/1TYdpI9ApwEEjnzY9Zxpco1prDE7DIRip?usp=sharing',
+      es: 'https://drive.google.com/drive/folders/183K218C_VU2zWadbQXzaD7FcFMBoQ0DW?usp=sharing',
+      inst: 'https://drive.google.com/drive/folders/1MWmfGXoPuG_alXacFdkgG-Ut5IG5bj2e?usp=sharing',
+      guide: 'https://youtu.be/R4D1fBG4C9c',
     },
     downloads: {
       ko: 'https://drive.google.com/drive/folders/1gNDa35gk7l6wtjXq_D9gGBO0cWHiNFYD?usp=sharing',
@@ -549,12 +549,12 @@ export const SITE_LINKS: Partial<Record<VillageSongId, SongLinksEntry>> = {
   },
   5: {
     videos: {
-      mv: 'https://youtu.be/3IbpADYMC2Q?si=p5k3hTsvZVEtOGmo',
-      ko: 'https://youtu.be/47DjKrpF4Ks?si=Z_e9RZTHSdHG0SN8',
-      en: 'https://youtu.be/bd9Vx7RiVDg?si=eDrBTL34wH09BoRq',
-      es: 'https://youtu.be/bd9Vx7RiVDg?si=zNPfQpqkIuBDOnm_',
-      inst: 'https://youtu.be/hzBZAiujJkk?si=AlWqOfgoY0-zcgX9',
-      guide: 'https://youtu.be/AFkNsMYJTKc?si=DtiFOlVMI3X7VCiH',
+      mv: 'https://youtu.be/hsASORfDekU',
+      ko: 'https://youtu.be/hsASORfDekU',
+      en: 'https://drive.google.com/drive/folders/1obBgHwQ0ymKTpu4rBHWmzGvawElciaAp?usp=sharing',
+      es: 'https://drive.google.com/drive/folders/1oVpOaaesC3JZb93SYvBcVw_yES4AIGXM?usp=sharing',
+      inst: 'https://drive.google.com/drive/folders/1siqM1iw4eUSPpZdYOygnYyt1fP-Cl5tg?usp=sharing',
+      guide: 'https://youtu.be/zyse-Jkjc6o',
     },
     downloads: {
       ko: 'https://drive.google.com/drive/folders/17VBaSK5EmP4ZgBMteZmdWcH-6eq-UP11?usp=sharing',
