@@ -156,7 +156,7 @@ export const SITE_MESSAGES: Record<Locale, LocaleMessages> = {
     credits: {
       screenTitle: '스텝 크레딧',
       all: `Singers
-고은유, 이율, 이현, 전하율, 정하영, 조선율
+고은유, 이율, 이하엘, 이현, 전하율, 정하영, 조선율
 
 Worship
 김유은, 나예린, 문라희, 박세영, 배이엘, 서현,
@@ -293,8 +293,9 @@ Translation Team
     credits: {
       screenTitle: 'Staff Credits',
       all: `Singers 
-Eunyu Ko, Yool Lee, Hyun Lee,
-Hayul Jeon, Hayeong Jeong, Sun yul Jo 
+Eunyu Ko, Yool Lee, Ha-el Lee,
+Hyun Lee, Hayul Jeon, Hayeong Jeong, 
+Sunyul Jo 
 
 Worship 
 Yueun Kim, Yerin Na, Rahee Mun,
