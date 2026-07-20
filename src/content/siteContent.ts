@@ -22,11 +22,12 @@ export type SongMenuSlug =
   | 'sheet';
 
 /**
- * 곡 상세·메뉴 바텀시트 전용 coming soon (메뉴 슬러그 `es` 만).
- * 빌리지 집/리스트(songId 1~5)와는 무관 — VillagePage 에서 사용하지 말 것.
+ * 곡 상세·메뉴 바텀시트 전용 coming soon 플래그.
+ * 현재는 모든 메뉴(스페인어 ver. 포함)가 활성화되어 coming soon 항목이 없다.
+ * TODO: 추후 특정 메뉴를 비활성 처리해야 하면 여기서 해당 슬러그를 반환하도록 확장.
  */
-export function isSongMenuItemComingSoon(menuSlug: SongMenuSlug): boolean {
-  return menuSlug === 'es';
+export function isSongMenuItemComingSoon(_menuSlug: SongMenuSlug): boolean {
+  return false;
 }
 
 export type VillageSongId = 1 | 2 | 3 | 4 | 5;
@@ -129,7 +130,7 @@ export const SITE_MESSAGES: Record<Locale, LocaleMessages> = {
       mv: '뮤직비디오',
       ko: '한국어 ver.',
       en: '영어 ver.',
-      es: '스페인어 ver. (coming soon)',
+      es: '스페인어 ver.',
       inst: 'Inst.',
       guide: '워십 가이드 영상',
       sheet: '악보 (단선보, 밴드보)',
@@ -246,7 +247,7 @@ Translation Team
       mv: 'Music Video',
       ko: 'Korean Ver.',
       en: 'English Ver.',
-      es: 'Spanish Ver. (coming soon)',
+      es: 'Spanish Ver.',
       inst: 'Inst.',
       guide: 'Worship Guide Video',
       sheet: 'Score (Lead sheet, Band sheet)',
